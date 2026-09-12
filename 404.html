@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting — Profy</title>
+    <style>
+        body {
+            background: #080808;
+            color: #888;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #222;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+    <script>
+        (function() {
+            // 1. نأخذ المسار من الرابط، مثلاً: /Faisal أو /Dashboard
+            // window.location.pathname يعيد المسار بدون النطاق
+            var path = window.location.pathname;
+
+            // 2. إزالة الشرطة المائلة الأولى إن وجدت
+            var cleanPath = path.replace(/^\/+|\/+$/g, ''); // يزيل / من البداية والنهاية
+
+            // 3. إذا كان المسار هو "Dashboard"
+            if (cleanPath.toLowerCase() === 'dashboard') {
+                window.location.replace('/pages/dashboard.html');
+                return;
+            }
+
+            // 4. إذا كان المسار فارغاً (أي زيارة الصفحة الرئيسية)، نوجهه للصفحة الرئيسية
+            if (cleanPath === '') {
+                window.location.replace('/');
+                return;
+            }
+
+            // 5. خلاف ذلك، نعتبر أن المسار هو اسم مستخدم، فنوجهه لصفحة البروفايل
+            // مثال: /Faisal -> /pages/profile.html?user=Faisal
+            window.location.replace('/pages/profile.html?user=' + encodeURIComponent(cleanPath));
+        })();
+    </script>
+</head>
+<body>
+    <div class="spinner"></div>
+</body>
+</html>
