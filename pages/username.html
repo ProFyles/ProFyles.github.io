@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profy — Choose Username</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <main class="login-page">
+        <div class="logo">
+            <img src="../assets/logo.svg" alt="Profy" width="40" height="40">
+            <span>Profy</span>
+        </div>
+        <h1>Choose your username</h1>
+        <p class="subtitle">Pick a unique username for your profile.</p>
+
+        <input
+    id="username"
+    type="text"
+    placeholder="username (min 4 chars)"
+    maxlength="20"
+    autocomplete="off"
+    class="username-input"
+>
+
+        <button id="continue" class="login-button google">Continue</button>
+        <div id="message"></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/username.js"></script>
+
+</body>
+</html>
