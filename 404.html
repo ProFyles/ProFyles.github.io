@@ -8,7 +8,7 @@
             var path = window.location.pathname;
             var cleanPath = path.replace(/^\/+|\/+$/g, '');
 
-            // ✅ إذا كان المسار ينتهي بـ .html → توجيه للصفحة الرئيسية
+            // تجاهل الملفات .html
             if (cleanPath.endsWith('.html')) {
                 window.location.replace('/');
                 return;
@@ -20,7 +20,7 @@
                 return;
             }
 
-            // Username
+            // Username setup
             if (cleanPath.toLowerCase() === 'username') {
                 window.location.replace('/pages/auth/username.html');
                 return;
@@ -32,7 +32,7 @@
                 return;
             }
 
-            // اسم مستخدم
+            // أي مسار آخر = اسم مستخدم
             window.location.replace('/pages/profile/profile.html?user=' + encodeURIComponent(cleanPath));
         })();
     </script>
