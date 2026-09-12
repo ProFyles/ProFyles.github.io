@@ -6,7 +6,7 @@ async function signInWithGoogle() {
     const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: "google",
         options: {
-            redirectTo: window.location.origin + "/pages/username.html"
+            redirectTo: window.location.origin + "/pages/auth/username.html"
         }
     });
 
@@ -16,19 +16,33 @@ async function signInWithGoogle() {
     }
 }
 
+async function signInWithDiscord() {
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+        provider: "discord",
+        options: {
+            redirectTo: window.location.origin + "/pages/auth/username.html"
+        }
+    });
+
+    if (error) {
+        console.error("Discord login failed:", error.message);
+        alert("Discord login failed: " + error.message);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     const heroBtn = document.getElementById("hero-google-login");
+    const discordBtn = document.getElementById("hero-discord-login");
     const navBtn = document.getElementById("nav-login");
     const signupBtn = document.getElementById("nav-signup");
 
     if (heroBtn) heroBtn.addEventListener("click", signInWithGoogle);
+    if (discordBtn) discordBtn.addEventListener("click", signInWithDiscord);
     if (navBtn) navBtn.addEventListener("click", signInWithGoogle);
     if (signupBtn) signupBtn.addEventListener("click", signInWithGoogle);
 
-    // تحميل الإحصائيات
     loadLandingStats();
 
-    // التحقق من المستخدم
     const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) return;
 
@@ -45,22 +59,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// ==========================================
-// LANDING STATS
-// ==========================================
 async function loadLandingStats() {
     try {
-        const { count: usersCount, error: err1 } = await supabaseClient
+        const { count: usersCount } = await supabaseClient
             .from("profiles")
             .select("*", { count: "exact", head: true });
 
-        if (err1) console.log("Users error:", err1);
-
-        const { data: viewsData, error: err2 } = await supabaseClient
+        const { data: viewsData } = await supabaseClient
             .from("profiles")
             .select("views");
-
-        if (err2) console.log("Views error:", err2);
 
         const totalViews = (viewsData || []).reduce(
             (sum, p) => sum + (p.views || 0),

@@ -55,6 +55,7 @@ async function loadProfile() {
 
         // ✅ عداد المشاهدات - مرة واحدة لكل زيارة فريدة
         const viewedKey = "profy_viewed_" + data.id;
+// ...
         const lastViewed = localStorage.getItem(viewedKey);
         const now = Date.now();
         const oneHour = 60 * 60 * 1000; // ساعة
