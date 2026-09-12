@@ -9,6 +9,16 @@
 </head>
 <body>
 
+    <!-- SVG Gradient Definitions -->
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#a855f7"/>
+                <stop offset="100%" style="stop-color:#5865F2"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-logo">
@@ -20,7 +30,7 @@
                     </linearGradient>
                 </defs>
                 <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#navGrad)"/>
-                <text x="20" y="28" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
+                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
             </svg>
             <span>Profy</span>
         </div>
@@ -36,21 +46,14 @@
             One link.<br>
             Everything about you.
         </h1>
-
         <p class="hero-subtitle">
             Create a feature-rich, customizable link-in-bio page in minutes.
         </p>
-
         <div class="hero-buttons">
-            <button id="hero-google-login" class="hero-btn-primary">
-                Sign Up for Free
-            </button>
-            <a href="#pricing" class="hero-btn-secondary">
-                View Pricing
-            </a>
+            <button id="hero-google-login" class="hero-btn-primary">Sign Up for Free</button>
+            <a href="#pricing" class="hero-btn-secondary">View Pricing</a>
         </div>
 
-        <!-- Profile Preview -->
         <div class="hero-preview">
             <div class="preview-card preview-1">
                 <div class="preview-avatar" style="background: linear-gradient(135deg, #a855f7, #5865F2);"></div>
@@ -80,20 +83,20 @@
     </section>
 
     <!-- STATS -->
-<section class="stats">
-    <div class="stat-card">
-        <div class="stat-value" id="stat-users">0</div>
-        <div class="stat-label">Users</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value" id="stat-views">0</div>
-        <div class="stat-label">Profile Views</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value" id="stat-profiles">0</div>
-        <div class="stat-label">Profiles Created</div>
-    </div>
-</section>
+    <section class="stats">
+        <div class="stat-card">
+            <div class="stat-value" id="stat-users">0</div>
+            <div class="stat-label">Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-views">0</div>
+            <div class="stat-label">Profile Views</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-profiles">0</div>
+            <div class="stat-label">Profiles Created</div>
+        </div>
+    </section>
 
     <!-- FEATURES -->
     <section class="features-section">
@@ -104,22 +107,41 @@
 
         <div class="features">
             <div class="feature-card">
-                <div class="feature-icon">🎨</div>
+                <div class="feature-icon-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                </div>
                 <h3>Custom Profile</h3>
                 <p>Personalize your page with avatar, bio, and theme.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔗</div>
+                <div class="feature-icon-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                </div>
                 <h3>Social Links</h3>
                 <p>Add all your social accounts in one place.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📊</div>
+                <div class="feature-icon-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </div>
                 <h3>View Counter</h3>
                 <p>See how many people visited your profile.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
+                <div class="feature-icon-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
+                    </svg>
+                </div>
                 <h3>Fast & Secure</h3>
                 <p>Lightning-fast pages with enterprise security.</p>
             </div>
@@ -132,7 +154,6 @@
         <p class="section-subtitle">Join 56,900+ subscribers</p>
 
         <div class="pricing-grid">
-            <!-- Free -->
             <div class="pricing-card">
                 <div class="pricing-header">
                     <h3>Free</h3>
@@ -148,12 +169,9 @@
                     <li>✓ Basic Effects</li>
                     <li>✓ Add Your Socials</li>
                 </ul>
-                <button class="pricing-btn" onclick="document.getElementById('hero-google-login').click()">
-                    Get Started
-                </button>
+                <button class="pricing-btn" onclick="document.getElementById('hero-google-login').click()">Get Started</button>
             </div>
 
-            <!-- Premium -->
             <div class="pricing-card pricing-premium">
                 <div class="premium-badge">Most Popular</div>
                 <div class="pricing-header">
@@ -173,9 +191,7 @@
                     <li>✓ Advanced Customization</li>
                     <li>✓ Metadata & SEO</li>
                 </ul>
-                <button class="pricing-btn pricing-btn-premium">
-                    Learn More
-                </button>
+                <button class="pricing-btn pricing-btn-premium">Learn More</button>
             </div>
         </div>
     </section>
@@ -183,7 +199,7 @@
     <!-- CTA -->
     <section class="cta">
         <h2 class="cta-title">
-            Over <span class="highlight-purple">2,300,000</span> people use Profy
+            Over <span class="highlight-purple" id="cta-count">0</span> people use Profy
         </h2>
         <p class="cta-subtitle">What are you waiting for?</p>
         <button class="hero-btn-primary" onclick="document.getElementById('hero-google-login').click()">
@@ -202,7 +218,7 @@
                     </linearGradient>
                 </defs>
                 <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#footerGrad)"/>
-                <text x="20" y="28" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
+                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
             </svg>
             <span>Profy</span>
         </div>

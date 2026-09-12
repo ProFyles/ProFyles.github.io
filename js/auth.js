@@ -17,7 +17,6 @@ async function signInWithGoogle() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // 3 أزرار تسجيل الدخول
     const heroBtn = document.getElementById("hero-google-login");
     const navBtn = document.getElementById("nav-login");
     const signupBtn = document.getElementById("nav-signup");
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // تحميل الإحصائيات
     loadLandingStats();
 
-    // التحقق من المستخدم المسجل
+    // التحقق من المستخدم
     const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) return;
 
@@ -51,39 +50,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ==========================================
 async function loadLandingStats() {
     try {
-        // 1. عدد المستخدمين
-        const { count: usersCount, error: err1 } = await supabaseClient
+        const { count: usersCount } = await supabaseClient
             .from("profiles")
             .select("*", { count: "exact", head: true });
 
-        if (err1) {
-            console.log("Users count error:", err1);
-        }
-
-        // 2. مجموع المشاهدات
-        const { data: viewsData, error: err2 } = await supabaseClient
+        const { data: viewsData } = await supabaseClient
             .from("profiles")
             .select("views");
-
-        if (err2) {
-            console.log("Views error:", err2);
-        }
 
         const totalViews = (viewsData || []).reduce(
             (sum, p) => sum + (p.views || 0), 
             0
         );
 
-        const profilesCount = usersCount || 0;
-
-        // 3. تحديث الأرقام في الصفحة
         const usersEl = document.getElementById("stat-users");
         const viewsEl = document.getElementById("stat-views");
         const profilesEl = document.getElementById("stat-profiles");
+        const ctaEl = document.getElementById("cta-count");
 
         if (usersEl) usersEl.textContent = (usersCount || 0).toLocaleString();
         if (viewsEl) viewsEl.textContent = totalViews.toLocaleString();
-        if (profilesEl) profilesEl.textContent = profilesCount.toLocaleString();
+        if (profilesEl) profilesEl.textContent = (usersCount || 0).toLocaleString();
+        if (ctaEl) ctaEl.textContent = (usersCount || 0).toLocaleString();
 
     } catch (err) {
         console.log("Stats loading failed:", err);
