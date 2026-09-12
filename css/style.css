@@ -1,9 +1,15 @@
 /* ==========================================
    GLOBAL
    ========================================== */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     min-height: 100vh;
@@ -229,6 +235,12 @@ body {
     border-radius: 16px;
     padding: 28px;
     text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: #333;
 }
 
 .stat-value {
@@ -299,6 +311,21 @@ body {
 .feature-icon {
     font-size: 28px;
     margin-bottom: 14px;
+}
+
+/* Professional SVG Feature Icons */
+.feature-icon-svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-icon-svg svg {
+    width: 100%;
+    height: 100%;
 }
 
 .feature-card h3 {
@@ -489,7 +516,7 @@ body {
 }
 
 /* ==========================================
-   LOGIN / USERNAME / PROFILE (نفس السابق)
+   LOGIN / USERNAME PAGE
    ========================================== */
 .login-page {
     min-height: 100vh;
@@ -554,7 +581,9 @@ h1 { font-size: 32px; margin-bottom: 10px; }
     text-align: center;
 }
 
-/* Profile Page */
+/* ==========================================
+   PROFILE PAGE
+   ========================================== */
 .profile-body {
     display: flex;
     justify-content: center;
@@ -638,6 +667,14 @@ h1 { font-size: 32px; margin-bottom: 10px; }
     margin-bottom: 28px;
     max-width: 340px;
     white-space: pre-wrap;
+}
+
+.links-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
 .views-counter {
