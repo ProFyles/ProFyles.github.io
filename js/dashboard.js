@@ -1,3 +1,7 @@
+// ==========================================
+// DASHBOARD
+// ==========================================
+
 function formatUID(num) {
     return "#" + String(num).padStart(4, "0");
 }
@@ -32,7 +36,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (logoutBtn) {
         logoutBtn.addEventListener("click", async () => {
             await supabaseClient.auth.signOut();
-            window.location.href = "../index.html";
+            window.location.href = "/";
+        });
+    }
+
+    // ✅ User card dropdown
+    const userMenuToggle = document.getElementById("user-menu-toggle");
+    const userDropdown = document.getElementById("user-dropdown");
+
+    if (userMenuToggle && userDropdown) {
+        userMenuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle("open");
+        });
+
+        document.addEventListener("click", () => {
+            userDropdown.classList.remove("open");
         });
     }
 
@@ -43,7 +62,7 @@ async function loadDashboardData() {
     const { data: { user } } = await supabaseClient.auth.getUser();
 
     if (!user) {
-        window.location.href = "../index.html";
+        window.location.href = "/";
         return;
     }
 
@@ -54,7 +73,7 @@ async function loadDashboardData() {
         .maybeSingle();
 
     if (!profile) {
-        window.location.href = "username.html";
+        window.location.href = "/Username";
         return;
     }
 
@@ -72,11 +91,11 @@ async function loadDashboardData() {
         }
     }
 
-    // ✅ Views
+    // Views
     const viewsEl = document.getElementById("display-views");
     if (viewsEl) viewsEl.textContent = profile.views || 0;
 
-    // Bottom
+    // Bottom user card
     const bottomUsername = document.getElementById("bottom-username");
     if (bottomUsername) bottomUsername.textContent = profile.username;
 
@@ -89,5 +108,11 @@ async function loadDashboardData() {
     if (avatarImg) {
         avatarImg.src = profile.avatar_url || 
             "https://api.dicebear.com/7.x/avataaars/svg?seed=" + profile.username;
+    }
+
+    // ✅ My Page link
+    const myPageLink = document.getElementById("my-page-link");
+    if (myPageLink) {
+        myPageLink.href = "/" + profile.username;
     }
 }

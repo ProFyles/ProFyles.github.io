@@ -20,8 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             .maybeSingle();
 
         if (existingProfile?.username) {
-            // المستخدم لديه بروفايل → وجّهه للوحة التحكم
-            window.location.href = "dashboard.html";
+            window.location.href = "/Dashboard";
             return;
         }
     }
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     continueBtn.addEventListener("click", async () => {
         const username = input.value.trim().toLowerCase();
 
-        // Validate
         if (username.length < 4) {
             messageEl.textContent = "Username must be at least 4 characters.";
             messageEl.style.color = "red";
@@ -51,7 +49,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         messageEl.textContent = "Checking availability...";
         messageEl.style.color = "#888";
 
-        // Check if username taken
         const { data: existing } = await supabaseClient
             .from("profiles")
             .select("username")
@@ -64,17 +61,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // Get current user
         const { data: { user } } = await supabaseClient.auth.getUser();
 
         if (!user) {
             messageEl.textContent = "You must be logged in.";
             messageEl.style.color = "red";
-            setTimeout(() => window.location.href = "../index.html", 1500);
+            setTimeout(() => window.location.href = "/", 1500);
             return;
         }
 
-        // ✅ تحقق مرة أخرى إذا كان لديه بروفايل
         const { data: existingProfile } = await supabaseClient
             .from("profiles")
             .select("username")
@@ -84,11 +79,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (existingProfile) {
             messageEl.textContent = "You already have a profile. Redirecting...";
             messageEl.style.color = "orange";
-            setTimeout(() => window.location.href = "dashboard.html", 1500);
+            setTimeout(() => window.location.href = "/Dashboard", 1500);
             return;
         }
 
-        // Save username
         const { error } = await supabaseClient
             .from("profiles")
             .insert([{ 
@@ -106,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         messageEl.style.color = "green";
 
         setTimeout(() => {
-            window.location.href = "dashboard.html";
+            window.location.href = "/Dashboard";
         }, 1200);
     });
 });
