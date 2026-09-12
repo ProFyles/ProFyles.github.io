@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile — Profy</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23a855f7'/%3E%3Cstop offset='100%25' stop-color='%235865F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='2' y='2' width='36' height='36' rx='10' fill='url(%23g)'/%3E%3Ctext x='20' y='28' font-family='Arial' font-size='22' font-weight='900' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+</head>
+<body class="profile-body">
+
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <main id="profile-content" class="profile-container" style="display: none;">
+
+        <div class="banner-wrapper" id="banner-wrapper">
+            <img id="banner" class="banner" src="" alt="Banner">
+        </div>
+
+        <div class="profile-card">
+            <div class="avatar-wrapper">
+                <img id="avatar" class="avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default" alt="Avatar">
+            </div>
+
+            <h1 id="display-username" class="display-username">username</h1>
+            <p id="display-uid" class="display-uid"></p>
+
+            <div class="badges-container" id="badges-container"></div>
+
+            <p id="display-bio" class="display-bio"></p>
+
+            <div id="links-container" class="links-container"></div>
+
+            <div class="views-counter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span id="views-count">0</span> views
+            </div>
+
+            <p class="footer-text">
+                <a href="../../index.html">Create your own Profy</a>
+            </p>
+        </div>
+
+    </main>
+
+    <div id="not-found" class="not-found" style="display: none;">
+        <h1>404</h1>
+        <p>This user does not exist.</p>
+        <a href="../../index.html" class="back-home">Go Home</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase.js"></script>
+    <script src="../../js/profile.js"></script>
+
+</body>
+</html>
