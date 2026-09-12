@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const menuToggle = document.getElementById("menu-toggle");
     const logoutBtn = document.getElementById("logout-btn");
 
+    // Sidebar toggle
     if (menuToggle) {
         menuToggle.addEventListener("click", () => {
             sidebar.classList.toggle("open");
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    // Account group toggle
     document.querySelectorAll('[data-toggle="account-group"]').forEach(btn => {
         btn.addEventListener("click", () => {
             document.getElementById("account-group").classList.toggle("open");
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
+    // Logout
     if (logoutBtn) {
         logoutBtn.addEventListener("click", async () => {
             await supabaseClient.auth.signOut();
@@ -40,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // ✅ User card dropdown
+    // ✅ User card dropdown (3 dots)
     const userMenuToggle = document.getElementById("user-menu-toggle");
     const userDropdown = document.getElementById("user-dropdown");
 
@@ -77,10 +80,11 @@ async function loadDashboardData() {
         return;
     }
 
-    // Main
+    // Username
     const usernameEl = document.getElementById("display-username");
     if (usernameEl) usernameEl.textContent = profile.username;
 
+    // UID
     if (profile.uid_number) {
         const uidEl = document.getElementById("display-uid");
         if (uidEl) uidEl.textContent = formatUID(profile.uid_number);
@@ -110,9 +114,12 @@ async function loadDashboardData() {
             "https://api.dicebear.com/7.x/avataaars/svg?seed=" + profile.username;
     }
 
-    // ✅ My Page link
+    // ✅ My Page links
+    const profileUrl = "/" + profile.username;
+
     const myPageLink = document.getElementById("my-page-link");
-    if (myPageLink) {
-        myPageLink.href = "/" + profile.username;
-    }
+    if (myPageLink) myPageLink.href = profileUrl;
+
+    const dropdownMyPage = document.getElementById("dropdown-my-page");
+    if (dropdownMyPage) dropdownMyPage.href = profileUrl;
 }
