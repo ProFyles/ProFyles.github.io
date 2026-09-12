@@ -715,3 +715,47 @@ h1 { font-size: 32px; margin-bottom: 10px; }
     font-weight: 700;
     font-size: 14px;
 }
+
+/* Language Switcher */
+.lang-switcher { position: relative; }
+.lang-btn {
+    background: transparent;
+    border: 1px solid #222;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+}
+.lang-btn:hover { background: #151515; }
+.lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 6px;
+    min-width: 180px;
+    display: none;
+    z-index: 200;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.lang-menu.open { display: block; }
+.lang-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #ccc;
+    transition: background 0.15s;
+}
+.lang-item:hover { background: #151515; color: white; }
+.lang-item .flag { font-size: 18px; }
