@@ -732,18 +732,85 @@ h1 { font-size: 32px; margin-bottom: 10px; }
     font-family: inherit;
 }
 .lang-btn:hover { background: #151515; }
+.lang-switcher {
+    position: relative;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 1px solid #222;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+
+.lang-btn:hover {
+    background: #151515;
+}
+
+.lang-btn svg {
+    width: 12px;
+    height: 12px;
+    opacity: 0.6;
+}
+
 .lang-menu {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
     background: #0d0d0d;
-    border: 1px solid #222;
-    border-radius: 12px;
-    padding: 6px;
-    min-width: 180px;
+    border: 1px solid #1f1f1f;
+    border-radius: 14px;
+    padding: 8px;
+    min-width: 260px;
     display: none;
     z-index: 200;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.lang-menu.open {
+    display: block;
+}
+
+.lang-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #ccc;
+    transition: background 0.15s, color 0.15s;
+}
+
+.lang-item:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+.lang-item .flag {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .navbar {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-actions {
+    flex-direction: row-reverse;
 }
 .lang-menu.open { display: block; }
 .lang-item {
@@ -759,3 +826,44 @@ h1 { font-size: 32px; margin-bottom: 10px; }
 }
 .lang-item:hover { background: #151515; color: white; }
 .lang-item .flag { font-size: 18px; }
+
+/* ==========================================
+   RTL SUPPORT (Arabic)
+   ========================================== */
+[dir="rtl"] .navbar {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-actions {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .hero {
+    text-align: center;
+}
+
+[dir="rtl"] .features,
+[dir="rtl"] .features-section {
+    text-align: right;
+}
+
+[dir="rtl"] .feature-card {
+    text-align: right;
+}
+
+[dir="rtl"] .pricing-card {
+    text-align: right;
+}
+
+[dir="rtl"] .pricing-features li {
+    text-align: right;
+}
+
+[dir="rtl"] .stats {
+    direction: rtl;
+}
+
+[dir="rtl"] .lang-menu {
+    right: auto;
+    left: 0;
+}
