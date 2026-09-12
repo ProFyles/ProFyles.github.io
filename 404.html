@@ -2,21 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Redirecting...</title>
+    <title>Profy</title>
     <script>
         (function() {
             var path = window.location.pathname;
             var cleanPath = path.replace(/^\/+|\/+$/g, '');
 
-            // Dashboard
-            if (cleanPath.toLowerCase() === 'dashboard') {
-                window.location.replace('/pages/dashboard.html');
+            // ✅ إذا كان المسار ينتهي بـ .html → توجيه للصفحة الرئيسية
+            if (cleanPath.endsWith('.html')) {
+                window.location.replace('/');
                 return;
             }
 
-            // Username setup
+            // Dashboard
+            if (cleanPath.toLowerCase() === 'dashboard') {
+                window.location.replace('/pages/dashboard/dashboard.html');
+                return;
+            }
+
+            // Username
             if (cleanPath.toLowerCase() === 'username') {
-                window.location.replace('/pages/username.html');
+                window.location.replace('/pages/auth/username.html');
                 return;
             }
 
@@ -26,8 +32,8 @@
                 return;
             }
 
-            // أي مسار آخر = اسم مستخدم
-            window.location.replace('/pages/profile.html?user=' + encodeURIComponent(cleanPath));
+            // اسم مستخدم
+            window.location.replace('/pages/profile/profile.html?user=' + encodeURIComponent(cleanPath));
         })();
     </script>
 </head>
