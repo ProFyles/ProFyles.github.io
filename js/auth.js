@@ -1,27 +1,82 @@
 // ==========================================
+// AUTHENTICATION
+// ==========================================
+
+async function signInWithGoogle() {
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+            redirectTo: window.location.origin + "/pages/username.html"
+        }
+    });
+
+    if (error) {
+        console.error("Google login failed:", error.message);
+        alert("Google login failed: " + error.message);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // 3 أزرار تسجيل الدخول
+    const heroBtn = document.getElementById("hero-google-login");
+    const navBtn = document.getElementById("nav-login");
+    const signupBtn = document.getElementById("nav-signup");
+
+    if (heroBtn) heroBtn.addEventListener("click", signInWithGoogle);
+    if (navBtn) navBtn.addEventListener("click", signInWithGoogle);
+    if (signupBtn) signupBtn.addEventListener("click", signInWithGoogle);
+
+    // تحميل الإحصائيات
+    loadLandingStats();
+
+    // التحقق من المستخدم المسجل
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    const { data: profile } = await supabaseClient
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
+        .maybeSingle();
+
+    if (profile?.username) {
+        window.location.href = "/pages/dashboard.html";
+    } else {
+        window.location.href = "/pages/username.html";
+    }
+});
+
+// ==========================================
 // LANDING STATS (Live from Supabase)
 // ==========================================
 async function loadLandingStats() {
     try {
         // 1. عدد المستخدمين
-        const { count: usersCount } = await supabaseClient
+        const { count: usersCount, error: err1 } = await supabaseClient
             .from("profiles")
             .select("*", { count: "exact", head: true });
 
+        if (err1) {
+            console.log("Users count error:", err1);
+        }
+
         // 2. مجموع المشاهدات
-        const { data: viewsData } = await supabaseClient
+        const { data: viewsData, error: err2 } = await supabaseClient
             .from("profiles")
             .select("views");
+
+        if (err2) {
+            console.log("Views error:", err2);
+        }
 
         const totalViews = (viewsData || []).reduce(
             (sum, p) => sum + (p.views || 0), 
             0
         );
 
-        // 3. عدد البروفايلات (نفس عدد المستخدمين)
         const profilesCount = usersCount || 0;
 
-        // 4. تحديث الأرقام في الصفحة
+        // 3. تحديث الأرقام في الصفحة
         const usersEl = document.getElementById("stat-users");
         const viewsEl = document.getElementById("stat-views");
         const profilesEl = document.getElementById("stat-profiles");
@@ -34,6 +89,3 @@ async function loadLandingStats() {
         console.log("Stats loading failed:", err);
     }
 }
-
-// تشغيل عند تحميل الصفحة
-document.addEventListener("DOMContentLoaded", loadLandingStats);
