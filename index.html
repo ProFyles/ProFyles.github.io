@@ -7,9 +7,9 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23a855f7'/%3E%3Cstop offset='100%25' stop-color='%235865F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='2' y='2' width='36' height='36' rx='10' fill='url(%23g)'/%3E%3Ctext x='20' y='28' font-family='Arial' font-size='22' font-weight='900' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/style.css">
 </head>
-  <script src="js/i18n.js"></script>
 <body>
 
+    <!-- SVG Gradient Definitions -->
     <svg width="0" height="0" style="position:absolute">
         <defs>
             <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -20,41 +20,21 @@
     </svg>
 
     <!-- NAVBAR -->
-<nav class="navbar">
-    <div class="nav-logo">
-        <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#a855f7"/>
-                    <stop offset="100%" style="stop-color:#5865F2"/>
-                </linearGradient>
-            </defs>
-            <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#navGrad)"/>
-            <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
-        </svg>
-        <span>Profy</span>
-    </div>
-    <div class="nav-actions">
-        <div class="lang-switcher">
-            <button id="lang-btn" class="lang-btn">
-                <span id="current-flag">🇺🇸</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-            <div id="lang-menu" class="lang-menu">
-    <div class="lang-item" data-lang="en"><span class="flag">🇺🇸</span> <span>English (United States)</span></div>
-    <div class="lang-item" data-lang="es"><span class="flag">🇪🇸</span> <span>Español (España)</span></div>
-    <div class="lang-item" data-lang="pt"><span class="flag">🇧🇷</span> <span>Português (Brasil)</span></div>
-    <div class="lang-item" data-lang="fr"><span class="flag">🇫🇷</span> <span>Français (France)</span></div>
-    <div class="lang-item" data-lang="de"><span class="flag">🇩🇪</span> <span>Deutsch (Deutschland)</span></div>
-    <div class="lang-item" data-lang="tr"><span class="flag">🇹🇷</span> <span>Türkçe (Türkiye)</span></div>
-    <div class="lang-item" data-lang="ru"><span class="flag">🇷🇺</span> <span>Русский (Россия)</span></div>
-    <div class="lang-item" data-lang="ar"><span class="flag">🇲🇦</span> <span>العربية (المغرب)</span></div>
-            </div>
+    <nav class="navbar">
+        <div class="nav-logo">
+            <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#a855f7"/>
+                        <stop offset="100%" style="stop-color:#5865F2"/>
+                    </linearGradient>
+                </defs>
+                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#navGrad)"/>
+                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
+            </svg>
+            <span>Profy</span>
         </div>
-        <button id="nav-login" class="nav-btn" data-i18n="signIn">Sign In</button>
-        <button id="nav-signup" class="nav-btn nav-btn-primary" data-i18n="signUpFree">Sign Up Free</button>
-    </div>
-</nav>
+        <div class="nav-actions">
             <!-- Language Switcher -->
             <div class="lang-switcher">
                 <button id="lang-btn" class="lang-btn">
@@ -64,14 +44,14 @@
                     </svg>
                 </button>
                 <div id="lang-menu" class="lang-menu">
-                    <div class="lang-item" data-lang="en"><span class="flag">🇺🇸</span> English</div>
-                    <div class="lang-item" data-lang="ar"><span class="flag">🇲🇦</span> العربية</div>
-                    <div class="lang-item" data-lang="fr"><span class="flag">🇫🇷</span> Français</div>
-                    <div class="lang-item" data-lang="es"><span class="flag">🇪🇸</span> Español</div>
-                    <div class="lang-item" data-lang="de"><span class="flag">🇩🇪</span> Deutsch</div>
-                    <div class="lang-item" data-lang="tr"><span class="flag">🇹🇷</span> Türkçe</div>
-                    <div class="lang-item" data-lang="ru"><span class="flag">🇷🇺</span> Русский</div>
-                    <div class="lang-item" data-lang="pt"><span class="flag">🇧🇷</span> Português</div>
+                    <div class="lang-item" data-lang="en"><span class="flag">🇺🇸</span> <span>English (United States)</span></div>
+                    <div class="lang-item" data-lang="ar"><span class="flag">🇲🇦</span> <span>العربية (المغرب)</span></div>
+                    <div class="lang-item" data-lang="fr"><span class="flag">🇫🇷</span> <span>Français (France)</span></div>
+                    <div class="lang-item" data-lang="es"><span class="flag">🇪🇸</span> <span>Español (España)</span></div>
+                    <div class="lang-item" data-lang="de"><span class="flag">🇩🇪</span> <span>Deutsch (Deutschland)</span></div>
+                    <div class="lang-item" data-lang="tr"><span class="flag">🇹🇷</span> <span>Türkçe (Türkiye)</span></div>
+                    <div class="lang-item" data-lang="ru"><span class="flag">🇷🇺</span> <span>Русский (Россия)</span></div>
+                    <div class="lang-item" data-lang="pt"><span class="flag">🇧🇷</span> <span>Português (Brasil)</span></div>
                 </div>
             </div>
 
@@ -229,4 +209,26 @@
 
     <!-- FOOTER -->
     <footer class="footer">
-        <div class="
+        <div class="footer-logo">
+            <svg width="24" height="24" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#a855f7"/>
+                        <stop offset="100%" style="stop-color:#5865F2"/>
+                    </linearGradient>
+                </defs>
+                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#footerGrad)"/>
+                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
+            </svg>
+            <span>Profy</span>
+        </div>
+        <p data-i18n="copyright">© 2025 Profy. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/auth.js"></script>
+
+</body>
+</html>
