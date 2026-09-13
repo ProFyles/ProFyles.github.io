@@ -8,13 +8,13 @@
             var path = window.location.pathname;
             var cleanPath = path.replace(/^\/+|\/+$/g, '');
 
-            // If it's a real file in root (like index.html), go home
+            // Ignore files in root
             if (cleanPath.endsWith('.html') && !cleanPath.includes('/')) {
                 window.location.replace('/');
                 return;
             }
 
-            // If it's a file inside a subfolder, let it load normally
+            // Ignore files in subfolders (let them load)
             if (cleanPath.endsWith('.html') && cleanPath.includes('/')) {
                 return;
             }
@@ -67,7 +67,7 @@
                 return;
             }
 
-            // Any other path = username
+            // Any other path = username profile
             window.location.replace('/pages/profile/profile.html?user=' + encodeURIComponent(cleanPath));
         })();
     </script>

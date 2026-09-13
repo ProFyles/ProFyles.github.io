@@ -113,15 +113,4 @@ async function loadDashboardData() {
 
     const dropdownMyPage = document.getElementById("dropdown-my-page");
     if (dropdownMyPage) dropdownMyPage.href = profileUrl;
-
-    document.querySelectorAll('.nav-item').forEach(item => {
-        const label = item.querySelector('.nav-label');
-        if (!label) return;
-        const text = label.textContent.trim().toLowerCase();
-        if (text === 'links') item.href = 'links.html';
-        if (text === 'customize') item.href = 'customize.html';
-        if (text === 'analytics') item.href = 'analytics.html';
-        if (text === 'badges') item.href = 'badges.html';
-        if (text === 'settings') item.href = 'settings.html';
-    });
 }
