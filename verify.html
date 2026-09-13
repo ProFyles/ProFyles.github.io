@@ -15,17 +15,35 @@
             text-align: center;
         }
         .verify-box {
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 20px;
+            padding: 40px 30px;
+        }
+        .verify-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #a855f7, #5865F2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 900;
+            color: white;
         }
         .verify-box h1 {
-            font-size: 32px;
-            margin-bottom: 12px;
+            font-size: 26px;
+            margin-bottom: 10px;
         }
         .verify-box p {
             color: #888;
             margin-bottom: 30px;
             line-height: 1.6;
+            font-size: 14px;
         }
         .verify-btn {
             display: inline-flex;
@@ -40,6 +58,8 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            width: 100%;
+            justify-content: center;
         }
         .verify-btn:hover {
             transform: translateY(-2px);
@@ -59,8 +79,9 @@
             background: #2e0a0a;
             color: #f87171;
         }
-        .loading {
-            color: #888;
+        .status.loading {
+            background: #1a1a2e;
+            color: #60a5fa;
         }
     </style>
 </head>
@@ -68,8 +89,9 @@
 
     <div class="verify-page">
         <div class="verify-box">
+            <div class="verify-logo">P</div>
             <h1>Verify Discord</h1>
-            <p>Click the button below to link your Discord account with your Profy profile.</p>
+            <p>Link your Discord account to your Profy profile</p>
 
             <button id="verify-btn" class="verify-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -121,7 +143,9 @@
 
             const { data, error } = await supabaseClient.rpc('verify_discord_oauth', {
                 p_code: code,
-                p_user_id: user.id
+                p_user_id: user.id,
+                p_discord_id: user.user_metadata.provider_id || user.id,
+                p_discord_username: user.user_metadata.full_name || user.email
             });
 
             if (error || !data.success) {
@@ -131,7 +155,7 @@
             }
 
             statusEl.className = 'status success';
-            statusEl.textContent = 'Account linked successfully! You can close this page.';
+            statusEl.textContent = '✅ Account linked successfully! You can close this page.';
             btn.style.display = 'none';
         }
 
