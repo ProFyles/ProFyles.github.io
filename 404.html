@@ -8,31 +8,46 @@
             var path = window.location.pathname;
             var cleanPath = path.replace(/^\/+|\/+$/g, '');
 
-            // تجاهل الملفات .html
             if (cleanPath.endsWith('.html')) {
                 window.location.replace('/');
                 return;
             }
 
-            // Dashboard
             if (cleanPath.toLowerCase() === 'dashboard') {
                 window.location.replace('/pages/dashboard/dashboard.html');
                 return;
             }
 
-            // Username setup
+            if (cleanPath.toLowerCase() === 'links') {
+                window.location.replace('/pages/dashboard/links.html');
+                return;
+            }
+
+            if (cleanPath.toLowerCase() === 'customize') {
+                window.location.replace('/pages/dashboard/customize.html');
+                return;
+            }
+
+            if (cleanPath.toLowerCase() === 'analytics') {
+                window.location.replace('/pages/dashboard/analytics.html');
+                return;
+            }
+
+            if (cleanPath.toLowerCase() === 'badges') {
+                window.location.replace('/pages/dashboard/badges.html');
+                return;
+            }
+
             if (cleanPath.toLowerCase() === 'username') {
                 window.location.replace('/pages/auth/username.html');
                 return;
             }
 
-            // Root
             if (cleanPath === '') {
                 window.location.replace('/');
                 return;
             }
 
-            // أي مسار آخر = اسم مستخدم
             window.location.replace('/pages/profile/profile.html?user=' + encodeURIComponent(cleanPath));
         })();
     </script>

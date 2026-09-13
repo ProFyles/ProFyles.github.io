@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const menuToggle = document.getElementById("menu-toggle");
     const logoutBtn = document.getElementById("logout-btn");
 
-    // Sidebar toggle
     if (menuToggle) {
         menuToggle.addEventListener("click", () => {
             sidebar.classList.toggle("open");
@@ -27,7 +26,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Account group toggle
     document.querySelectorAll('[data-toggle="account-group"]').forEach(btn => {
         btn.addEventListener("click", () => {
             document.getElementById("account-group").classList.toggle("open");
@@ -35,7 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    // Logout
     if (logoutBtn) {
         logoutBtn.addEventListener("click", async () => {
             await supabaseClient.auth.signOut();
@@ -43,7 +40,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // ✅ User card dropdown (3 dots)
     const userMenuToggle = document.getElementById("user-menu-toggle");
     const userDropdown = document.getElementById("user-dropdown");
 
@@ -80,11 +76,9 @@ async function loadDashboardData() {
         return;
     }
 
-    // Username
     const usernameEl = document.getElementById("display-username");
     if (usernameEl) usernameEl.textContent = profile.username;
 
-    // UID
     if (profile.uid_number) {
         const uidEl = document.getElementById("display-uid");
         if (uidEl) uidEl.textContent = formatUID(profile.uid_number);
@@ -95,11 +89,9 @@ async function loadDashboardData() {
         }
     }
 
-    // Views
     const viewsEl = document.getElementById("display-views");
     if (viewsEl) viewsEl.textContent = profile.views || 0;
 
-    // Bottom user card
     const bottomUsername = document.getElementById("bottom-username");
     if (bottomUsername) bottomUsername.textContent = profile.username;
 
@@ -114,7 +106,6 @@ async function loadDashboardData() {
             "https://api.dicebear.com/7.x/avataaars/svg?seed=" + profile.username;
     }
 
-    // ✅ My Page links
     const profileUrl = "/" + profile.username;
 
     const myPageLink = document.getElementById("my-page-link");
@@ -122,4 +113,16 @@ async function loadDashboardData() {
 
     const dropdownMyPage = document.getElementById("dropdown-my-page");
     if (dropdownMyPage) dropdownMyPage.href = profileUrl;
+
+    // Fix nav links
+    document.querySelectorAll('.nav-item').forEach(item => {
+        const label = item.querySelector('.nav-label');
+        if (!label) return;
+        const text = label.textContent.trim().toLowerCase();
+        if (text === 'links') item.href = 'links.html';
+        if (text === 'customize') item.href = 'customize.html';
+        if (text === 'analytics') item.href = 'analytics.html';
+        if (text === 'badges') item.href = 'badges.html';
+        if (text === 'settings') item.href = 'settings.html';
+    });
 }
