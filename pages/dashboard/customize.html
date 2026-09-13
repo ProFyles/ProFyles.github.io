@@ -19,9 +19,6 @@
             font-weight: 700;
             margin-bottom: 15px;
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         .custom-label {
             font-size: 12px;
@@ -57,7 +54,34 @@
             font-family: inherit;
         }
         .custom-textarea:focus { border-color: #5865F2; }
-        
+
+        .upload-box {
+            border: 2px dashed #222;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            background: #0a0a0a;
+        }
+        .upload-box:hover {
+            border-color: #5865F2;
+            background: #101010;
+        }
+        .upload-box input[type="file"] { display: none; }
+        .upload-icon { font-size: 32px; margin-bottom: 8px; }
+        .upload-text { color: #888; font-size: 13px; }
+        .upload-text strong { color: #5865F2; }
+        .upload-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+        .upload-preview.show { display: block; }
+
         .color-row {
             display: flex;
             align-items: center;
@@ -83,7 +107,7 @@
             outline: none;
             font-family: monospace;
         }
-        
+
         .toggle-row {
             display: flex;
             justify-content: space-between;
@@ -92,11 +116,7 @@
             border-bottom: 1px solid #151515;
         }
         .toggle-row:last-child { border-bottom: none; }
-        .toggle-label {
-            font-size: 14px;
-            color: #ccc;
-            font-weight: 500;
-        }
+        .toggle-label { font-size: 14px; color: #ccc; font-weight: 500; }
         .toggle-switch {
             position: relative;
             width: 48px;
@@ -106,9 +126,7 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-        .toggle-switch.active {
-            background: #5865F2;
-        }
+        .toggle-switch.active { background: #5865F2; }
         .toggle-switch::after {
             content: "";
             position: absolute;
@@ -120,10 +138,8 @@
             border-radius: 50%;
             transition: transform 0.2s;
         }
-        .toggle-switch.active::after {
-            transform: translateX(22px);
-        }
-        
+        .toggle-switch.active::after { transform: translateX(22px); }
+
         .save-bar {
             position: fixed;
             bottom: 20px;
@@ -139,10 +155,7 @@
             z-index: 100;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
-        .save-bar span {
-            font-size: 13px;
-            color: #888;
-        }
+        .save-bar span { font-size: 13px; color: #888; }
         .save-btn {
             padding: 10px 24px;
             background: #5865F2;
@@ -159,6 +172,19 @@
             border: none;
             font-size: 13px;
             cursor: pointer;
+        }
+        .upload-progress {
+            font-size: 12px;
+            color: #5865F2;
+            margin-top: 5px;
+        }
+        .upload-preview-audio { width: 100%; margin-top: 10px; display: none; }
+        .upload-preview-video {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
         }
     </style>
 </head>
@@ -214,14 +240,67 @@
         <h1 class="page-title">🎨 Customize</h1>
         <p style="color:#888;font-size:14px;margin-bottom:20px;">Personalize your profile.</p>
 
+        <!-- Avatar -->
         <div class="custom-section">
-            <h3>🖼️ Images</h3>
-            <label class="custom-label">Avatar URL</label>
-            <input type="text" id="avatar-url" class="custom-input" placeholder="https://...">
-            <label class="custom-label">Banner URL</label>
-            <input type="text" id="banner-url" class="custom-input" placeholder="https://...">
+            <h3>🖼️ Profile Avatar</h3>
+            <label class="upload-box" for="avatar-upload">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">
+                    <strong>Click to upload</strong> avatar<br>
+                    <small>PNG, JPG, GIF, WEBP (max 5MB)</small>
+                </div>
+                <input type="file" id="avatar-upload" accept="image/*">
+                <img id="avatar-preview" class="upload-preview" src="">
+            </label>
+            <div class="upload-progress" id="avatar-progress"></div>
         </div>
 
+        <!-- Banner -->
+        <div class="custom-section">
+            <h3>🎨 Profile Banner</h3>
+            <label class="upload-box" for="banner-upload">
+                <div class="upload-icon">🖼️</div>
+                <div class="upload-text">
+                    <strong>Click to upload</strong> banner<br>
+                    <small>PNG, JPG, GIF, WEBP (max 5MB)</small>
+                </div>
+                <input type="file" id="banner-upload" accept="image/*">
+                <img id="banner-preview" class="upload-preview" src="">
+            </label>
+            <div class="upload-progress" id="banner-progress"></div>
+        </div>
+
+        <!-- Background Video -->
+        <div class="custom-section">
+            <h3>🎬 Background Video (MP4)</h3>
+            <label class="upload-box" for="video-upload">
+                <div class="upload-icon">🎬</div>
+                <div class="upload-text">
+                    <strong>Click to upload</strong> video<br>
+                    <small>MP4, WEBM (max 50MB)</small>
+                </div>
+                <input type="file" id="video-upload" accept="video/*">
+                <video id="video-preview" class="upload-preview-video" controls muted></video>
+            </label>
+            <div class="upload-progress" id="video-progress"></div>
+        </div>
+
+        <!-- Audio -->
+        <div class="custom-section">
+            <h3>🎵 Profile Music</h3>
+            <label class="upload-box" for="music-upload">
+                <div class="upload-icon">🎵</div>
+                <div class="upload-text">
+                    <strong>Click to upload</strong> music<br>
+                    <small>MP3, WAV, OGG (max 5MB)</small>
+                </div>
+                <input type="file" id="music-upload" accept="audio/*">
+            </label>
+            <audio id="music-preview" controls class="upload-preview-audio"></audio>
+            <div class="upload-progress" id="music-progress"></div>
+        </div>
+
+        <!-- About -->
         <div class="custom-section">
             <h3>📝 About</h3>
             <label class="custom-label">Display Name</label>
@@ -232,6 +311,7 @@
             <input type="text" id="location" class="custom-input" placeholder="City, Country">
         </div>
 
+        <!-- Colors -->
         <div class="custom-section">
             <h3>🎨 Colors</h3>
             <label class="custom-label">Theme Color</label>
@@ -241,6 +321,7 @@
             </div>
         </div>
 
+        <!-- Effects -->
         <div class="custom-section">
             <h3>✨ Effects</h3>
             <div class="toggle-row">
@@ -265,12 +346,6 @@
             </div>
         </div>
 
-        <div class="custom-section">
-            <h3>🎵 Music</h3>
-            <label class="custom-label">Music URL</label>
-            <input type="text" id="music-url" class="custom-input" placeholder="https://...mp3">
-        </div>
-
         <div style="height: 80px;"></div>
     </main>
 
@@ -285,6 +360,12 @@
     <script>
         let currentUser = null;
         let currentProfile = null;
+        let uploadedUrls = {
+            avatar_url: null,
+            banner_url: null,
+            video_url: null,
+            music_url: null
+        };
 
         async function load() {
             const { data: { user } } = await supabaseClient.auth.getUser();
@@ -297,12 +378,30 @@
             if (!profile) { window.location.href = '/Login'; return; }
             currentProfile = profile;
 
-            document.getElementById('avatar-url').value = profile.avatar_url || '';
-            document.getElementById('banner-url').value = profile.banner_url || '';
+            if (profile.avatar_url) {
+                const p = document.getElementById('avatar-preview');
+                p.src = profile.avatar_url;
+                p.classList.add('show');
+            }
+            if (profile.banner_url) {
+                const p = document.getElementById('banner-preview');
+                p.src = profile.banner_url;
+                p.classList.add('show');
+            }
+            if (profile.video_url) {
+                const p = document.getElementById('video-preview');
+                p.src = profile.video_url;
+                p.style.display = 'block';
+            }
+            if (profile.music_url) {
+                const a = document.getElementById('music-preview');
+                a.src = profile.music_url;
+                a.style.display = 'block';
+            }
+
             document.getElementById('display-name').value = profile.display_name || '';
             document.getElementById('bio').value = profile.bio || '';
             document.getElementById('location').value = profile.location || '';
-            document.getElementById('music-url').value = profile.music_url || '';
             document.getElementById('theme-color').value = profile.theme_color || '#a855f7';
             document.getElementById('color-preview').style.background = profile.theme_color || '#a855f7';
 
@@ -312,12 +411,117 @@
             });
         }
 
-        document.querySelectorAll('input, textarea').forEach(el => {
-            el.addEventListener('input', () => {
-                document.getElementById('save-status').textContent = 'Unsaved changes';
-                document.getElementById('save-status').style.color = '#fbbf24';
-            });
+        async function uploadFile(file, type) {
+            const ext = file.name.split('.').pop();
+            const fileName = `${currentUser.id}/${type}_${Date.now()}.${ext}`;
+
+            const { data, error } = await supabaseClient.storage
+                .from('profy-assets')
+                .upload(fileName, file, {
+                    cacheControl: '3600',
+                    upsert: true
+                });
+
+            if (error) {
+                console.error('Upload error:', error);
+                return null;
+            }
+
+            const { data: { publicUrl } } = supabaseClient.storage
+                .from('profy-assets')
+                .getPublicUrl(fileName);
+
+            return publicUrl;
+        }
+
+        // Avatar
+        document.getElementById('avatar-upload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const progress = document.getElementById('avatar-progress');
+            progress.textContent = 'Uploading...';
+            const url = await uploadFile(file, 'avatar');
+            if (url) {
+                uploadedUrls.avatar_url = url;
+                const p = document.getElementById('avatar-preview');
+                p.src = url;
+                p.classList.add('show');
+                progress.textContent = '✅ Uploaded';
+                progress.style.color = '#4ade80';
+                markUnsaved();
+            } else {
+                progress.textContent = '❌ Upload failed';
+                progress.style.color = '#ef4444';
+            }
         });
+
+        // Banner
+        document.getElementById('banner-upload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const progress = document.getElementById('banner-progress');
+            progress.textContent = 'Uploading...';
+            const url = await uploadFile(file, 'banner');
+            if (url) {
+                uploadedUrls.banner_url = url;
+                const p = document.getElementById('banner-preview');
+                p.src = url;
+                p.classList.add('show');
+                progress.textContent = '✅ Uploaded';
+                progress.style.color = '#4ade80';
+                markUnsaved();
+            } else {
+                progress.textContent = '❌ Upload failed';
+                progress.style.color = '#ef4444';
+            }
+        });
+
+        // Video
+        document.getElementById('video-upload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const progress = document.getElementById('video-progress');
+            progress.textContent = 'Uploading...';
+            const url = await uploadFile(file, 'video');
+            if (url) {
+                uploadedUrls.video_url = url;
+                const p = document.getElementById('video-preview');
+                p.src = url;
+                p.style.display = 'block';
+                progress.textContent = '✅ Uploaded';
+                progress.style.color = '#4ade80';
+                markUnsaved();
+            } else {
+                progress.textContent = '❌ Upload failed';
+                progress.style.color = '#ef4444';
+            }
+        });
+
+        // Music
+        document.getElementById('music-upload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const progress = document.getElementById('music-progress');
+            progress.textContent = 'Uploading...';
+            const url = await uploadFile(file, 'music');
+            if (url) {
+                uploadedUrls.music_url = url;
+                const a = document.getElementById('music-preview');
+                a.src = url;
+                a.style.display = 'block';
+                progress.textContent = '✅ Uploaded';
+                progress.style.color = '#4ade80';
+                markUnsaved();
+            } else {
+                progress.textContent = '❌ Upload failed';
+                progress.style.color = '#ef4444';
+            }
+        });
+
+        function markUnsaved() {
+            document.getElementById('save-status').textContent = 'Unsaved changes';
+            document.getElementById('save-status').style.color = '#fbbf24';
+        }
 
         document.getElementById('theme-color').addEventListener('input', (e) => {
             document.getElementById('color-preview').style.background = e.target.value;
@@ -326,19 +530,19 @@
         document.querySelectorAll('.toggle-switch').forEach(el => {
             el.addEventListener('click', () => {
                 el.classList.toggle('active');
-                document.getElementById('save-status').textContent = 'Unsaved changes';
-                document.getElementById('save-status').style.color = '#fbbf24';
+                markUnsaved();
             });
         });
 
         document.getElementById('save-btn').addEventListener('click', async () => {
             const updates = {
-                avatar_url: document.getElementById('avatar-url').value.trim() || null,
-                banner_url: document.getElementById('banner-url').value.trim() || null,
+                avatar_url: uploadedUrls.avatar_url || currentProfile.avatar_url,
+                banner_url: uploadedUrls.banner_url || currentProfile.banner_url,
+                video_url: uploadedUrls.video_url || currentProfile.video_url,
+                music_url: uploadedUrls.music_url || currentProfile.music_url,
                 display_name: document.getElementById('display-name').value.trim() || null,
                 bio: document.getElementById('bio').value.trim() || '',
                 location: document.getElementById('location').value.trim() || null,
-                music_url: document.getElementById('music-url').value.trim() || null,
                 theme_color: document.getElementById('theme-color').value.trim() || '#a855f7',
                 glow_username: document.getElementById('glow-username').classList.contains('active'),
                 glow_socials: document.getElementById('glow-socials').classList.contains('active'),
@@ -352,11 +556,9 @@
                 .update(updates)
                 .eq('id', currentUser.id);
 
-            if (error) {
-                alert('Error: ' + error.message);
-                return;
-            }
+            if (error) { alert('Error: ' + error.message); return; }
 
+            currentProfile = { ...currentProfile, ...updates };
             document.getElementById('save-status').textContent = '✅ Saved!';
             document.getElementById('save-status').style.color = '#4ade80';
 
@@ -368,6 +570,7 @@
 
         document.getElementById('reset-btn').addEventListener('click', () => {
             if (!confirm('Reset all changes?')) return;
+            uploadedUrls = { avatar_url: null, banner_url: null, video_url: null, music_url: null };
             load();
         });
 
