@@ -39,19 +39,41 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     loadLandingStats();
 
+    // Check if user is logged in
     const { data: { user } } = await supabaseClient.auth.getUser();
+    
+    // If not logged in, stay on landing page
     if (!user) return;
 
+    // If logged in, check if has profile
     const { data: profile } = await supabaseClient
         .from("profiles")
         .select("username")
         .eq("id", user.id)
         .maybeSingle();
 
-    if (profile?.username) {
-        window.location.href = "/dashboard";
-    } else {
-        window.location.href = "/Login";
+    // Only redirect if user clicks a button, not automatically
+    // This keeps the landing page accessible
+    
+    // Update buttons to redirect instead
+    if (googleBtn) {
+        googleBtn.onclick = async () => {
+            if (profile?.username) {
+                window.location.href = "/dashboard";
+            } else {
+                window.location.href = "/Login";
+            }
+        };
+    }
+    
+    if (discordBtn) {
+        discordBtn.onclick = async () => {
+            if (profile?.username) {
+                window.location.href = "/dashboard";
+            } else {
+                window.location.href = "/Login";
+            }
+        };
     }
 });
 
