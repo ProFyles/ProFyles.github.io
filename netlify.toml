@@ -27,6 +27,31 @@
   status = 200
 
 [[redirects]]
+  from = "/customize"
+  to = "/pages/dashboard/customize.html"
+  status = 200
+
+[[redirects]]
+  from = "/analytics"
+  to = "/pages/dashboard/analytics.html"
+  status = 200
+
+[[redirects]]
+  from = "/badges"
+  to = "/pages/dashboard/badges.html"
+  status = 200
+
+[[redirects]]
+  from = "/settings"
+  to = "/pages/dashboard/settings.html"
+  status = 200
+
+[[redirects]]
+  from = "/templates"
+  to = "/pages/dashboard/templates.html"
+  status = 200
+
+[[redirects]]
   from = "/verify"
   to = "/verify.html"
   status = 200
