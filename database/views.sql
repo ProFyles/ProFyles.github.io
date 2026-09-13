@@ -1,5 +1,5 @@
 -- ==========================================
--- PROFILE VIEWS SYSTEM (Once per IP)
+-- PROFILE VIEWS SYSTEM (Once per IP - Forever)
 -- ==========================================
 
 CREATE TABLE IF NOT EXISTS profile_views (
@@ -47,4 +47,4 @@ BEGIN
 END;
 $$;
 
-SELECT 'Views system ready (once per IP)!' AS status;
+SELECT 'Views system ready!' AS status;

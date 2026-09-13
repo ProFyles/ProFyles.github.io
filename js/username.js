@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     continueBtn.addEventListener("click", async () => {
         const username = input.value.trim().toLowerCase();
 
+        // ✅ التحقق من الطول
         if (username.length < 4) {
             messageEl.textContent = "Username must be at least 4 characters.";
             messageEl.style.color = "red";
@@ -39,8 +40,30 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        if (!/^[a-z0-9_]+$/.test(username)) {
-            messageEl.textContent = "Only letters, numbers, and _ allowed.";
+        // ✅ التحقق من الرموز (حروف، أرقام، . و _ فقط)
+        if (!/^[a-z0-9._]+$/.test(username)) {
+            messageEl.textContent = "Only letters, numbers, dot (.) and underscore (_) allowed.";
+            messageEl.style.color = "red";
+            return;
+        }
+
+        // ✅ ما يبدأش بـ . أو _
+        if (/^[._]/.test(username)) {
+            messageEl.textContent = "Username cannot start with . or _";
+            messageEl.style.color = "red";
+            return;
+        }
+
+        // ✅ ما ينتهيش بـ . أو _
+        if (/[._]$/.test(username)) {
+            messageEl.textContent = "Username cannot end with . or _";
+            messageEl.style.color = "red";
+            return;
+        }
+
+        // ✅ ما فيهش .. أو __
+        if (/[._]{2,}/.test(username)) {
+            messageEl.textContent = "Username cannot contain consecutive . or _";
             messageEl.style.color = "red";
             return;
         }
