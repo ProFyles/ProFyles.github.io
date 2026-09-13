@@ -6,6 +6,161 @@
     <title>Customize — Profy</title>
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
+    <style>
+        .custom-section {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .custom-section h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .custom-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .custom-input {
+            width: 100%;
+            height: 48px;
+            background: #151515;
+            border: 1px solid #222;
+            border-radius: 10px;
+            color: white;
+            padding: 0 16px;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 12px;
+            font-family: inherit;
+        }
+        .custom-input:focus { border-color: #5865F2; }
+        .custom-textarea {
+            width: 100%;
+            min-height: 100px;
+            background: #151515;
+            border: 1px solid #222;
+            border-radius: 10px;
+            color: white;
+            padding: 14px 16px;
+            font-size: 14px;
+            outline: none;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .custom-textarea:focus { border-color: #5865F2; }
+        
+        .color-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid #222;
+            flex-shrink: 0;
+        }
+        .color-input {
+            flex: 1;
+            height: 40px;
+            background: #151515;
+            border: 1px solid #222;
+            border-radius: 10px;
+            color: white;
+            padding: 0 12px;
+            font-size: 13px;
+            outline: none;
+            font-family: monospace;
+        }
+        
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #151515;
+        }
+        .toggle-row:last-child { border-bottom: none; }
+        .toggle-label {
+            font-size: 14px;
+            color: #ccc;
+            font-weight: 500;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: #222;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle-switch.active {
+            background: #5865F2;
+        }
+        .toggle-switch::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .toggle-switch.active::after {
+            transform: translateX(22px);
+        }
+        
+        .save-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 30px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        .save-bar span {
+            font-size: 13px;
+            color: #888;
+        }
+        .save-btn {
+            padding: 10px 24px;
+            background: #5865F2;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .reset-btn {
+            background: transparent;
+            color: #888;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body class="dashboard-body">
 
@@ -57,75 +212,79 @@
 
     <main class="main-content">
         <h1 class="page-title">🎨 Customize</h1>
-        <p style="color:#888;font-size:14px;margin-bottom:25px;">Personalize your profile.</p>
+        <p style="color:#888;font-size:14px;margin-bottom:20px;">Personalize your profile.</p>
 
-        <div class="overview-card">
-            <div class="card-header">
-                <span class="card-label">Avatar URL</span>
-            </div>
-            <input type="text" id="avatar-url" class="custom-input" placeholder="https://..." />
+        <div class="custom-section">
+            <h3>🖼️ Images</h3>
+            <label class="custom-label">Avatar URL</label>
+            <input type="text" id="avatar-url" class="custom-input" placeholder="https://...">
+            <label class="custom-label">Banner URL</label>
+            <input type="text" id="banner-url" class="custom-input" placeholder="https://...">
         </div>
 
-        <div class="overview-card">
-            <div class="card-header">
-                <span class="card-label">Banner URL</span>
-            </div>
-            <input type="text" id="banner-url" class="custom-input" placeholder="https://..." />
+        <div class="custom-section">
+            <h3>📝 About</h3>
+            <label class="custom-label">Display Name</label>
+            <input type="text" id="display-name" class="custom-input" placeholder="Your name" maxlength="30">
+            <label class="custom-label">Bio</label>
+            <textarea id="bio" class="custom-textarea" placeholder="Tell us about yourself..." maxlength="200"></textarea>
+            <label class="custom-label" style="margin-top:12px;">Location</label>
+            <input type="text" id="location" class="custom-input" placeholder="City, Country">
         </div>
 
-        <div class="overview-card">
-            <div class="card-header">
-                <span class="card-label">Bio</span>
+        <div class="custom-section">
+            <h3>🎨 Colors</h3>
+            <label class="custom-label">Theme Color</label>
+            <div class="color-row">
+                <div class="color-preview" id="color-preview" style="background:#a855f7;"></div>
+                <input type="text" id="theme-color" class="color-input" value="#a855f7" maxlength="7">
             </div>
-            <textarea id="bio" class="custom-textarea" placeholder="Tell us about yourself..."></textarea>
         </div>
 
-        <button id="save-btn" class="save-btn">Save Changes</button>
+        <div class="custom-section">
+            <h3>✨ Effects</h3>
+            <div class="toggle-row">
+                <span class="toggle-label">Glow Username</span>
+                <div class="toggle-switch" id="glow-username" data-key="glow_username"></div>
+            </div>
+            <div class="toggle-row">
+                <span class="toggle-label">Glow Socials</span>
+                <div class="toggle-switch" id="glow-socials" data-key="glow_socials"></div>
+            </div>
+            <div class="toggle-row">
+                <span class="toggle-label">Glow Badges</span>
+                <div class="toggle-switch" id="glow-badges" data-key="glow_badges"></div>
+            </div>
+            <div class="toggle-row">
+                <span class="toggle-label">Monochrome Icons</span>
+                <div class="toggle-switch" id="monochrome-icons" data-key="monochrome_icons"></div>
+            </div>
+            <div class="toggle-row">
+                <span class="toggle-label">Animated Title</span>
+                <div class="toggle-switch" id="animated-title" data-key="animated_title"></div>
+            </div>
+        </div>
+
+        <div class="custom-section">
+            <h3>🎵 Music</h3>
+            <label class="custom-label">Music URL</label>
+            <input type="text" id="music-url" class="custom-input" placeholder="https://...mp3">
+        </div>
+
+        <div style="height: 80px;"></div>
     </main>
 
-    <style>
-        .custom-input, .custom-textarea {
-            width: 100%;
-            background: #151515;
-            border: 1px solid #222;
-            border-radius: 10px;
-            color: white;
-            padding: 12px 16px;
-            font-size: 14px;
-            outline: none;
-            margin-top: 10px;
-            font-family: inherit;
-        }
-        .custom-input:focus, .custom-textarea:focus {
-            border-color: #5865F2;
-        }
-        .custom-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        .save-btn {
-            width: 100%;
-            height: 52px;
-            background: #5865F2;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.2s;
-        }
-        .save-btn:hover {
-            background: #4752c4;
-            transform: translateY(-2px);
-        }
-    </style>
+    <div class="save-bar">
+        <span id="save-status">No changes</span>
+        <button class="reset-btn" id="reset-btn">Reset</button>
+        <button class="save-btn" id="save-btn">Save Changes</button>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../../js/supabase.js"></script>
     <script>
         let currentUser = null;
+        let currentProfile = null;
 
         async function load() {
             const { data: { user } } = await supabaseClient.auth.getUser();
@@ -136,20 +295,61 @@
                 .from('profiles').select('*').eq('id', user.id).maybeSingle();
 
             if (!profile) { window.location.href = '/Login'; return; }
+            currentProfile = profile;
 
             document.getElementById('avatar-url').value = profile.avatar_url || '';
             document.getElementById('banner-url').value = profile.banner_url || '';
+            document.getElementById('display-name').value = profile.display_name || '';
             document.getElementById('bio').value = profile.bio || '';
+            document.getElementById('location').value = profile.location || '';
+            document.getElementById('music-url').value = profile.music_url || '';
+            document.getElementById('theme-color').value = profile.theme_color || '#a855f7';
+            document.getElementById('color-preview').style.background = profile.theme_color || '#a855f7';
+
+            document.querySelectorAll('.toggle-switch').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (profile[key]) el.classList.add('active');
+            });
         }
 
+        document.querySelectorAll('input, textarea').forEach(el => {
+            el.addEventListener('input', () => {
+                document.getElementById('save-status').textContent = 'Unsaved changes';
+                document.getElementById('save-status').style.color = '#fbbf24';
+            });
+        });
+
+        document.getElementById('theme-color').addEventListener('input', (e) => {
+            document.getElementById('color-preview').style.background = e.target.value;
+        });
+
+        document.querySelectorAll('.toggle-switch').forEach(el => {
+            el.addEventListener('click', () => {
+                el.classList.toggle('active');
+                document.getElementById('save-status').textContent = 'Unsaved changes';
+                document.getElementById('save-status').style.color = '#fbbf24';
+            });
+        });
+
         document.getElementById('save-btn').addEventListener('click', async () => {
-            const avatar_url = document.getElementById('avatar-url').value.trim();
-            const banner_url = document.getElementById('banner-url').value.trim();
-            const bio = document.getElementById('bio').value.trim();
+            const updates = {
+                avatar_url: document.getElementById('avatar-url').value.trim() || null,
+                banner_url: document.getElementById('banner-url').value.trim() || null,
+                display_name: document.getElementById('display-name').value.trim() || null,
+                bio: document.getElementById('bio').value.trim() || '',
+                location: document.getElementById('location').value.trim() || null,
+                music_url: document.getElementById('music-url').value.trim() || null,
+                theme_color: document.getElementById('theme-color').value.trim() || '#a855f7',
+                glow_username: document.getElementById('glow-username').classList.contains('active'),
+                glow_socials: document.getElementById('glow-socials').classList.contains('active'),
+                glow_badges: document.getElementById('glow-badges').classList.contains('active'),
+                monochrome_icons: document.getElementById('monochrome-icons').classList.contains('active'),
+                animated_title: document.getElementById('animated-title').classList.contains('active')
+            };
 
             const { error } = await supabaseClient
                 .from('profiles')
-                .update({ avatar_url, banner_url, bio })
+                .update(updates)
                 .eq('id', currentUser.id);
 
             if (error) {
@@ -157,7 +357,18 @@
                 return;
             }
 
-            alert('✅ Saved!');
+            document.getElementById('save-status').textContent = '✅ Saved!';
+            document.getElementById('save-status').style.color = '#4ade80';
+
+            setTimeout(() => {
+                document.getElementById('save-status').textContent = 'No changes';
+                document.getElementById('save-status').style.color = '#888';
+            }, 2000);
+        });
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            if (!confirm('Reset all changes?')) return;
+            load();
         });
 
         document.getElementById('menu-toggle').addEventListener('click', () => {
