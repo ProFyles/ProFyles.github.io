@@ -168,7 +168,6 @@ async function loadProfile() {
 
         const glowClass = data.glow_badges ? ' glow' : '';
 
-        // Verified Badge (first)
         if (data.verified) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Verified">
@@ -177,7 +176,6 @@ async function loadProfile() {
             `;
         }
 
-        // Discord Badge
         if (data.discord_id) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Discord">
@@ -186,7 +184,6 @@ async function loadProfile() {
             `;
         }
 
-        // Premium Badge
         if (data.premium) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Premium">
@@ -195,7 +192,6 @@ async function loadProfile() {
             `;
         }
 
-        // Booster Badge
         if (data.booster) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Server Booster">
@@ -204,7 +200,6 @@ async function loadProfile() {
             `;
         }
 
-        // Early User Badge
         if (data.uid_number && data.uid_number <= 100) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Early User">
@@ -213,13 +208,32 @@ async function loadProfile() {
             `;
         }
 
-        // Active Badge
         if (data.active) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Active">
                     <img src="${BADGES_PATH}active.svg" alt="Active">
                 </div>
             `;
+        }
+
+        // ==========================================
+        // LINKS (Small Icons under name)
+        // ==========================================
+        const linksContainer = document.getElementById("links-container");
+        linksContainer.innerHTML = "";
+
+        if (data.links && Array.isArray(data.links)) {
+            data.links.forEach(link => {
+                const a = document.createElement("a");
+                a.href = link.url;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+                a.className = "small-link";
+                a.setAttribute("data-name", link.label || link.platform);
+                a.innerHTML = `<img src="${getIcon(link.platform)}" alt="${link.platform}">`;
+                if (data.glow_socials) a.classList.add("glow-border");
+                linksContainer.appendChild(a);
+            });
         }
 
         // UID
@@ -259,26 +273,6 @@ async function loadProfile() {
             usernameEl.style.color = data.theme_color || "#a855f7";
         }
         if (data.animated_title) usernameEl.classList.add("animated-title");
-
-        // ==========================================
-        // LINKS (Small Icons)
-        // ==========================================
-        const linksContainer = document.getElementById("links-container");
-        linksContainer.innerHTML = "";
-
-        if (data.links && Array.isArray(data.links)) {
-            data.links.forEach(link => {
-                const a = document.createElement("a");
-                a.href = link.url;
-                a.target = "_blank";
-                a.rel = "noopener noreferrer";
-                a.className = "small-link";
-                a.title = link.label || link.platform;
-                a.innerHTML = `<img src="${getIcon(link.platform)}" alt="${link.platform}">`;
-                if (data.glow_socials) a.classList.add("glow-border");
-                linksContainer.appendChild(a);
-            });
-        }
 
         // Spotify
         if (data.music_tracks && Array.isArray(data.music_tracks) && data.music_tracks.length > 0) {
