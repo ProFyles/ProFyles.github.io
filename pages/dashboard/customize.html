@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize — Profy</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dashboard-body">
+
+    <header class="topbar">
+        <button id="menu-toggle" class="icon-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <div class="topbar-logo">
+            <svg width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="pl" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a855f7"/><stop offset="100%" style="stop-color:#5865F2"/></linearGradient></defs>
+                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#pl)"/>
+                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
+            </svg>
+            <span>Profy</span>
+        </div>
+        <a href="https://discord.gg/zyzTKZtC2g" target="_blank" class="icon-btn discord-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+            </svg>
+        </a>
+    </header>
+
+    <aside id="sidebar" class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span class="nav-label">Account</span>
+            </a>
+            <a href="/links" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span class="nav-label">Links</span>
+            </a>
+            <a href="/customize" class="nav-item active">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <span class="nav-label">Customize</span>
+            </a>
+            <button id="logout-btn" class="nav-item logout-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span class="nav-label">Logout</span>
+            </button>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main class="main-content">
+        <h1 class="page-title">🎨 Customize</h1>
+        <p style="color:#888;font-size:14px;margin-bottom:25px;">Personalize your profile.</p>
+
+        <div class="overview-card">
+            <div class="card-header">
+                <span class="card-label">Avatar URL</span>
+            </div>
+            <input type="text" id="avatar-url" class="custom-input" placeholder="https://..." />
+        </div>
+
+        <div class="overview-card">
+            <div class="card-header">
+                <span class="card-label">Banner URL</span>
+            </div>
+            <input type="text" id="banner-url" class="custom-input" placeholder="https://..." />
+        </div>
+
+        <div class="overview-card">
+            <div class="card-header">
+                <span class="card-label">Bio</span>
+            </div>
+            <textarea id="bio" class="custom-textarea" placeholder="Tell us about yourself..."></textarea>
+        </div>
+
+        <button id="save-btn" class="save-btn">Save Changes</button>
+    </main>
+
+    <style>
+        .custom-input, .custom-textarea {
+            width: 100%;
+            background: #151515;
+            border: 1px solid #222;
+            border-radius: 10px;
+            color: white;
+            padding: 12px 16px;
+            font-size: 14px;
+            outline: none;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+        .custom-input:focus, .custom-textarea:focus {
+            border-color: #5865F2;
+        }
+        .custom-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .save-btn {
+            width: 100%;
+            height: 52px;
+            background: #5865F2;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.2s;
+        }
+        .save-btn:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase.js"></script>
+    <script>
+        let currentUser = null;
+
+        async function load() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) { window.location.href = '/'; return; }
+            currentUser = user;
+
+            const { data: profile } = await supabaseClient
+                .from('profiles').select('*').eq('id', user.id).maybeSingle();
+
+            if (!profile) { window.location.href = '/Login'; return; }
+
+            document.getElementById('avatar-url').value = profile.avatar_url || '';
+            document.getElementById('banner-url').value = profile.banner_url || '';
+            document.getElementById('bio').value = profile.bio || '';
+        }
+
+        document.getElementById('save-btn').addEventListener('click', async () => {
+            const avatar_url = document.getElementById('avatar-url').value.trim();
+            const banner_url = document.getElementById('banner-url').value.trim();
+            const bio = document.getElementById('bio').value.trim();
+
+            const { error } = await supabaseClient
+                .from('profiles')
+                .update({ avatar_url, banner_url, bio })
+                .eq('id', currentUser.id);
+
+            if (error) {
+                alert('Error: ' + error.message);
+                return;
+            }
+
+            alert('✅ Saved!');
+        });
+
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        });
+
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            window.location.href = '/';
+        });
+
+        load();
+    </script>
+
+</body>
+</html>
