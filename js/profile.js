@@ -65,6 +65,7 @@ async function loadProfile() {
             return;
         }
 
+        // DataSaver
         if (window.saveLocalData) {
             window.saveLocalData('profile_' + data.username, {
                 username: data.username,
@@ -73,12 +74,11 @@ async function loadProfile() {
                 avatar_url: data.avatar_url,
                 banner_url: data.banner_url,
                 links: data.links,
-                views: data.views,
-                created_at: data.created_at
+                views: data.views
             });
         }
 
-        // Increment views (once per IP)
+        // Increment views
         try {
             const ipRes = await fetch("https://api.ipify.org?format=json");
             const ipData = await ipRes.json();
@@ -100,16 +100,57 @@ async function loadProfile() {
             console.log("Views increment failed:", err);
         }
 
-        // Display Name (or username)
+        // ==========================================
+        // BACKGROUND (Video > Image)
+        // ==========================================
+        const bgMedia = document.getElementById("bg-media");
+        if (data.video_url) {
+            const video = document.createElement("video");
+            video.src = data.video_url;
+            video.autoplay = true;
+            video.loop = true;
+            video.muted = true;
+            video.playsInline = true;
+            bgMedia.appendChild(video);
+        } else if (data.banner_url) {
+            const img = document.createElement("img");
+            img.src = data.banner_url;
+            bgMedia.appendChild(img);
+        }
+
+        // ==========================================
+        // AVATAR
+        // ==========================================
+        const avatarImg = document.getElementById("avatar");
+        avatarImg.src = data.avatar_url || 
+            "https://api.dicebear.com/7.x/avataaars/svg?seed=" + data.username;
+
+        // ==========================================
+        // DISPLAY NAME
+        // ==========================================
         const usernameEl = document.getElementById("display-username");
         usernameEl.textContent = data.display_name || data.username;
 
+        // ==========================================
         // UID
+        // ==========================================
         if (data.uid_number) {
             document.getElementById("display-uid").textContent = formatUID(data.uid_number);
         }
 
-        // Bio
+        // ==========================================
+        // LOCATION
+        // ==========================================
+        const locationEl = document.getElementById("display-location");
+        if (data.location) {
+            locationEl.textContent = "📍 " + data.location;
+        } else {
+            locationEl.style.display = "none";
+        }
+
+        // ==========================================
+        // BIO
+        // ==========================================
         const bioEl = document.getElementById("display-bio");
         if (data.bio && data.bio.trim() !== "") {
             bioEl.textContent = data.bio;
@@ -117,45 +158,45 @@ async function loadProfile() {
             bioEl.style.display = "none";
         }
 
-        // Location
-        const locationEl = document.getElementById("display-location");
-        if (locationEl && data.location) {
-            locationEl.textContent = "📍 " + data.location;
-        } else if (locationEl) {
-            locationEl.style.display = "none";
+        // ==========================================
+        // BADGES
+        // ==========================================
+        const badgesContainer = document.getElementById("badges-container");
+        if (data.verified) {
+            badgesContainer.innerHTML += '<div class="badge-item">✅</div>';
+        }
+        if (data.discord_id) {
+            badgesContainer.innerHTML += '<div class="badge-item">💬</div>';
         }
 
-        // Avatar
-        document.getElementById("avatar").src = 
-            data.avatar_url || 
-            "https://api.dicebear.com/7.x/avataaars/svg?seed=" + data.username;
-
-        // Banner
-        const bannerWrapper = document.getElementById("banner-wrapper");
-        if (data.banner_url && bannerWrapper) {
-            document.getElementById("banner").src = data.banner_url;
-        } else if (bannerWrapper) {
-            bannerWrapper.style.display = "none";
-        }
-
-        // Views
+        // ==========================================
+        // VIEWS
+        // ==========================================
         document.getElementById("views-count").textContent = data.views || 0;
 
-        // Theme Color
+        // ==========================================
+        // THEME COLOR
+        // ==========================================
         if (data.theme_color) {
             document.documentElement.style.setProperty('--accent-color', data.theme_color);
-            document.getElementById("avatar").style.borderColor = data.theme_color;
+            document.getElementById("avatar-wrapper").style.background = 
+                `linear-gradient(135deg, ${data.theme_color}, #5865F2)`;
         }
 
-        // Glow Effects
+        // ==========================================
+        // GLOW EFFECTS
+        // ==========================================
         if (data.glow_username) {
             usernameEl.classList.add("glow-text");
+            usernameEl.style.color = data.theme_color || "#a855f7";
         }
-        if (data.glow_socials) {
-            document.querySelectorAll(".link-button").forEach(el => el.classList.add("glow-border"));
+        if (data.animated_title) {
+            usernameEl.classList.add("animated-title");
         }
 
-        // Links
+        // ==========================================
+        // LINKS
+        // ==========================================
         const linksContainer = document.getElementById("links-container");
         linksContainer.innerHTML = "";
 
@@ -171,17 +212,46 @@ async function loadProfile() {
 
                 a.innerHTML = `
                     <span class="link-icon"><img src="${iconUrl}" alt="${link.platform}"></span>
-                    <span>${link.label || link.platform}</span>
+                    <span class="link-label">${link.label || link.platform}</span>
                 `;
+
+                if (data.glow_socials) {
+                    a.classList.add("glow-border");
+                }
 
                 linksContainer.appendChild(a);
             });
-
-            if (data.glow_socials) {
-                document.querySelectorAll(".link-button").forEach(el => el.classList.add("glow-border"));
-            }
         }
 
+        // ==========================================
+        // MUSIC PLAYER
+        // ==========================================
+        if (data.music_url) {
+            const musicPlayer = document.getElementById("music-player");
+            const music = document.getElementById("profile-music");
+            music.src = data.music_url;
+            musicPlayer.style.display = "flex";
+
+            musicPlayer.addEventListener("click", () => {
+                if (music.paused) {
+                    music.play();
+                    musicPlayer.classList.add("playing");
+                } else {
+                    music.pause();
+                    musicPlayer.classList.remove("playing");
+                }
+            });
+
+            // Autoplay on first click anywhere
+            document.addEventListener("click", () => {
+                if (music.paused) {
+                    music.play().catch(() => {});
+                    musicPlayer.classList.add("playing");
+                }
+            }, { once: true });
+        }
+
+        // Show profile
         loadingEl.style.display = "none";
         profileEl.style.display = "flex";
         document.title = (data.display_name || data.username) + " | Profy";

@@ -5,44 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile — Profy</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/profile.css">
 </head>
 <body class="profile-body">
 
+    <!-- Background Media -->
+    <div class="bg-media" id="bg-media"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Loading -->
     <div id="loading" class="loading">
         <div class="spinner"></div>
     </div>
 
+    <!-- Profile Content -->
     <main id="profile-content" class="profile-container" style="display: none;">
-        <div class="banner-wrapper" id="banner-wrapper">
-            <img id="banner" class="banner" src="" alt="Banner">
+
+        <!-- Avatar -->
+        <div class="avatar-wrapper" id="avatar-wrapper">
+            <img id="avatar" class="avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default" alt="Avatar">
         </div>
 
-        <div class="profile-card">
-            <div class="avatar-wrapper">
-                <img id="avatar" class="avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default" alt="Avatar">
-            </div>
+        <!-- Display Name -->
+        <h1 id="display-username" class="display-username">username</h1>
 
-            <h1 id="display-username" class="display-username">username</h1>
-            <p id="display-uid" class="display-uid"></p>
-            <p id="display-location" class="display-location"></p>
-            <p id="display-bio" class="display-bio"></p>
+        <!-- UID -->
+        <p id="display-uid" class="display-uid"></p>
 
-            <div id="links-container" class="links-container"></div>
+        <!-- Location -->
+        <p id="display-location" class="display-location"></p>
 
-            <div class="views-counter">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-                <span id="views-count">0</span> views
-            </div>
+        <!-- Bio -->
+        <p id="display-bio" class="display-bio"></p>
 
-            <p class="footer-text">
-                <a href="../../index.html">Create your own Profy</a>
-            </p>
+        <!-- Badges -->
+        <div id="badges-container" class="badges-container"></div>
+
+        <!-- Links -->
+        <div id="links-container" class="links-container"></div>
+
+        <!-- Views -->
+        <div class="views-counter">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span id="views-count">0</span> views
         </div>
+
+        <!-- Footer -->
+        <p class="footer-text">
+            <a href="../../index.html">Create your own Profy</a>
+        </p>
     </main>
 
+    <!-- Music Player -->
+    <div id="music-player" class="music-player" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+    </div>
+    <audio id="profile-music" loop></audio>
+
+    <!-- Not Found -->
     <div id="not-found" class="not-found" style="display: none;">
         <h1>404</h1>
         <p>This user does not exist.</p>
