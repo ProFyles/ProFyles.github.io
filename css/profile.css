@@ -36,6 +36,7 @@
     z-index: 1;
 }
 
+/* Loading */
 .loading {
     position: fixed;
     inset: 0;
@@ -83,8 +84,7 @@
     padding: 4px;
     background: linear-gradient(135deg, #a855f7, #5865F2);
     margin-bottom: 22px;
-    box-shadow: 0 10px 40px rgba(168, 85, 247, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px rgba(168, 85, 247, 0.3);
     position: relative;
 }
 
@@ -109,40 +109,144 @@
     line-height: 1.1;
 }
 
-/* Badges Container */
+/* ==========================================
+   BADGES
+   ========================================== */
 .badges-container {
     display: flex;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     flex-wrap: wrap;
     justify-content: center;
-    min-height: 0;
+    align-items: center;
 }
 
 .badge-item {
     width: 34px;
     height: 34px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    transition: all 0.2s;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+}
+
+.badge-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+    transition: all 0.25s;
 }
 
 .badge-item:hover {
-    transform: translateY(-3px) scale(1.1);
-    border-color: rgba(168, 85, 247, 0.5);
-    box-shadow: 0 5px 20px rgba(168, 85, 247, 0.3);
+    transform: translateY(-4px) scale(1.15);
 }
 
-.badge-item.glow {
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+.badge-item.glow img {
+    filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.8))
+            drop-shadow(0 0 24px rgba(168, 85, 247, 0.4));
+}
+
+.badge-item::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.badge-item:hover::after {
+    opacity: 1;
+}
+
+/* ==========================================
+   SMALL LINKS (Compact — under badges)
+   ========================================== */
+.links-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    max-width: 300px;
+    width: auto;
+}
+
+.small-link {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    position: relative;
+}
+
+.small-link:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.small-link img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    transition: transform 0.25s;
+}
+
+.small-link:hover img {
+    transform: scale(1.15);
+}
+
+.small-link.glow-border {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5),
+                0 0 30px rgba(168, 85, 247, 0.2);
     border-color: rgba(168, 85, 247, 0.5);
+}
+
+.small-link::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.small-link:hover::after {
+    opacity: 1;
 }
 
 /* UID */
@@ -176,80 +280,11 @@
     font-size: 14px;
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     max-width: 340px;
     white-space: pre-wrap;
     text-shadow: 0 1px 15px rgba(0, 0, 0, 0.9);
     padding: 0 10px;
-}
-
-/* Links */
-.links-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-}
-
-.link-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    height: 58px;
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.link-button::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(88, 101, 242, 0.2));
-    opacity: 0;
-    transition: opacity 0.25s;
-}
-
-.link-button:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-.link-button:hover::before { opacity: 1; }
-
-.link-icon {
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-}
-
-.link-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.link-label {
-    position: relative;
-    z-index: 1;
 }
 
 /* Views */
@@ -308,31 +343,29 @@
 }
 
 /* ==========================================
-   SPOTIFY PLAYER
+   SPOTIFY PLAYER (Fixed)
    ========================================== */
 .spotify-player {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: fixed !important;
+    bottom: 20px !important;
+    top: auto !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
     width: calc(100% - 30px);
     max-width: 420px;
     background: rgba(15, 15, 15, 0.95);
     backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 12px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 200;
+    z-index: 9999;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-    animation: slideUp 0.4s ease;
-}
-
-@keyframes slideUp {
-    from { transform: translate(-50%, 100px); opacity: 0; }
-    to { transform: translate(-50%, 0); opacity: 1; }
+    will-change: transform;
 }
 
 .sp-row-top {
@@ -475,5 +508,7 @@
 @media (max-width: 480px) {
     .display-username { font-size: 28px; }
     .avatar-wrapper { width: 110px; height: 110px; }
-    .link-button { height: 54px; font-size: 14px; }
+    .small-link { width: 42px; height: 42px; }
+    .small-link img { width: 20px; height: 20px; }
+    .badge-item { width: 32px; height: 32px; }
 }
