@@ -2,6 +2,8 @@
 // PROFILE PAGE
 // ==========================================
 
+const DEFAULT_AVATAR = '../../assets/default-avatar.svg';
+
 function formatUID(num) {
     return "#" + String(num).padStart(4, "0");
 }
@@ -53,22 +55,18 @@ function loadTrack(index, autoplay = false) {
     if (!track) return;
     currentTrack = index;
 
-    const audio = document.getElementById('sp-audio');
-    audio.src = track.audio_url;
-
     document.getElementById('sp-title').textContent = track.title || 'Untitled';
     document.getElementById('sp-artist').textContent = track.artist || 'Unknown Artist';
-    document.getElementById('sp-cover-img').src = track.cover_url || 
-        'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (track.title || 'music');
+    document.getElementById('sp-cover-img').src = track.cover_url || DEFAULT_AVATAR;
 
-    if (autoplay) {
-        audio.play().then(() => {
-            isPlaying = true;
-            updatePlayIcon();
-        }).catch(() => {
-            isPlaying = false;
-            updatePlayIcon();
-        });
+    // Use Global Audio
+    if (window.GlobalAudio) {
+        window.GlobalAudio.load({
+            title: track.title,
+            artist: track.artist,
+            cover_url: track.cover_url,
+            audio_url: track.audio_url
+        }, autoplay);
     }
 }
 
@@ -155,15 +153,24 @@ async function loadProfile() {
             bgMedia.appendChild(img);
         }
 
-        // Avatar
-        document.getElementById("avatar").src = data.avatar_url || 
-            "https://api.dicebear.com/7.x/avataaars/svg?seed=" + data.username;
+        // Avatar (default if none)
+        document.getElementById("avatar").src = data.avatar_url || DEFAULT_AVATAR;
 
         // Display Name
         const usernameEl = document.getElementById("display-username");
         usernameEl.textContent = data.display_name || data.username;
 
-        // UID
+        // Badges (verified, discord)
+        const badgesContainer = document.getElementById("badges-container");
+        badgesContainer.innerHTML = '';
+        if (data.verified) {
+            badgesContainer.innerHTML += '<div class="badge-item' + (data.glow_badges ? ' glow' : '') + '">✅</div>';
+        }
+        if (data.discord_id) {
+            badgesContainer.innerHTML += '<div class="badge-item' + (data.glow_badges ? ' glow' : '') + '">💬</div>';
+        }
+
+        // UID (under badges)
         if (data.uid_number) {
             document.getElementById("display-uid").textContent = formatUID(data.uid_number);
         }
@@ -183,11 +190,6 @@ async function loadProfile() {
         } else {
             bioEl.style.display = "none";
         }
-
-        // Badges
-        const badgesContainer = document.getElementById("badges-container");
-        if (data.verified) badgesContainer.innerHTML += '<div class="badge-item">✅</div>';
-        if (data.discord_id) badgesContainer.innerHTML += '<div class="badge-item">💬</div>';
 
         // Views
         document.getElementById("views-count").textContent = data.views || 0;
@@ -251,7 +253,7 @@ async function loadProfile() {
 
 // Spotify controls
 document.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById("sp-audio");
+    const audio = window.GlobalAudio ? window.GlobalAudio.audio : null;
     const playBtn = document.getElementById("sp-play");
     const prevBtn = document.getElementById("sp-prev");
     const nextBtn = document.getElementById("sp-next");
@@ -260,15 +262,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentTimeEl = document.getElementById("sp-current");
     const durationEl = document.getElementById("sp-duration");
 
-    if (playBtn) {
+    if (playBtn && audio) {
         playBtn.addEventListener("click", () => {
-            if (audio.paused) { audio.play(); isPlaying = true; }
-            else { audio.pause(); isPlaying = false; }
-            updatePlayIcon();
+            window.GlobalAudio.toggle();
         });
     }
 
-    if (prevBtn) {
+    if (prevBtn && audio) {
         prevBtn.addEventListener("click", () => {
             if (tracks.length === 0) return;
             currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (nextBtn) {
+    if (nextBtn && audio) {
         nextBtn.addEventListener("click", () => {
             if (tracks.length === 0) return;
             currentTrack = (currentTrack + 1) % tracks.length;
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (progressBar) {
+    if (progressBar && audio) {
         progressBar.addEventListener("click", (e) => {
             const rect = progressBar.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
@@ -294,18 +294,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (audio) {
         audio.addEventListener("timeupdate", () => {
-            if (audio.duration) {
+            if (audio.duration && progressFill) {
                 const percent = (audio.currentTime / audio.duration) * 100;
                 progressFill.style.width = percent + "%";
-                currentTimeEl.textContent = formatTime(audio.currentTime);
+                if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
             }
         });
         audio.addEventListener("loadedmetadata", () => {
-            durationEl.textContent = formatTime(audio.duration);
+            if (durationEl) durationEl.textContent = formatTime(audio.duration);
         });
         audio.addEventListener("ended", () => {
-            currentTrack = (currentTrack + 1) % tracks.length;
-            loadTrack(currentTrack, true);
+            if (tracks.length > 0) {
+                currentTrack = (currentTrack + 1) % tracks.length;
+                loadTrack(currentTrack, true);
+            }
         });
         audio.addEventListener("play", () => { isPlaying = true; updatePlayIcon(); });
         audio.addEventListener("pause", () => { isPlaying = false; updatePlayIcon(); });

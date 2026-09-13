@@ -17,18 +17,31 @@
     </div>
 
     <main id="profile-content" class="profile-container" style="display: none;">
+
+        <!-- Avatar -->
         <div class="avatar-wrapper" id="avatar-wrapper">
-            <img id="avatar" class="avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default" alt="Avatar">
+            <img id="avatar" class="avatar" src="../../assets/default-avatar.svg" alt="Avatar">
         </div>
 
+        <!-- Username -->
         <h1 id="display-username" class="display-username">username</h1>
+
+        <!-- Badges (Verified, Discord, etc.) -->
+        <div id="badges-container" class="badges-container"></div>
+
+        <!-- UID (under badges) -->
         <p id="display-uid" class="display-uid"></p>
+
+        <!-- Location -->
         <p id="display-location" class="display-location"></p>
+
+        <!-- Bio -->
         <p id="display-bio" class="display-bio"></p>
 
-        <div id="badges-container" class="badges-container"></div>
+        <!-- Links -->
         <div id="links-container" class="links-container"></div>
 
+        <!-- Views -->
         <div class="views-counter">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -37,6 +50,7 @@
             <span id="views-count">0</span> views
         </div>
 
+        <!-- Footer -->
         <p class="footer-text">
             <a href="../../index.html">Create your own Profy</a>
         </p>
@@ -46,7 +60,7 @@
     <div id="spotify-player" class="spotify-player" style="display: none;">
         <div class="sp-row-top">
             <div class="sp-cover">
-                <img id="sp-cover-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default" alt="Cover">
+                <img id="sp-cover-img" src="../../assets/default-avatar.svg" alt="Cover">
             </div>
             <div class="sp-info">
                 <div class="sp-title" id="sp-title">Track Title</div>
@@ -80,7 +94,6 @@
             <span id="sp-duration">0:00</span>
         </div>
     </div>
-    <audio id="sp-audio"></audio>
 
     <div id="not-found" class="not-found" style="display: none;">
         <h1>404</h1>
@@ -90,6 +103,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../../js/supabase.js"></script>
+    <script src="../../js/global-audio.js"></script>
     <script src="../../js/profile.js"></script>
 
 </body>
