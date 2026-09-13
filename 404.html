@@ -8,46 +8,66 @@
             var path = window.location.pathname;
             var cleanPath = path.replace(/^\/+|\/+$/g, '');
 
-            if (cleanPath.endsWith('.html')) {
+            // If it's a real file in root (like index.html), go home
+            if (cleanPath.endsWith('.html') && !cleanPath.includes('/')) {
                 window.location.replace('/');
                 return;
             }
 
+            // If it's a file inside a subfolder, let it load normally
+            if (cleanPath.endsWith('.html') && cleanPath.includes('/')) {
+                return;
+            }
+
+            // Dashboard
             if (cleanPath.toLowerCase() === 'dashboard') {
                 window.location.replace('/pages/dashboard/dashboard.html');
                 return;
             }
 
-            if (cleanPath.toLowerCase() === 'links') {
+            // Links
+            if (cleanPath.toLowerCase() === 'links' || cleanPath.toLowerCase() === 'link') {
                 window.location.replace('/pages/dashboard/links.html');
                 return;
             }
 
+            // Customize
             if (cleanPath.toLowerCase() === 'customize') {
                 window.location.replace('/pages/dashboard/customize.html');
                 return;
             }
 
+            // Analytics
             if (cleanPath.toLowerCase() === 'analytics') {
                 window.location.replace('/pages/dashboard/analytics.html');
                 return;
             }
 
+            // Badges
             if (cleanPath.toLowerCase() === 'badges') {
                 window.location.replace('/pages/dashboard/badges.html');
                 return;
             }
 
+            // Username setup
             if (cleanPath.toLowerCase() === 'username') {
                 window.location.replace('/pages/auth/username.html');
                 return;
             }
 
+            // Verify
+            if (cleanPath.toLowerCase() === 'verify') {
+                window.location.replace('/verify.html');
+                return;
+            }
+
+            // Root
             if (cleanPath === '') {
                 window.location.replace('/');
                 return;
             }
 
+            // Any other path = username
             window.location.replace('/pages/profile/profile.html?user=' + encodeURIComponent(cleanPath));
         })();
     </script>

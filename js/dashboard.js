@@ -114,7 +114,6 @@ async function loadDashboardData() {
     const dropdownMyPage = document.getElementById("dropdown-my-page");
     if (dropdownMyPage) dropdownMyPage.href = profileUrl;
 
-    // Fix nav links
     document.querySelectorAll('.nav-item').forEach(item => {
         const label = item.querySelector('.nav-label');
         if (!label) return;
