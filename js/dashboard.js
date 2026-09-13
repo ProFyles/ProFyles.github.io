@@ -65,15 +65,34 @@ async function loadDashboardData() {
         return;
     }
 
-    const { data: profile } = await supabaseClient
+    let { data: profile } = await supabaseClient
         .from("profiles")
         .select("*")
         .eq("id", user.id)
         .maybeSingle();
 
+    // DataSaver: try restore if profile missing
+    if (!profile && window.restoreProfile) {
+        console.log('Profile not found, trying restore...');
+        profile = await window.restoreProfile(supabaseClient);
+    }
+
     if (!profile) {
-        window.location.href = "/Username";
+        window.location.href = "/username";
         return;
+    }
+
+    // DataSaver: save profile locally
+    if (window.saveLocalData) {
+        window.saveLocalData('my_profile_' + user.id, {
+            username: profile.username,
+            uid_number: profile.uid_number,
+            bio: profile.bio,
+            avatar_url: profile.avatar_url,
+            banner_url: profile.banner_url,
+            links: profile.links,
+            views: profile.views
+        });
     }
 
     const usernameEl = document.getElementById("display-username");
