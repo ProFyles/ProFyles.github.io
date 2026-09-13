@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    { "source": "/Login", "destination": "/pages/auth/username.html" },
+    { "source": "/login", "destination": "/pages/auth/username.html" },
+    { "source": "/dashboard", "destination": "/pages/dashboard/dashboard.html" },
+    { "source": "/links", "destination": "/pages/dashboard/links.html" },
+    { "source": "/link", "destination": "/pages/dashboard/links.html" },
+    { "source": "/customize", "destination": "/pages/dashboard/customize.html" },
+    { "source": "/analytics", "destination": "/pages/dashboard/analytics.html" },
+    { "source": "/badges", "destination": "/pages/dashboard/badges.html" },
+    { "source": "/settings", "destination": "/pages/dashboard/settings.html" },
+    { "source": "/templates", "destination": "/pages/dashboard/templates.html" },
+    { "source": "/verify", "destination": "/verify.html" },
+    { "source": "/((?!pages/).*)", "destination": "/pages/profile/profile.html?user=$1" }
+  ]
+}
