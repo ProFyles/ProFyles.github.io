@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
     <style>
-        /* ==========================================
-           CUSTOMIZE PAGE — ENHANCED
-           ========================================== */
         .customize-header {
             margin-bottom: 25px;
             text-align: center;
@@ -27,12 +24,8 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .customize-header p {
-            color: #666;
-            font-size: 14px;
-        }
+        .customize-header p { color: #666; font-size: 14px; }
 
-        /* Live Preview Card */
         .preview-card {
             background: linear-gradient(135deg, #1a0f22 0%, #0d0d0d 100%);
             border: 1px solid #2a1a33;
@@ -43,59 +36,34 @@
             position: relative;
             overflow: hidden;
         }
-        .preview-card::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
-        }
         .preview-avatar {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(135deg, #a855f7, #5865F2);
             margin: 0 auto 12px;
-            position: relative;
-            z-index: 1;
         }
         .preview-avatar img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border-radius: 50%;
             object-fit: cover;
             background: #0d0d0d;
         }
         .preview-name {
-            font-size: 20px;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 4px;
-            position: relative;
-            z-index: 1;
+            font-size: 20px; font-weight: 800;
+            color: white; margin-bottom: 4px;
         }
         .preview-uid {
-            font-size: 12px;
-            color: #666;
+            font-size: 12px; color: #666;
             font-family: monospace;
-            position: relative;
-            z-index: 1;
         }
 
-        /* Section */
         .section {
             background: #0d0d0d;
             border: 1px solid #1a1a1a;
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 14px;
-            transition: border-color 0.2s;
-        }
-        .section:hover {
-            border-color: #252525;
         }
         .section-header {
             display: flex;
@@ -104,44 +72,28 @@
             margin-bottom: 16px;
         }
         .section-icon {
-            width: 38px;
-            height: 38px;
+            width: 38px; height: 38px;
             background: linear-gradient(135deg, #a855f7, #5865F2);
             border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
         }
         .section-icon svg {
-            width: 18px;
-            height: 18px;
-            color: white;
-            stroke-width: 2.5;
+            width: 18px; height: 18px;
+            color: white; stroke-width: 2.5;
         }
-        .section-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: white;
-        }
-        .section-subtitle {
-            font-size: 12px;
-            color: #666;
-            margin-top: 2px;
-        }
+        .section-title { font-size: 15px; font-weight: 700; color: white; }
+        .section-subtitle { font-size: 12px; color: #666; margin-top: 2px; }
 
-        /* Inputs */
         .custom-label {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 8px;
-            display: block;
+            font-size: 12px; color: #888;
+            margin-bottom: 8px; display: block;
             font-weight: 600;
         }
         .custom-input {
-            width: 100%;
-            height: 48px;
+            width: 100%; height: 48px;
             background: #151515;
             border: 1px solid #222;
             border-radius: 12px;
@@ -151,15 +103,10 @@
             outline: none;
             margin-bottom: 14px;
             font-family: inherit;
-            transition: border-color 0.2s;
         }
-        .custom-input:focus {
-            border-color: #5865F2;
-            background: #181818;
-        }
+        .custom-input:focus { border-color: #5865F2; background: #181818; }
         .custom-textarea {
-            width: 100%;
-            min-height: 100px;
+            width: 100%; min-height: 100px;
             background: #151515;
             border: 1px solid #222;
             border-radius: 12px;
@@ -169,14 +116,9 @@
             outline: none;
             resize: vertical;
             font-family: inherit;
-            transition: border-color 0.2s;
         }
-        .custom-textarea:focus {
-            border-color: #5865F2;
-            background: #181818;
-        }
+        .custom-textarea:focus { border-color: #5865F2; background: #181818; }
 
-        /* Upload Box */
         .upload-box {
             border: 2px dashed #252525;
             border-radius: 14px;
@@ -186,18 +128,15 @@
             transition: all 0.25s;
             margin-bottom: 10px;
             background: #0a0a0a;
-            position: relative;
             display: block;
         }
         .upload-box:hover {
             border-color: #5865F2;
             background: #101020;
-            transform: translateY(-2px);
         }
         .upload-box input[type="file"] { display: none; }
         .upload-box-icon {
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             margin: 0 auto 10px;
             background: #151515;
             border-radius: 12px;
@@ -206,8 +145,7 @@
             justify-content: center;
         }
         .upload-box-icon svg {
-            width: 22px;
-            height: 22px;
+            width: 22px; height: 22px;
             color: #5865F2;
         }
         .upload-box-title {
@@ -216,10 +154,7 @@
             font-weight: 700;
             margin-bottom: 3px;
         }
-        .upload-box-hint {
-            color: #666;
-            font-size: 12px;
-        }
+        .upload-box-hint { color: #666; font-size: 12px; }
         .upload-box-hint strong { color: #5865F2; }
 
         .upload-preview {
@@ -232,23 +167,13 @@
             object-fit: cover;
         }
         .upload-preview.show { display: block; }
-
         .upload-preview-video {
-            width: 100%;
-            max-height: 180px;
+            width: 100%; max-height: 180px;
             border-radius: 12px;
             margin-top: 10px;
             display: none;
         }
         .upload-preview-video.show { display: block; }
-
-        .upload-preview-audio {
-            width: 100%;
-            margin-top: 10px;
-            display: none;
-            height: 40px;
-        }
-        .upload-preview-audio.show { display: block; }
 
         .upload-progress {
             font-size: 12px;
@@ -258,7 +183,6 @@
             font-weight: 600;
         }
 
-        /* Color Options */
         .color-presets {
             display: flex;
             gap: 10px;
@@ -266,21 +190,15 @@
             flex-wrap: wrap;
         }
         .color-preset {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 12px;
             cursor: pointer;
             border: 2px solid transparent;
             transition: all 0.2s;
             position: relative;
         }
-        .color-preset:hover {
-            transform: scale(1.1);
-        }
-        .color-preset.active {
-            border-color: white;
-            box-shadow: 0 0 15px currentColor;
-        }
+        .color-preset:hover { transform: scale(1.1); }
+        .color-preset.active { border-color: white; }
         .color-preset.active::after {
             content: "✓";
             position: absolute;
@@ -293,22 +211,19 @@
             font-size: 18px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
-
         .color-row {
             display: flex;
             align-items: center;
             gap: 12px;
         }
         .color-preview {
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             border-radius: 12px;
             border: 2px solid #222;
             flex-shrink: 0;
         }
         .color-input {
-            flex: 1;
-            height: 48px;
+            flex: 1; height: 48px;
             background: #151515;
             border: 1px solid #222;
             border-radius: 12px;
@@ -317,11 +232,8 @@
             font-size: 14px;
             outline: none;
             font-family: monospace;
-            transition: border-color 0.2s;
         }
-        .color-input:focus { border-color: #5865F2; }
 
-        /* Toggle Cards */
         .toggle-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -337,10 +249,7 @@
             border-radius: 14px;
             transition: all 0.2s;
         }
-        .toggle-card:hover {
-            border-color: #252525;
-            background: #101010;
-        }
+        .toggle-card:hover { border-color: #252525; }
         .toggle-card.active {
             border-color: rgba(88, 101, 242, 0.5);
             background: rgba(88, 101, 242, 0.05);
@@ -352,64 +261,50 @@
             flex: 1;
         }
         .toggle-icon {
-            width: 38px;
-            height: 38px;
+            width: 38px; height: 38px;
             background: #151515;
             border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            transition: all 0.2s;
         }
         .toggle-card.active .toggle-icon {
             background: linear-gradient(135deg, #a855f7, #5865F2);
         }
         .toggle-icon svg {
-            width: 18px;
-            height: 18px;
+            width: 18px; height: 18px;
             color: #666;
-            transition: color 0.2s;
         }
-        .toggle-card.active .toggle-icon svg {
-            color: white;
-        }
+        .toggle-card.active .toggle-icon svg { color: white; }
         .toggle-label {
             font-size: 14px;
             color: white;
             font-weight: 600;
             margin-bottom: 2px;
         }
-        .toggle-hint {
-            font-size: 11px;
-            color: #666;
-        }
+        .toggle-hint { font-size: 11px; color: #666; }
         .toggle-switch {
             position: relative;
-            width: 50px;
-            height: 28px;
+            width: 50px; height: 28px;
             background: #1a1a1a;
             border-radius: 14px;
             cursor: pointer;
-            transition: background 0.25s;
             flex-shrink: 0;
+            transition: background 0.25s;
         }
         .toggle-switch.active { background: #5865F2; }
         .toggle-switch::after {
             content: "";
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 22px;
-            height: 22px;
+            top: 3px; left: 3px;
+            width: 22px; height: 22px;
             background: white;
             border-radius: 50%;
             transition: transform 0.25s;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
         .toggle-switch.active::after { transform: translateX(22px); }
 
-        /* Save Bar */
         .save-bar {
             position: fixed;
             bottom: 20px;
@@ -428,12 +323,7 @@
             width: calc(100% - 40px);
             max-width: 480px;
         }
-        .save-bar-status {
-            flex: 1;
-            font-size: 13px;
-            color: #888;
-            font-weight: 600;
-        }
+        .save-bar-status { flex: 1; font-size: 13px; color: #888; font-weight: 600; }
         .save-btn {
             padding: 12px 24px;
             background: linear-gradient(135deg, #a855f7, #5865F2);
@@ -443,7 +333,6 @@
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -461,6 +350,48 @@
         .reset-btn:hover { color: #ff4444; }
 
         .save-spacer { height: 100px; }
+
+        .track-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .track-cover-small {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #151515;
+            flex-shrink: 0;
+        }
+        .track-cover-small img { width: 100%; height: 100%; object-fit: cover; }
+        .track-info-small { flex: 1; min-width: 0; }
+        .track-title-small {
+            font-size: 13px; font-weight: 700;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .track-artist-small {
+            font-size: 11px; color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .track-remove {
+            width: 32px; height: 32px;
+            background: transparent;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .track-remove:hover { color: #ff4444; }
     </style>
 </head>
 <body class="dashboard-body">
@@ -517,7 +448,6 @@
             <p>Personalize your profile</p>
         </div>
 
-        <!-- Live Preview -->
         <div class="preview-card">
             <div class="preview-avatar">
                 <img id="live-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default">
@@ -616,7 +546,7 @@
             <div class="upload-progress" id="video-progress"></div>
         </div>
 
-        <!-- Audio -->
+        <!-- Music Tracks -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
@@ -627,24 +557,54 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="section-title">Music</div>
-                    <div class="section-subtitle">MP3, WAV, OGG (max 5MB)</div>
+                    <div class="section-title">Music Playlist</div>
+                    <div class="section-subtitle">Add multiple tracks (max 5MB each)</div>
                 </div>
             </div>
-            <label class="upload-box" for="music-upload">
-                <div class="upload-box-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="17 8 12 3 7 8"></polyline>
-                        <line x1="12" y1="3" x2="12" y2="15"></line>
-                    </svg>
-                </div>
-                <div class="upload-box-title">Upload Music</div>
-                <div class="upload-box-hint">Click to <strong>browse</strong></div>
-                <input type="file" id="music-upload" accept="audio/*">
-            </label>
-            <audio id="music-preview" class="upload-preview-audio" controls></audio>
-            <div class="upload-progress" id="music-progress"></div>
+
+            <div id="tracks-list" style="margin-bottom:12px;"></div>
+
+            <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:14px;padding:16px;">
+                <div style="font-size:13px;font-weight:700;color:white;margin-bottom:12px;">➕ Add New Track</div>
+
+                <label class="custom-label">Track Title</label>
+                <input type="text" id="track-title" class="custom-input" placeholder="Song name" maxlength="50">
+
+                <label class="custom-label">Artist</label>
+                <input type="text" id="track-artist" class="custom-input" placeholder="Artist name" maxlength="50">
+
+                <label class="custom-label">Cover Image</label>
+                <label class="upload-box" for="track-cover" style="padding:16px;">
+                    <div class="upload-box-icon" style="width:36px;height:36px;margin-bottom:8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div class="upload-box-title" style="font-size:13px;">Upload Cover</div>
+                    <input type="file" id="track-cover" accept="image/*">
+                </label>
+                <img id="cover-preview" style="max-width:100%;max-height:120px;border-radius:10px;margin-top:8px;display:none;">
+
+                <label class="custom-label" style="margin-top:12px;">Audio File</label>
+                <label class="upload-box" for="track-audio" style="padding:16px;">
+                    <div class="upload-box-icon" style="width:36px;height:36px;margin-bottom:8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                            <path d="M9 18V5l12-2v13"></path>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <circle cx="18" cy="16" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="upload-box-title" style="font-size:13px;">Upload MP3</div>
+                    <input type="file" id="track-audio" accept="audio/*">
+                </label>
+                <div id="audio-status" style="font-size:12px;color:#5865F2;margin-top:6px;text-align:center;"></div>
+
+                <button id="add-track-btn" style="width:100%;height:44px;background:linear-gradient(135deg,#a855f7,#5865F2);color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;">
+                    Add Track
+                </button>
+            </div>
         </div>
 
         <!-- About -->
@@ -715,15 +675,11 @@
                     <div class="section-subtitle">Add visual flair</div>
                 </div>
             </div>
-
             <div class="toggle-grid">
                 <div class="toggle-card" id="card-glow-username">
                     <div class="toggle-info">
                         <div class="toggle-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="4"/>
-                                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
                         </div>
                         <div>
                             <div class="toggle-label">Glow Username</div>
@@ -732,14 +688,10 @@
                     </div>
                     <div class="toggle-switch" id="glow-username" data-key="glow_username"></div>
                 </div>
-
                 <div class="toggle-card" id="card-glow-socials">
                     <div class="toggle-info">
                         <div class="toggle-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                         </div>
                         <div>
                             <div class="toggle-label">Glow Socials</div>
@@ -748,14 +700,10 @@
                     </div>
                     <div class="toggle-switch" id="glow-socials" data-key="glow_socials"></div>
                 </div>
-
                 <div class="toggle-card" id="card-glow-badges">
                     <div class="toggle-info">
                         <div class="toggle-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="8" r="7"></circle>
-                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
                         </div>
                         <div>
                             <div class="toggle-label">Glow Badges</div>
@@ -764,14 +712,10 @@
                     </div>
                     <div class="toggle-switch" id="glow-badges" data-key="glow_badges"></div>
                 </div>
-
                 <div class="toggle-card" id="card-monochrome-icons">
                     <div class="toggle-info">
                         <div class="toggle-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="4"></circle>
-                                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/></svg>
                         </div>
                         <div>
                             <div class="toggle-label">Monochrome Icons</div>
@@ -780,13 +724,10 @@
                     </div>
                     <div class="toggle-switch" id="monochrome-icons" data-key="monochrome_icons"></div>
                 </div>
-
                 <div class="toggle-card" id="card-animated-title">
                     <div class="toggle-info">
                         <div class="toggle-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         </div>
                         <div>
                             <div class="toggle-label">Animated Title</div>
@@ -820,9 +761,10 @@
         let uploadedUrls = {
             avatar_url: null,
             banner_url: null,
-            video_url: null,
-            music_url: null
+            video_url: null
         };
+        let tracks = [];
+        let newTrack = { cover_url: null, audio_url: null };
 
         function markUnsaved() {
             document.getElementById('save-status').textContent = 'Unsaved changes';
@@ -839,32 +781,24 @@
 
             if (!profile) { window.location.href = '/Login'; return; }
             currentProfile = profile;
+            tracks = profile.music_tracks || [];
 
-            // Live preview
             document.getElementById('live-avatar').src = profile.avatar_url || 
                 "https://api.dicebear.com/7.x/avataaars/svg?seed=" + profile.username;
             document.getElementById('live-name').textContent = profile.display_name || profile.username;
-            document.getElementById('live-uid').textContent = "#" + String(profile.uid_number).padStart(4, "0");
+            document.getElementById('live-uid').textContent = "#" + String(profile.uid_number || 0).padStart(4, "0");
 
             if (profile.avatar_url) {
                 const p = document.getElementById('avatar-preview');
-                p.src = profile.avatar_url;
-                p.classList.add('show');
+                p.src = profile.avatar_url; p.classList.add('show');
             }
             if (profile.banner_url) {
                 const p = document.getElementById('banner-preview');
-                p.src = profile.banner_url;
-                p.classList.add('show');
+                p.src = profile.banner_url; p.classList.add('show');
             }
             if (profile.video_url) {
                 const p = document.getElementById('video-preview');
-                p.src = profile.video_url;
-                p.classList.add('show');
-            }
-            if (profile.music_url) {
-                const a = document.getElementById('music-preview');
-                a.src = profile.music_url;
-                a.classList.add('show');
+                p.src = profile.video_url; p.classList.add('show');
             }
 
             document.getElementById('display-name').value = profile.display_name || '';
@@ -881,12 +815,11 @@
                 }
             });
 
-            // Color presets
             document.querySelectorAll('.color-preset').forEach(el => {
-                if (el.dataset.color === profile.theme_color) {
-                    el.classList.add('active');
-                }
+                if (el.dataset.color === profile.theme_color) el.classList.add('active');
             });
+
+            renderTracks();
         }
 
         async function uploadFile(file, type) {
@@ -895,10 +828,7 @@
 
             const { error } = await supabaseClient.storage
                 .from('profy-assets')
-                .upload(fileName, file, {
-                    cacheControl: '3600',
-                    upsert: true
-                });
+                .upload(fileName, file, { cacheControl: '3600', upsert: true });
 
             if (error) {
                 console.error('Upload error:', error);
@@ -907,88 +837,141 @@
             }
 
             const { data: { publicUrl } } = supabaseClient.storage
-                .from('profy-assets')
-                .getPublicUrl(fileName);
+                .from('profy-assets').getPublicUrl(fileName);
 
             return publicUrl;
         }
 
         // Avatar
         document.getElementById('avatar-upload').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+            const file = e.target.files[0]; if (!file) return;
             const progress = document.getElementById('avatar-progress');
-            progress.textContent = '⏳ Uploading...';
-            progress.style.color = '#5865F2';
+            progress.textContent = '⏳ Uploading...'; progress.style.color = '#5865F2';
             const url = await uploadFile(file, 'avatar');
             if (url) {
                 uploadedUrls.avatar_url = url;
                 const p = document.getElementById('avatar-preview');
-                p.src = url;
-                p.classList.add('show');
+                p.src = url; p.classList.add('show');
                 document.getElementById('live-avatar').src = url;
-                progress.textContent = '✅ Uploaded';
-                progress.style.color = '#4ade80';
+                progress.textContent = '✅ Uploaded'; progress.style.color = '#4ade80';
                 markUnsaved();
             }
         });
 
         // Banner
         document.getElementById('banner-upload').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+            const file = e.target.files[0]; if (!file) return;
             const progress = document.getElementById('banner-progress');
-            progress.textContent = '⏳ Uploading...';
-            progress.style.color = '#5865F2';
+            progress.textContent = '⏳ Uploading...'; progress.style.color = '#5865F2';
             const url = await uploadFile(file, 'banner');
             if (url) {
                 uploadedUrls.banner_url = url;
                 const p = document.getElementById('banner-preview');
-                p.src = url;
-                p.classList.add('show');
-                progress.textContent = '✅ Uploaded';
-                progress.style.color = '#4ade80';
+                p.src = url; p.classList.add('show');
+                progress.textContent = '✅ Uploaded'; progress.style.color = '#4ade80';
                 markUnsaved();
             }
         });
 
         // Video
         document.getElementById('video-upload').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+            const file = e.target.files[0]; if (!file) return;
             const progress = document.getElementById('video-progress');
-            progress.textContent = '⏳ Uploading...';
-            progress.style.color = '#5865F2';
+            progress.textContent = '⏳ Uploading...'; progress.style.color = '#5865F2';
             const url = await uploadFile(file, 'video');
             if (url) {
                 uploadedUrls.video_url = url;
                 const p = document.getElementById('video-preview');
-                p.src = url;
-                p.classList.add('show');
-                progress.textContent = '✅ Uploaded';
-                progress.style.color = '#4ade80';
+                p.src = url; p.classList.add('show');
+                progress.textContent = '✅ Uploaded'; progress.style.color = '#4ade80';
                 markUnsaved();
             }
         });
 
-        // Music
-        document.getElementById('music-upload').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const progress = document.getElementById('music-progress');
-            progress.textContent = '⏳ Uploading...';
-            progress.style.color = '#5865F2';
-            const url = await uploadFile(file, 'music');
+        // Track Cover
+        document.getElementById('track-cover')?.addEventListener('change', async (e) => {
+            const file = e.target.files[0]; if (!file) return;
+            const url = await uploadFile(file, 'cover');
             if (url) {
-                uploadedUrls.music_url = url;
-                const a = document.getElementById('music-preview');
-                a.src = url;
-                a.classList.add('show');
-                progress.textContent = '✅ Uploaded';
-                progress.style.color = '#4ade80';
-                markUnsaved();
+                newTrack.cover_url = url;
+                const p = document.getElementById('cover-preview');
+                p.src = url; p.style.display = 'block';
             }
         });
+
+        // Track Audio
+        document.getElementById('track-audio')?.addEventListener('change', async (e) => {
+            const file = e.target.files[0]; if (!file) return;
+            const status = document.getElementById('audio-status');
+            status.textContent = '⏳ Uploading...'; status.style.color = '#5865F2';
+            const url = await uploadFile(file, 'track');
+            if (url) {
+                newTrack.audio_url = url;
+                status.textContent = '✅ Audio uploaded'; status.style.color = '#4ade80';
+            } else {
+                status.textContent = '❌ Upload failed'; status.style.color = '#ef4444';
+            }
+        });
+
+        // Add Track
+        document.getElementById('add-track-btn')?.addEventListener('click', () => {
+            const title = document.getElementById('track-title').value.trim();
+            const artist = document.getElementById('track-artist').value.trim();
+
+            if (!title || !newTrack.audio_url) {
+                alert('Please enter a title and upload audio');
+                return;
+            }
+
+            tracks.push({
+                title: title,
+                artist: artist || 'Unknown',
+                cover_url: newTrack.cover_url,
+                audio_url: newTrack.audio_url
+            });
+
+            document.getElementById('track-title').value = '';
+            document.getElementById('track-artist').value = '';
+            document.getElementById('cover-preview').style.display = 'none';
+            document.getElementById('audio-status').textContent = '';
+            newTrack = { cover_url: null, audio_url: null };
+
+            renderTracks();
+            markUnsaved();
+        });
+
+        function renderTracks() {
+            const container = document.getElementById('tracks-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (tracks.length === 0) {
+                container.innerHTML = '<p style="color:#555;font-size:13px;text-align:center;padding:12px;">No tracks yet. Add one below.</p>';
+                return;
+            }
+
+            tracks.forEach((track, i) => {
+                const div = document.createElement('div');
+                div.className = 'track-card';
+                div.innerHTML = `
+                    <div class="track-cover-small">
+                        <img src="${track.cover_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (track.title || 'music')}">
+                    </div>
+                    <div class="track-info-small">
+                        <div class="track-title-small">${track.title || 'Untitled'}</div>
+                        <div class="track-artist-small">${track.artist || 'Unknown'}</div>
+                    </div>
+                    <button class="track-remove" onclick="removeTrack(${i})">✕</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        window.removeTrack = function(index) {
+            tracks.splice(index, 1);
+            renderTracks();
+            markUnsaved();
+        };
 
         // Color presets
         document.querySelectorAll('.color-preset').forEach(el => {
@@ -1002,19 +985,16 @@
             });
         });
 
-        // Color input
         document.getElementById('theme-color').addEventListener('input', (e) => {
             document.getElementById('color-preview').style.background = e.target.value;
             document.querySelectorAll('.color-preset').forEach(x => x.classList.remove('active'));
             markUnsaved();
         });
 
-        // Text inputs
         document.querySelectorAll('input[type="text"], textarea').forEach(el => {
             el.addEventListener('input', markUnsaved);
         });
 
-        // Toggles
         document.querySelectorAll('.toggle-switch').forEach(el => {
             el.addEventListener('click', () => {
                 el.classList.toggle('active');
@@ -1023,13 +1003,12 @@
             });
         });
 
-        // Save
         document.getElementById('save-btn').addEventListener('click', async () => {
             const updates = {
                 avatar_url: uploadedUrls.avatar_url || currentProfile.avatar_url,
                 banner_url: uploadedUrls.banner_url || currentProfile.banner_url,
                 video_url: uploadedUrls.video_url || currentProfile.video_url,
-                music_url: uploadedUrls.music_url || currentProfile.music_url,
+                music_tracks: tracks,
                 display_name: document.getElementById('display-name').value.trim() || null,
                 bio: document.getElementById('bio').value.trim() || '',
                 location: document.getElementById('location').value.trim() || null,
@@ -1042,9 +1021,7 @@
             };
 
             const { error } = await supabaseClient
-                .from('profiles')
-                .update(updates)
-                .eq('id', currentUser.id);
+                .from('profiles').update(updates).eq('id', currentUser.id);
 
             if (error) { alert('Error: ' + error.message); return; }
 
@@ -1058,14 +1035,13 @@
             }, 2000);
         });
 
-        // Reset
         document.getElementById('reset-btn').addEventListener('click', () => {
             if (!confirm('Reset all changes?')) return;
-            uploadedUrls = { avatar_url: null, banner_url: null, video_url: null, music_url: null };
+            uploadedUrls = { avatar_url: null, banner_url: null, video_url: null };
+            newTrack = { cover_url: null, audio_url: null };
             load();
         });
 
-        // Sidebar
         document.getElementById('menu-toggle').addEventListener('click', () => {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('overlay').classList.toggle('show');

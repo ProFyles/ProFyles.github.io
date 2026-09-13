@@ -6,6 +6,13 @@ function formatUID(num) {
     return "#" + String(num).padStart(4, "0");
 }
 
+function formatTime(seconds) {
+    if (isNaN(seconds)) return "0:00";
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return m + ":" + (s < 10 ? "0" : "") + s;
+}
+
 const socialIcons = {
     instagram: 'https://cdn.simpleicons.org/instagram/E4405F',
     discord: 'https://cdn.simpleicons.org/discord/5865F2',
@@ -27,6 +34,52 @@ const socialIcons = {
 function getIcon(platform) {
     const key = (platform || '').toLowerCase();
     return socialIcons[key] || socialIcons.link;
+}
+
+let tracks = [];
+let currentTrack = 0;
+let isPlaying = false;
+
+function setupSpotify(tracksData) {
+    if (!tracksData || tracksData.length === 0) return;
+    tracks = tracksData;
+    currentTrack = 0;
+    document.getElementById('spotify-player').style.display = 'flex';
+    loadTrack(0, true);
+}
+
+function loadTrack(index, autoplay = false) {
+    const track = tracks[index];
+    if (!track) return;
+    currentTrack = index;
+
+    const audio = document.getElementById('sp-audio');
+    audio.src = track.audio_url;
+
+    document.getElementById('sp-title').textContent = track.title || 'Untitled';
+    document.getElementById('sp-artist').textContent = track.artist || 'Unknown Artist';
+    document.getElementById('sp-cover-img').src = track.cover_url || 
+        'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (track.title || 'music');
+
+    if (autoplay) {
+        audio.play().then(() => {
+            isPlaying = true;
+            updatePlayIcon();
+        }).catch(() => {
+            isPlaying = false;
+            updatePlayIcon();
+        });
+    }
+}
+
+function updatePlayIcon() {
+    const icon = document.getElementById('sp-play-icon');
+    if (!icon) return;
+    if (isPlaying) {
+        icon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+    } else {
+        icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+    }
 }
 
 async function loadProfile() {
@@ -54,10 +107,7 @@ async function loadProfile() {
 
     try {
         const { data, error } = await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("username", username)
-            .maybeSingle();
+            .from("profiles").select("*").eq("username", username).maybeSingle();
 
         if (error || !data) {
             loadingEl.style.display = "none";
@@ -65,7 +115,6 @@ async function loadProfile() {
             return;
         }
 
-        // DataSaver
         if (window.saveLocalData) {
             window.saveLocalData('profile_' + data.username, {
                 username: data.username,
@@ -78,31 +127,19 @@ async function loadProfile() {
             });
         }
 
-        // Increment views
+        // Views
         try {
             const ipRes = await fetch("https://api.ipify.org?format=json");
             const ipData = await ipRes.json();
-            const viewerIp = ipData.ip;
-
             await supabaseClient.rpc("increment_views", { 
-                profile_id: data.id, 
-                viewer_ip: viewerIp 
+                profile_id: data.id, viewer_ip: ipData.ip 
             });
-            
             const { data: updated } = await supabaseClient
-                .from("profiles")
-                .select("views")
-                .eq("id", data.id)
-                .maybeSingle();
-            
+                .from("profiles").select("views").eq("id", data.id).maybeSingle();
             if (updated) data.views = updated.views;
-        } catch (err) {
-            console.log("Views increment failed:", err);
-        }
+        } catch (err) {}
 
-        // ==========================================
-        // BACKGROUND (Video > Image)
-        // ==========================================
+        // Background
         const bgMedia = document.getElementById("bg-media");
         if (data.video_url) {
             const video = document.createElement("video");
@@ -118,29 +155,20 @@ async function loadProfile() {
             bgMedia.appendChild(img);
         }
 
-        // ==========================================
-        // AVATAR
-        // ==========================================
-        const avatarImg = document.getElementById("avatar");
-        avatarImg.src = data.avatar_url || 
+        // Avatar
+        document.getElementById("avatar").src = data.avatar_url || 
             "https://api.dicebear.com/7.x/avataaars/svg?seed=" + data.username;
 
-        // ==========================================
-        // DISPLAY NAME
-        // ==========================================
+        // Display Name
         const usernameEl = document.getElementById("display-username");
         usernameEl.textContent = data.display_name || data.username;
 
-        // ==========================================
         // UID
-        // ==========================================
         if (data.uid_number) {
             document.getElementById("display-uid").textContent = formatUID(data.uid_number);
         }
 
-        // ==========================================
-        // LOCATION
-        // ==========================================
+        // Location
         const locationEl = document.getElementById("display-location");
         if (data.location) {
             locationEl.textContent = "📍 " + data.location;
@@ -148,9 +176,7 @@ async function loadProfile() {
             locationEl.style.display = "none";
         }
 
-        // ==========================================
-        // BIO
-        // ==========================================
+        // Bio
         const bioEl = document.getElementById("display-bio");
         if (data.bio && data.bio.trim() !== "") {
             bioEl.textContent = data.bio;
@@ -158,100 +184,60 @@ async function loadProfile() {
             bioEl.style.display = "none";
         }
 
-        // ==========================================
-        // BADGES
-        // ==========================================
+        // Badges
         const badgesContainer = document.getElementById("badges-container");
-        if (data.verified) {
-            badgesContainer.innerHTML += '<div class="badge-item">✅</div>';
-        }
-        if (data.discord_id) {
-            badgesContainer.innerHTML += '<div class="badge-item">💬</div>';
-        }
+        if (data.verified) badgesContainer.innerHTML += '<div class="badge-item">✅</div>';
+        if (data.discord_id) badgesContainer.innerHTML += '<div class="badge-item">💬</div>';
 
-        // ==========================================
-        // VIEWS
-        // ==========================================
+        // Views
         document.getElementById("views-count").textContent = data.views || 0;
 
-        // ==========================================
-        // THEME COLOR
-        // ==========================================
+        // Theme
         if (data.theme_color) {
             document.documentElement.style.setProperty('--accent-color', data.theme_color);
             document.getElementById("avatar-wrapper").style.background = 
                 `linear-gradient(135deg, ${data.theme_color}, #5865F2)`;
         }
 
-        // ==========================================
-        // GLOW EFFECTS
-        // ==========================================
+        // Glow
         if (data.glow_username) {
             usernameEl.classList.add("glow-text");
             usernameEl.style.color = data.theme_color || "#a855f7";
         }
-        if (data.animated_title) {
-            usernameEl.classList.add("animated-title");
-        }
+        if (data.animated_title) usernameEl.classList.add("animated-title");
 
-        // ==========================================
-        // LINKS
-        // ==========================================
+        // Links
         const linksContainer = document.getElementById("links-container");
         linksContainer.innerHTML = "";
 
-        if (data.links && Array.isArray(data.links) && data.links.length > 0) {
+        if (data.links && Array.isArray(data.links)) {
             data.links.forEach(link => {
                 const a = document.createElement("a");
                 a.href = link.url;
                 a.target = "_blank";
                 a.rel = "noopener noreferrer";
                 a.className = "link-button";
-
-                const iconUrl = getIcon(link.platform);
-
                 a.innerHTML = `
-                    <span class="link-icon"><img src="${iconUrl}" alt="${link.platform}"></span>
+                    <span class="link-icon"><img src="${getIcon(link.platform)}" alt=""></span>
                     <span class="link-label">${link.label || link.platform}</span>
                 `;
-
-                if (data.glow_socials) {
-                    a.classList.add("glow-border");
-                }
-
+                if (data.glow_socials) a.classList.add("glow-border");
                 linksContainer.appendChild(a);
             });
         }
 
-        // ==========================================
-        // MUSIC PLAYER
-        // ==========================================
-        if (data.music_url) {
-            const musicPlayer = document.getElementById("music-player");
-            const music = document.getElementById("profile-music");
-            music.src = data.music_url;
-            musicPlayer.style.display = "flex";
-
-            musicPlayer.addEventListener("click", () => {
-                if (music.paused) {
-                    music.play();
-                    musicPlayer.classList.add("playing");
-                } else {
-                    music.pause();
-                    musicPlayer.classList.remove("playing");
-                }
-            });
-
-            // Autoplay on first click anywhere
-            document.addEventListener("click", () => {
-                if (music.paused) {
-                    music.play().catch(() => {});
-                    musicPlayer.classList.add("playing");
-                }
-            }, { once: true });
+        // Spotify
+        if (data.music_tracks && Array.isArray(data.music_tracks) && data.music_tracks.length > 0) {
+            setupSpotify(data.music_tracks);
+        } else if (data.music_url) {
+            setupSpotify([{
+                title: data.display_name || data.username,
+                artist: 'Profy',
+                cover_url: data.avatar_url,
+                audio_url: data.music_url
+            }]);
         }
 
-        // Show profile
         loadingEl.style.display = "none";
         profileEl.style.display = "flex";
         document.title = (data.display_name || data.username) + " | Profy";
@@ -263,4 +249,67 @@ async function loadProfile() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", loadProfile);
+// Spotify controls
+document.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("sp-audio");
+    const playBtn = document.getElementById("sp-play");
+    const prevBtn = document.getElementById("sp-prev");
+    const nextBtn = document.getElementById("sp-next");
+    const progressBar = document.getElementById("sp-progress-bar");
+    const progressFill = document.getElementById("sp-progress-fill");
+    const currentTimeEl = document.getElementById("sp-current");
+    const durationEl = document.getElementById("sp-duration");
+
+    if (playBtn) {
+        playBtn.addEventListener("click", () => {
+            if (audio.paused) { audio.play(); isPlaying = true; }
+            else { audio.pause(); isPlaying = false; }
+            updatePlayIcon();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+            if (tracks.length === 0) return;
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrack, true);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+            if (tracks.length === 0) return;
+            currentTrack = (currentTrack + 1) % tracks.length;
+            loadTrack(currentTrack, true);
+        });
+    }
+
+    if (progressBar) {
+        progressBar.addEventListener("click", (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        });
+    }
+
+    if (audio) {
+        audio.addEventListener("timeupdate", () => {
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = percent + "%";
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+            }
+        });
+        audio.addEventListener("loadedmetadata", () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+        audio.addEventListener("ended", () => {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            loadTrack(currentTrack, true);
+        });
+        audio.addEventListener("play", () => { isPlaying = true; updatePlayIcon(); });
+        audio.addEventListener("pause", () => { isPlaying = false; updatePlayIcon(); });
+    }
+
+    loadProfile();
+});
