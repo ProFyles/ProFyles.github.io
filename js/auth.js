@@ -6,7 +6,7 @@ async function signInWithGoogle() {
     const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: "google",
         options: {
-            redirectTo: window.location.origin + "/pages/auth/username.html"
+            redirectTo: window.location.origin + "/Login"
         }
     });
 
@@ -20,7 +20,7 @@ async function signInWithDiscord() {
     const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: "discord",
         options: {
-            redirectTo: window.location.origin + "/pages/auth/username.html"
+            redirectTo: window.location.origin + "/Login"
         }
     });
 
@@ -31,15 +31,11 @@ async function signInWithDiscord() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const heroBtn = document.getElementById("hero-google-login");
+    const googleBtn = document.getElementById("hero-google-login");
     const discordBtn = document.getElementById("hero-discord-login");
-    const navBtn = document.getElementById("nav-login");
-    const signupBtn = document.getElementById("nav-signup");
 
-    if (heroBtn) heroBtn.addEventListener("click", signInWithGoogle);
+    if (googleBtn) googleBtn.addEventListener("click", signInWithGoogle);
     if (discordBtn) discordBtn.addEventListener("click", signInWithDiscord);
-    if (navBtn) navBtn.addEventListener("click", signInWithGoogle);
-    if (signupBtn) signupBtn.addEventListener("click", signInWithGoogle);
 
     loadLandingStats();
 
@@ -53,9 +49,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         .maybeSingle();
 
     if (profile?.username) {
-        window.location.href = "/Dashboard";
+        window.location.href = "/dashboard";
     } else {
-        window.location.href = "/Username";
+        window.location.href = "/Login";
     }
 });
 

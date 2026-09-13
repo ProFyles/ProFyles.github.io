@@ -2,6 +2,16 @@
   publish = "."
 
 [[redirects]]
+  from = "/Login"
+  to = "/pages/auth/username.html"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/pages/auth/username.html"
+  status = 200
+
+[[redirects]]
   from = "/dashboard"
   to = "/pages/dashboard/dashboard.html"
   status = 200
@@ -17,18 +27,8 @@
   status = 200
 
 [[redirects]]
-  from = "/username"
-  to = "/pages/auth/username.html"
-  status = 200
-
-[[redirects]]
   from = "/verify"
   to = "/verify.html"
-  status = 200
-
-[[redirects]]
-  from = "/user"
-  to = "/pages/profile/profile.html"
   status = 200
 
 [[redirects]]

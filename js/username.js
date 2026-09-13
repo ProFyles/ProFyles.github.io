@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!continueBtn) return;
 
-    // Check if user already has profile
     const { data: { user } } = await supabaseClient.auth.getUser();
 
     if (user) {
@@ -22,28 +21,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (existingProfile?.username) {
             window.location.href = "/dashboard";
             return;
-        }
-
-        // Try DataSaver restore
-        if (window.getLocalData) {
-            const localProfile = window.getLocalData('my_profile_' + user.id);
-            if (localProfile?.username) {
-                console.log('Restoring username from DataSaver...');
-                const { error } = await supabaseClient
-                    .from('profiles')
-                    .insert([{
-                        id: user.id,
-                        username: localProfile.username,
-                        bio: localProfile.bio || '',
-                        avatar_url: localProfile.avatar_url,
-                        links: localProfile.links || []
-                    }]);
-
-                if (!error) {
-                    window.location.href = "/dashboard";
-                    return;
-                }
-            }
         }
     }
 
