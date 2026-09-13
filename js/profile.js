@@ -3,6 +3,7 @@
 // ==========================================
 
 const DEFAULT_AVATAR = '../../assets/default-avatar.svg';
+const BADGES_PATH = '../../assets/badges/';
 
 function formatUID(num) {
     return "#" + String(num).padStart(4, "0");
@@ -59,7 +60,6 @@ function loadTrack(index, autoplay = false) {
     document.getElementById('sp-artist').textContent = track.artist || 'Unknown Artist';
     document.getElementById('sp-cover-img').src = track.cover_url || DEFAULT_AVATAR;
 
-    // Use Global Audio
     if (window.GlobalAudio) {
         window.GlobalAudio.load({
             title: track.title,
@@ -153,24 +153,76 @@ async function loadProfile() {
             bgMedia.appendChild(img);
         }
 
-        // Avatar (default if none)
+        // Avatar
         document.getElementById("avatar").src = data.avatar_url || DEFAULT_AVATAR;
 
         // Display Name
         const usernameEl = document.getElementById("display-username");
         usernameEl.textContent = data.display_name || data.username;
 
-        // Badges (verified, discord)
+        // ==========================================
+        // BADGES (SVG)
+        // ==========================================
         const badgesContainer = document.getElementById("badges-container");
         badgesContainer.innerHTML = '';
+
+        const glowClass = data.glow_badges ? ' glow' : '';
+
+        // Verified Badge (first)
         if (data.verified) {
-            badgesContainer.innerHTML += '<div class="badge-item' + (data.glow_badges ? ' glow' : '') + '">✅</div>';
-        }
-        if (data.discord_id) {
-            badgesContainer.innerHTML += '<div class="badge-item' + (data.glow_badges ? ' glow' : '') + '">💬</div>';
+            badgesContainer.innerHTML += `
+                <div class="badge-item${glowClass}" data-name="Verified">
+                    <img src="${BADGES_PATH}verified.svg" alt="Verified">
+                </div>
+            `;
         }
 
-        // UID (under badges)
+        // Discord Badge
+        if (data.discord_id) {
+            badgesContainer.innerHTML += `
+                <div class="badge-item${glowClass}" data-name="Discord">
+                    <img src="${BADGES_PATH}discord.svg" alt="Discord">
+                </div>
+            `;
+        }
+
+        // Premium Badge
+        if (data.premium) {
+            badgesContainer.innerHTML += `
+                <div class="badge-item${glowClass}" data-name="Premium">
+                    <img src="${BADGES_PATH}premium.svg" alt="Premium">
+                </div>
+            `;
+        }
+
+        // Booster Badge
+        if (data.booster) {
+            badgesContainer.innerHTML += `
+                <div class="badge-item${glowClass}" data-name="Server Booster">
+                    <img src="${BADGES_PATH}booster.svg" alt="Booster">
+                </div>
+            `;
+        }
+
+        // Early User Badge
+        if (data.uid_number && data.uid_number <= 100) {
+            badgesContainer.innerHTML += `
+                <div class="badge-item${glowClass}" data-name="Early User">
+                    <img src="${BADGES_PATH}early.svg" alt="Early User">
+                </div>
+            `;
+        }
+
+        // Active Badge
+        if (data.active) {
+            badgesContainer.innerHTML += `
+                <div class="badge-item${glowClass}" data-name="Active">
+                    <img src="${BADGES_PATH}active.svg" alt="Active">
+                </div>
+            `;
+        }
+
+        // UID
         if (data.uid_number) {
             document.getElementById("display-uid").textContent = formatUID(data.uid_number);
         }
@@ -208,7 +260,9 @@ async function loadProfile() {
         }
         if (data.animated_title) usernameEl.classList.add("animated-title");
 
-        // Links
+        // ==========================================
+        // LINKS (Small Icons)
+        // ==========================================
         const linksContainer = document.getElementById("links-container");
         linksContainer.innerHTML = "";
 
@@ -218,11 +272,9 @@ async function loadProfile() {
                 a.href = link.url;
                 a.target = "_blank";
                 a.rel = "noopener noreferrer";
-                a.className = "link-button";
-                a.innerHTML = `
-                    <span class="link-icon"><img src="${getIcon(link.platform)}" alt=""></span>
-                    <span class="link-label">${link.label || link.platform}</span>
-                `;
+                a.className = "small-link";
+                a.title = link.label || link.platform;
+                a.innerHTML = `<img src="${getIcon(link.platform)}" alt="${link.platform}">`;
                 if (data.glow_socials) a.classList.add("glow-border");
                 linksContainer.appendChild(a);
             });
@@ -263,9 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const durationEl = document.getElementById("sp-duration");
 
     if (playBtn && audio) {
-        playBtn.addEventListener("click", () => {
-            window.GlobalAudio.toggle();
-        });
+        playBtn.addEventListener("click", () => window.GlobalAudio.toggle());
     }
 
     if (prevBtn && audio) {
