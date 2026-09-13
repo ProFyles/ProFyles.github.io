@@ -1,0 +1,37 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/pages/dashboard/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/links"
+  to = "/pages/dashboard/links.html"
+  status = 200
+
+[[redirects]]
+  from = "/link"
+  to = "/pages/dashboard/links.html"
+  status = 200
+
+[[redirects]]
+  from = "/username"
+  to = "/pages/auth/username.html"
+  status = 200
+
+[[redirects]]
+  from = "/verify"
+  to = "/verify.html"
+  status = 200
+
+[[redirects]]
+  from = "/user"
+  to = "/pages/profile/profile.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/pages/profile/profile.html?user=:splat"
+  status = 200
