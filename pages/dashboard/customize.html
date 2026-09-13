@@ -8,30 +8,90 @@
     <link rel="stylesheet" href="../../css/dashboard.css">
     <style>
         /* ==========================================
-           CUSTOMIZE PAGE
+           CUSTOMIZE PAGE — ENHANCED
            ========================================== */
         .customize-header {
             margin-bottom: 25px;
+            text-align: center;
         }
         .customize-header h1 {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #a855f7, #5865F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .customize-header p {
             color: #666;
             font-size: 14px;
         }
 
+        /* Live Preview Card */
+        .preview-card {
+            background: linear-gradient(135deg, #1a0f22 0%, #0d0d0d 100%);
+            border: 1px solid #2a1a33;
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
+        }
+        .preview-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #a855f7, #5865F2);
+            margin: 0 auto 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .preview-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #0d0d0d;
+        }
+        .preview-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        .preview-uid {
+            font-size: 12px;
+            color: #666;
+            font-family: monospace;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section */
         .section {
             background: #0d0d0d;
             border: 1px solid #1a1a1a;
             border-radius: 20px;
-            padding: 22px;
-            margin-bottom: 16px;
+            padding: 20px;
+            margin-bottom: 14px;
             transition: border-color 0.2s;
         }
         .section:hover {
@@ -41,17 +101,18 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
         .section-icon {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             background: linear-gradient(135deg, #a855f7, #5865F2);
-            border-radius: 10px;
+            border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
         }
         .section-icon svg {
             width: 18px;
@@ -119,7 +180,7 @@
         .upload-box {
             border: 2px dashed #252525;
             border-radius: 14px;
-            padding: 25px 20px;
+            padding: 22px 18px;
             text-align: center;
             cursor: pointer;
             transition: all 0.25s;
@@ -131,14 +192,13 @@
         .upload-box:hover {
             border-color: #5865F2;
             background: #101020;
+            transform: translateY(-2px);
         }
-        .upload-box input[type="file"] {
-            display: none;
-        }
+        .upload-box input[type="file"] { display: none; }
         .upload-box-icon {
             width: 44px;
             height: 44px;
-            margin: 0 auto 12px;
+            margin: 0 auto 10px;
             background: #151515;
             border-radius: 12px;
             display: flex;
@@ -154,53 +214,86 @@
             color: white;
             font-size: 14px;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .upload-box-hint {
             color: #666;
             font-size: 12px;
         }
-        .upload-box-hint strong {
-            color: #5865F2;
-        }
+        .upload-box-hint strong { color: #5865F2; }
 
         .upload-preview {
             max-width: 100%;
-            max-height: 200px;
-            border-radius: 10px;
+            max-height: 180px;
+            border-radius: 12px;
             margin-top: 10px;
             display: none;
+            width: 100%;
+            object-fit: cover;
         }
-        .upload-preview.show {
-            display: block;
-        }
+        .upload-preview.show { display: block; }
+
         .upload-preview-video {
             width: 100%;
-            max-height: 200px;
-            border-radius: 10px;
+            max-height: 180px;
+            border-radius: 12px;
             margin-top: 10px;
             display: none;
         }
-        .upload-preview-video.show {
-            display: block;
-        }
+        .upload-preview-video.show { display: block; }
+
         .upload-preview-audio {
             width: 100%;
             margin-top: 10px;
             display: none;
+            height: 40px;
         }
-        .upload-preview-audio.show {
-            display: block;
-        }
+        .upload-preview-audio.show { display: block; }
 
         .upload-progress {
             font-size: 12px;
             color: #5865F2;
-            margin-top: 6px;
+            margin-top: 8px;
             text-align: center;
+            font-weight: 600;
         }
 
-        /* Color Row */
+        /* Color Options */
+        .color-presets {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .color-preset {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .color-preset:hover {
+            transform: scale(1.1);
+        }
+        .color-preset.active {
+            border-color: white;
+            box-shadow: 0 0 15px currentColor;
+        }
+        .color-preset.active::after {
+            content: "✓";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 18px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
         .color-row {
             display: flex;
             align-items: center;
@@ -226,53 +319,70 @@
             font-family: monospace;
             transition: border-color 0.2s;
         }
-        .color-input:focus {
-            border-color: #5865F2;
-        }
+        .color-input:focus { border-color: #5865F2; }
 
-        /* Toggles */
-        .toggle-row {
+        /* Toggle Cards */
+        .toggle-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .toggle-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid #151515;
+            padding: 14px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 14px;
+            transition: all 0.2s;
         }
-        .toggle-row:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
+        .toggle-card:hover {
+            border-color: #252525;
+            background: #101010;
         }
-        .toggle-row:first-child {
-            padding-top: 0;
+        .toggle-card.active {
+            border-color: rgba(88, 101, 242, 0.5);
+            background: rgba(88, 101, 242, 0.05);
         }
         .toggle-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            flex: 1;
         }
         .toggle-icon {
-            width: 32px;
-            height: 32px;
+            width: 38px;
+            height: 38px;
             background: #151515;
-            border-radius: 8px;
+            border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        .toggle-card.active .toggle-icon {
+            background: linear-gradient(135deg, #a855f7, #5865F2);
         }
         .toggle-icon svg {
-            width: 16px;
-            height: 16px;
-            color: #888;
+            width: 18px;
+            height: 18px;
+            color: #666;
+            transition: color 0.2s;
+        }
+        .toggle-card.active .toggle-icon svg {
+            color: white;
         }
         .toggle-label {
             font-size: 14px;
-            color: #ddd;
+            color: white;
             font-weight: 600;
+            margin-bottom: 2px;
         }
         .toggle-hint {
             font-size: 11px;
-            color: #555;
-            margin-top: 2px;
+            color: #666;
         }
         .toggle-switch {
             position: relative;
@@ -284,9 +394,7 @@
             transition: background 0.25s;
             flex-shrink: 0;
         }
-        .toggle-switch.active {
-            background: #5865F2;
-        }
+        .toggle-switch.active { background: #5865F2; }
         .toggle-switch::after {
             content: "";
             position: absolute;
@@ -299,9 +407,7 @@
             transition: transform 0.25s;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
-        .toggle-switch.active::after {
-            transform: translateX(22px);
-        }
+        .toggle-switch.active::after { transform: translateX(22px); }
 
         /* Save Bar */
         .save-bar {
@@ -342,13 +448,8 @@
             align-items: center;
             gap: 8px;
         }
-        .save-btn:hover {
-            transform: scale(1.03);
-        }
-        .save-btn svg {
-            width: 16px;
-            height: 16px;
-        }
+        .save-btn:hover { transform: scale(1.03); }
+        .save-btn svg { width: 16px; height: 16px; }
         .reset-btn {
             background: transparent;
             color: #666;
@@ -357,14 +458,9 @@
             cursor: pointer;
             padding: 8px;
         }
-        .reset-btn:hover {
-            color: #ff4444;
-        }
+        .reset-btn:hover { color: #ff4444; }
 
-        /* Spacer for save bar */
-        .save-spacer {
-            height: 100px;
-        }
+        .save-spacer { height: 100px; }
     </style>
 </head>
 <body class="dashboard-body">
@@ -417,17 +513,20 @@
 
     <main class="main-content">
         <div class="customize-header">
-            <h1>
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                </svg>
-                Customize
-            </h1>
-            <p>Personalize your profile and make it yours.</p>
+            <h1>🎨 Customize</h1>
+            <p>Personalize your profile</p>
         </div>
 
-        <!-- AVATAR -->
+        <!-- Live Preview -->
+        <div class="preview-card">
+            <div class="preview-avatar">
+                <img id="live-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default">
+            </div>
+            <div class="preview-name" id="live-name">username</div>
+            <div class="preview-uid" id="live-uid">#0000</div>
+        </div>
+
+        <!-- Avatar -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
@@ -437,27 +536,27 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="section-title">Profile Avatar</div>
-                    <div class="section-subtitle">PNG, JPG, GIF, WEBP (max 5MB)</div>
+                    <div class="section-title">Avatar</div>
+                    <div class="section-subtitle">PNG, JPG, GIF (max 5MB)</div>
                 </div>
             </div>
             <label class="upload-box" for="avatar-upload">
                 <div class="upload-box-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                 </div>
                 <div class="upload-box-title">Upload Avatar</div>
-                <div class="upload-box-hint">Click to <strong>browse files</strong></div>
+                <div class="upload-box-hint">Click to <strong>browse</strong></div>
                 <input type="file" id="avatar-upload" accept="image/*">
             </label>
             <img id="avatar-preview" class="upload-preview" src="">
             <div class="upload-progress" id="avatar-progress"></div>
         </div>
 
-        <!-- BANNER -->
+        <!-- Banner -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
@@ -467,27 +566,27 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="section-title">Profile Banner</div>
-                    <div class="section-subtitle">PNG, JPG, GIF, WEBP (max 5MB)</div>
+                    <div class="section-title">Banner</div>
+                    <div class="section-subtitle">PNG, JPG, GIF (max 5MB)</div>
                 </div>
             </div>
             <label class="upload-box" for="banner-upload">
                 <div class="upload-box-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                 </div>
                 <div class="upload-box-title">Upload Banner</div>
-                <div class="upload-box-hint">Click to <strong>browse files</strong></div>
+                <div class="upload-box-hint">Click to <strong>browse</strong></div>
                 <input type="file" id="banner-upload" accept="image/*">
             </label>
             <img id="banner-preview" class="upload-preview" src="">
             <div class="upload-progress" id="banner-progress"></div>
         </div>
 
-        <!-- VIDEO -->
+        <!-- Video -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
@@ -504,19 +603,20 @@
             <label class="upload-box" for="video-upload">
                 <div class="upload-box-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="23 7 16 12 23 17 23 7"></polygon>
-                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                 </div>
                 <div class="upload-box-title">Upload Video</div>
-                <div class="upload-box-hint">Click to <strong>browse files</strong></div>
+                <div class="upload-box-hint">Click to <strong>browse</strong></div>
                 <input type="file" id="video-upload" accept="video/*">
             </label>
             <video id="video-preview" class="upload-preview-video" controls muted></video>
             <div class="upload-progress" id="video-progress"></div>
         </div>
 
-        <!-- AUDIO -->
+        <!-- Audio -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
@@ -527,35 +627,33 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="section-title">Profile Music</div>
+                    <div class="section-title">Music</div>
                     <div class="section-subtitle">MP3, WAV, OGG (max 5MB)</div>
                 </div>
             </div>
             <label class="upload-box" for="music-upload">
                 <div class="upload-box-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18V5l12-2v13"></path>
-                        <circle cx="6" cy="18" r="3"></circle>
-                        <circle cx="18" cy="16" r="3"></circle>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                 </div>
                 <div class="upload-box-title">Upload Music</div>
-                <div class="upload-box-hint">Click to <strong>browse files</strong></div>
+                <div class="upload-box-hint">Click to <strong>browse</strong></div>
                 <input type="file" id="music-upload" accept="audio/*">
             </label>
             <audio id="music-preview" class="upload-preview-audio" controls></audio>
             <div class="upload-progress" id="music-progress"></div>
         </div>
 
-        <!-- ABOUT -->
+        <!-- About -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
                     </svg>
                 </div>
                 <div>
@@ -571,7 +669,7 @@
             <input type="text" id="location" class="custom-input" placeholder="City, Country">
         </div>
 
-        <!-- COLORS -->
+        <!-- Colors -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
@@ -585,8 +683,18 @@
                 </div>
                 <div>
                     <div class="section-title">Theme Color</div>
-                    <div class="section-subtitle">Choose your profile accent color</div>
+                    <div class="section-subtitle">Pick your accent color</div>
                 </div>
+            </div>
+            <div class="color-presets">
+                <div class="color-preset" data-color="#a855f7" style="background:#a855f7;color:#a855f7;"></div>
+                <div class="color-preset" data-color="#5865F2" style="background:#5865F2;color:#5865F2;"></div>
+                <div class="color-preset" data-color="#ec4899" style="background:#ec4899;color:#ec4899;"></div>
+                <div class="color-preset" data-color="#10b981" style="background:#10b981;color:#10b981;"></div>
+                <div class="color-preset" data-color="#f59e0b" style="background:#f59e0b;color:#f59e0b;"></div>
+                <div class="color-preset" data-color="#ef4444" style="background:#ef4444;color:#ef4444;"></div>
+                <div class="color-preset" data-color="#06b6d4" style="background:#06b6d4;color:#06b6d4;"></div>
+                <div class="color-preset" data-color="#ffffff" style="background:#ffffff;color:#ffffff;"></div>
             </div>
             <div class="color-row">
                 <div class="color-preview" id="color-preview" style="background:#a855f7;"></div>
@@ -594,7 +702,7 @@
             </div>
         </div>
 
-        <!-- EFFECTS -->
+        <!-- Effects -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">
@@ -604,93 +712,95 @@
                 </div>
                 <div>
                     <div class="section-title">Effects</div>
-                    <div class="section-subtitle">Add visual effects to your profile</div>
+                    <div class="section-subtitle">Add visual flair</div>
                 </div>
             </div>
 
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <div class="toggle-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-                        </svg>
+            <div class="toggle-grid">
+                <div class="toggle-card" id="card-glow-username">
+                    <div class="toggle-info">
+                        <div class="toggle-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="4"/>
+                                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="toggle-label">Glow Username</div>
+                            <div class="toggle-hint">Shiny name effect</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="toggle-label">Glow Username</div>
-                        <div class="toggle-hint">Add a glowing effect to your name</div>
-                    </div>
+                    <div class="toggle-switch" id="glow-username" data-key="glow_username"></div>
                 </div>
-                <div class="toggle-switch" id="glow-username" data-key="glow_username"></div>
-            </div>
 
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <div class="toggle-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                        </svg>
+                <div class="toggle-card" id="card-glow-socials">
+                    <div class="toggle-info">
+                        <div class="toggle-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="toggle-label">Glow Socials</div>
+                            <div class="toggle-hint">Glow on link buttons</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="toggle-label">Glow Socials</div>
-                        <div class="toggle-hint">Glowing borders on social links</div>
-                    </div>
+                    <div class="toggle-switch" id="glow-socials" data-key="glow_socials"></div>
                 </div>
-                <div class="toggle-switch" id="glow-socials" data-key="glow_socials"></div>
-            </div>
 
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <div class="toggle-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="8" r="7"></circle>
-                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                        </svg>
+                <div class="toggle-card" id="card-glow-badges">
+                    <div class="toggle-info">
+                        <div class="toggle-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="7"></circle>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="toggle-label">Glow Badges</div>
+                            <div class="toggle-hint">Glow on badges</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="toggle-label">Glow Badges</div>
-                        <div class="toggle-hint">Glowing effect on your badges</div>
-                    </div>
+                    <div class="toggle-switch" id="glow-badges" data-key="glow_badges"></div>
                 </div>
-                <div class="toggle-switch" id="glow-badges" data-key="glow_badges"></div>
-            </div>
 
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <div class="toggle-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="4"></circle>
-                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-                        </svg>
+                <div class="toggle-card" id="card-monochrome-icons">
+                    <div class="toggle-info">
+                        <div class="toggle-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="toggle-label">Monochrome Icons</div>
+                            <div class="toggle-hint">One-color icons</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="toggle-label">Monochrome Icons</div>
-                        <div class="toggle-hint">Make all icons one color</div>
-                    </div>
+                    <div class="toggle-switch" id="monochrome-icons" data-key="monochrome_icons"></div>
                 </div>
-                <div class="toggle-switch" id="monochrome-icons" data-key="monochrome_icons"></div>
-            </div>
 
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <div class="toggle-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
+                <div class="toggle-card" id="card-animated-title">
+                    <div class="toggle-info">
+                        <div class="toggle-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="toggle-label">Animated Title</div>
+                            <div class="toggle-hint">Gradient animation</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="toggle-label">Animated Title</div>
-                        <div class="toggle-hint">Add gradient animation to your title</div>
-                    </div>
+                    <div class="toggle-switch" id="animated-title" data-key="animated_title"></div>
                 </div>
-                <div class="toggle-switch" id="animated-title" data-key="animated_title"></div>
             </div>
         </div>
 
         <div class="save-spacer"></div>
     </main>
 
-    <!-- SAVE BAR -->
     <div class="save-bar">
         <span class="save-bar-status" id="save-status">No changes</span>
         <button class="reset-btn" id="reset-btn">Reset</button>
@@ -730,6 +840,12 @@
             if (!profile) { window.location.href = '/Login'; return; }
             currentProfile = profile;
 
+            // Live preview
+            document.getElementById('live-avatar').src = profile.avatar_url || 
+                "https://api.dicebear.com/7.x/avataaars/svg?seed=" + profile.username;
+            document.getElementById('live-name').textContent = profile.display_name || profile.username;
+            document.getElementById('live-uid').textContent = "#" + String(profile.uid_number).padStart(4, "0");
+
             if (profile.avatar_url) {
                 const p = document.getElementById('avatar-preview');
                 p.src = profile.avatar_url;
@@ -759,7 +875,17 @@
 
             document.querySelectorAll('.toggle-switch').forEach(el => {
                 const key = el.getAttribute('data-key');
-                if (profile[key]) el.classList.add('active');
+                if (profile[key]) {
+                    el.classList.add('active');
+                    el.closest('.toggle-card')?.classList.add('active');
+                }
+            });
+
+            // Color presets
+            document.querySelectorAll('.color-preset').forEach(el => {
+                if (el.dataset.color === profile.theme_color) {
+                    el.classList.add('active');
+                }
             });
         }
 
@@ -776,6 +902,7 @@
 
             if (error) {
                 console.error('Upload error:', error);
+                alert('Upload failed: ' + error.message);
                 return null;
             }
 
@@ -786,7 +913,7 @@
             return publicUrl;
         }
 
-        // Avatar upload
+        // Avatar
         document.getElementById('avatar-upload').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -799,16 +926,14 @@
                 const p = document.getElementById('avatar-preview');
                 p.src = url;
                 p.classList.add('show');
+                document.getElementById('live-avatar').src = url;
                 progress.textContent = '✅ Uploaded';
                 progress.style.color = '#4ade80';
                 markUnsaved();
-            } else {
-                progress.textContent = '❌ Upload failed';
-                progress.style.color = '#ef4444';
             }
         });
 
-        // Banner upload
+        // Banner
         document.getElementById('banner-upload').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -824,13 +949,10 @@
                 progress.textContent = '✅ Uploaded';
                 progress.style.color = '#4ade80';
                 markUnsaved();
-            } else {
-                progress.textContent = '❌ Upload failed';
-                progress.style.color = '#ef4444';
             }
         });
 
-        // Video upload
+        // Video
         document.getElementById('video-upload').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -846,13 +968,10 @@
                 progress.textContent = '✅ Uploaded';
                 progress.style.color = '#4ade80';
                 markUnsaved();
-            } else {
-                progress.textContent = '❌ Upload failed';
-                progress.style.color = '#ef4444';
             }
         });
 
-        // Music upload
+        // Music
         document.getElementById('music-upload').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -868,15 +987,25 @@
                 progress.textContent = '✅ Uploaded';
                 progress.style.color = '#4ade80';
                 markUnsaved();
-            } else {
-                progress.textContent = '❌ Upload failed';
-                progress.style.color = '#ef4444';
             }
         });
 
-        // Color preview
+        // Color presets
+        document.querySelectorAll('.color-preset').forEach(el => {
+            el.addEventListener('click', () => {
+                document.querySelectorAll('.color-preset').forEach(x => x.classList.remove('active'));
+                el.classList.add('active');
+                const color = el.dataset.color;
+                document.getElementById('theme-color').value = color;
+                document.getElementById('color-preview').style.background = color;
+                markUnsaved();
+            });
+        });
+
+        // Color input
         document.getElementById('theme-color').addEventListener('input', (e) => {
             document.getElementById('color-preview').style.background = e.target.value;
+            document.querySelectorAll('.color-preset').forEach(x => x.classList.remove('active'));
             markUnsaved();
         });
 
@@ -889,6 +1018,7 @@
         document.querySelectorAll('.toggle-switch').forEach(el => {
             el.addEventListener('click', () => {
                 el.classList.toggle('active');
+                el.closest('.toggle-card')?.classList.toggle('active');
                 markUnsaved();
             });
         });
@@ -933,8 +1063,6 @@
             if (!confirm('Reset all changes?')) return;
             uploadedUrls = { avatar_url: null, banner_url: null, video_url: null, music_url: null };
             load();
-            document.getElementById('save-status').textContent = 'No changes';
-            document.getElementById('save-status').style.color = '#888';
         });
 
         // Sidebar
