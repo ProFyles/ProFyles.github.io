@@ -7,194 +7,53 @@
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
     <style>
-        .settings-section {
-            background: #0d0d0d;
-            border: 1px solid #1a1a1a;
-            border-radius: 20px;
-            padding: 22px;
-            margin-bottom: 16px;
-        }
-        .settings-section h3 {
-            font-size: 15px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .settings-section h3 svg {
-            width: 18px;
-            height: 18px;
-            color: #a855f7;
-        }
-        .settings-label {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 8px;
-            display: block;
-            font-weight: 600;
-        }
-        .settings-input {
-            width: 100%;
-            height: 48px;
-            background: #151515;
-            border: 1px solid #222;
-            border-radius: 12px;
-            color: white;
-            padding: 0 16px;
-            font-size: 14px;
-            outline: none;
-            margin-bottom: 14px;
-            font-family: inherit;
-            transition: border-color 0.2s;
-        }
-        .settings-input:focus {
-            border-color: #5865F2;
-            background: #181818;
-        }
-        .settings-input:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .settings-btn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #a855f7, #5865F2);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+        .settings-section { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 20px; padding: 22px; margin-bottom: 16px; }
+        .settings-section h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .settings-section h3 svg { width: 18px; height: 18px; color: #a855f7; }
+        .settings-label { font-size: 12px; color: #888; margin-bottom: 8px; display: block; font-weight: 600; }
+        .settings-input { width: 100%; height: 48px; background: #151515; border: 1px solid #222; border-radius: 12px; color: white; padding: 0 16px; font-size: 14px; outline: none; margin-bottom: 14px; font-family: inherit; transition: border-color 0.2s; }
+        .settings-input:focus { border-color: #5865F2; background: #181818; }
+        .settings-input:disabled { opacity: 0.5; cursor: not-allowed; }
+        .settings-btn { padding: 12px 24px; background: linear-gradient(135deg, #a855f7, #5865F2); color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform 0.2s; }
         .settings-btn:hover { transform: translateY(-2px); }
-        .settings-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .settings-btn.danger {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-
-        /* Info Cards */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-        @media (min-width: 600px) {
-            .info-grid { grid-template-columns: 1fr 1fr; }
-        }
-        .info-item {
-            background: #0a0a0a;
-            border: 1px solid #1a1a1a;
-            border-radius: 12px;
-            padding: 14px;
-        }
-        .info-label {
-            font-size: 11px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-            font-weight: 700;
-        }
-        .info-value {
-            font-size: 14px;
-            color: white;
-            font-weight: 600;
-            word-break: break-all;
-        }
-        .info-value.mono {
-            font-family: monospace;
-            color: #a855f7;
-        }
-
-        /* Danger Zone */
-        .danger-zone {
-            border-color: rgba(239, 68, 68, 0.3);
-            background: rgba(239, 68, 68, 0.03);
-        }
+        .settings-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .settings-btn.danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .info-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        @media (min-width: 600px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+        .info-item { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 12px; padding: 14px; }
+        .info-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 700; }
+        .info-value { font-size: 14px; color: white; font-weight: 600; word-break: break-all; }
+        .info-value.mono { font-family: monospace; color: #a855f7; }
+        .danger-zone { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.03); }
         .danger-zone h3 svg { color: #ef4444; }
-        .danger-text {
-            color: #888;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        #settings-message {
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: none;
-        }
-        #settings-message.success {
-            background: rgba(74, 222, 128, 0.1);
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            color: #4ade80;
-            display: block;
-        }
-        #settings-message.error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #ef4444;
-            display: block;
-        }
-
-        /* Delete Modal */
-        .delete-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
+        .danger-text { color: #888; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
+        #settings-message { padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 600; margin-bottom: 16px; display: none; }
+        #settings-message.success { background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.3); color: #4ade80; display: block; }
+        #settings-message.error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; display: block; }
+        .delete-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .delete-modal.show { display: flex; }
-        .delete-box {
-            background: #0d0d0d;
-            border: 1px solid #2a1a1a;
-            border-radius: 20px;
-            padding: 25px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-        .delete-box h3 {
-            color: #ef4444;
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .delete-box p {
-            color: #888;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .delete-actions {
-            display: flex;
-            gap: 10px;
-        }
-        .delete-actions button {
-            flex: 1;
-            height: 46px;
-            border-radius: 12px;
-            border: none;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-        }
+        .delete-box { background: #0d0d0d; border: 1px solid #2a1a1a; border-radius: 20px; padding: 25px; max-width: 420px; width: 100%; text-align: center; }
+        .delete-box h3 { color: #ef4444; font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+        .delete-box p { color: #888; font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+        .delete-box input { width: 100%; height: 48px; background: #151515; border: 1px solid #2a1a1a; border-radius: 12px; color: white; padding: 0 16px; font-size: 14px; outline: none; margin-bottom: 14px; text-align: center; font-family: monospace; }
+        .delete-box input:focus { border-color: #ef4444; }
+        .delete-actions { display: flex; gap: 10px; }
+        .delete-actions button { flex: 1; height: 46px; border-radius: 12px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; }
         .btn-cancel { background: #1a1a1a; color: #888; }
         .btn-confirm { background: #ef4444; color: white; }
+        .btn-confirm:disabled { opacity: 0.4; cursor: not-allowed; }
+        .terms-box { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 12px; padding: 16px; max-height: 200px; overflow-y: auto; font-size: 12px; color: #888; line-height: 1.6; margin-bottom: 14px; }
+        .terms-box h4 { color: white; font-size: 13px; margin-bottom: 8px; }
+        .terms-box p { margin-bottom: 8px; }
+        .terms-check { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .terms-check input { width: 20px; height: 20px; accent-color: #5865F2; cursor: pointer; }
+        .terms-check label { font-size: 13px; color: #ccc; cursor: pointer; }
+        .credits-card { background: linear-gradient(135deg, #1a0f22, #0d0d0d); border: 1px solid #2a1a33; border-radius: 16px; padding: 20px; text-align: center; }
+        .credits-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #a855f7, #5865F2); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 900; color: white; }
+        .credits-name { font-size: 20px; font-weight: 800; color: white; margin-bottom: 4px; }
+        .credits-role { font-size: 13px; color: #a855f7; font-weight: 600; margin-bottom: 12px; }
+        .credits-info { font-size: 12px; color: #888; line-height: 1.8; text-align: left; }
+        .credits-info span { color: #ccc; font-weight: 600; }
     </style>
 </head>
 <body class="dashboard-body">
@@ -262,61 +121,36 @@
         <!-- Account Info -->
         <div class="settings-section">
             <h3>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 Account Information
             </h3>
             <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">Username</div>
-                    <div class="info-value" id="info-username">—</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">UID</div>
-                    <div class="info-value mono" id="info-uid">—</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Email</div>
-                    <div class="info-value" id="info-email">—</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Member Since</div>
-                    <div class="info-value" id="info-created">—</div>
-                </div>
+                <div class="info-item"><div class="info-label">Username</div><div class="info-value" id="info-username">—</div></div>
+                <div class="info-item"><div class="info-label">UID</div><div class="info-value mono" id="info-uid">—</div></div>
+                <div class="info-item"><div class="info-label">Email</div><div class="info-value" id="info-email">—</div></div>
+                <div class="info-item"><div class="info-label">Member Since</div><div class="info-value" id="info-created">—</div></div>
             </div>
         </div>
 
         <!-- Profile -->
         <div class="settings-section">
             <h3>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 Profile Settings
             </h3>
             <label class="settings-label">Display Name</label>
             <input type="text" id="settings-display-name" class="settings-input" placeholder="Your display name" maxlength="30">
-
             <label class="settings-label">Bio</label>
             <textarea id="settings-bio" class="settings-input" style="height:100px;padding:14px 16px;resize:vertical;" placeholder="Your bio" maxlength="200"></textarea>
-
             <label class="settings-label">Location</label>
             <input type="text" id="settings-location" class="settings-input" placeholder="City, Country" maxlength="50">
-
             <button id="save-profile-btn" class="settings-btn">Save Changes</button>
         </div>
 
         <!-- Username Change -->
         <div class="settings-section">
             <h3>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                 Change Username
             </h3>
             <p style="color:#888;font-size:12px;margin-bottom:14px;">⚠️ You can change your username only once every 30 days.</p>
@@ -325,20 +159,76 @@
             <button id="save-username-btn" class="settings-btn">Change Username</button>
         </div>
 
+        <!-- Credits -->
+        <div class="settings-section">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                Credits
+            </h3>
+            <div class="credits-card">
+                <div class="credits-avatar">FD</div>
+                <div class="credits-name">Faisal Dany</div>
+                <div class="credits-role">Developer & Founder</div>
+                <div class="credits-info">
+                    <span>Born:</span> 2009/09/21<br>
+                    <span>Location:</span> Morocco, Casablanca<br>
+                    <span>Origin:</span> Amazighi<br>
+                    <span>Role:</span> Developer<br>
+                    <span>Skills:</span> HTML, JavaScript, CSS, C, C++, Java<br>
+                    <span>Interests:</span> Learning English & Programming Languages
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="settings-section">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                Terms & Conditions
+            </h3>
+            <div class="terms-box">
+                <h4>1. Acceptance of Terms</h4>
+                <p>By using Profy, you agree to these terms. If you do not agree, please do not use the service.</p>
+                <h4>2. User Responsibility</h4>
+                <p>You are solely responsible for all content you upload, share, or display on your profile. Profy is not responsible for any user-generated content.</p>
+                <h4>3. Account Deletion</h4>
+                <p>If you delete your account, all your data will be permanently removed. Profy is not responsible for any loss of data, followers, or content.</p>
+                <h4>4. Premium & Refunds</h4>
+                <p>All premium purchases are final. Refunds are not available after purchase. If you request a refund, you will not receive your money back.</p>
+                <h4>5. Legal Protection</h4>
+                <p>Profy and its creator (Faisal Dany) are not responsible for any legal issues, disputes, or damages caused by users. By using Profy, you agree that any legal case against the platform or its creator will be handled according to these terms.</p>
+                <h4>6. Content Policy</h4>
+                <p>You may not upload illegal, harmful, or explicit content. Profy reserves the right to remove any content or account without notice.</p>
+                <h4>7. Changes to Terms</h4>
+                <p>Profy may update these terms at any time. Continued use of the service means you accept the new terms.</p>
+                <h4>8. Limitation of Liability</h4>
+                <p>Profy is provided "as is". We are not liable for any downtime, data loss, or damages.</p>
+            </div>
+            <div class="terms-check">
+                <input type="checkbox" id="terms-agree">
+                <label for="terms-agree">I have read and agree to the Terms & Conditions</label>
+            </div>
+            <button id="save-terms-btn" class="settings-btn">Save Agreement</button>
+        </div>
+
         <!-- Danger Zone -->
         <div class="settings-section danger-zone">
             <h3>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                 Danger Zone
             </h3>
-            <p class="danger-text">
-                Once you delete your account, there is no going back. All your data including your profile, links, and stats will be permanently removed.
-            </p>
+            <p class="danger-text">Once you delete your account, there is no going back. All your data will be permanently removed.</p>
             <button id="delete-account-btn" class="settings-btn danger">Delete Account</button>
+        </div>
+
+        <div class="user-card-bottom" style="margin-top:30px;">
+            <div class="user-avatar-small"><img id="user-avatar-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default"></div>
+            <div class="user-info-bottom">
+                <div id="bottom-username">username</div>
+                <div id="bottom-uid">UID #0000</div>
+            </div>
+            <button id="user-menu-toggle" class="user-menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+            <div id="user-dropdown" class="user-dropdown"></div>
         </div>
     </main>
 
@@ -346,16 +236,18 @@
     <div id="delete-modal" class="delete-modal">
         <div class="delete-box">
             <h3>Delete Account?</h3>
-            <p>This action cannot be undone. All your data will be permanently deleted.</p>
+            <p>This action cannot be undone. To confirm, type your username below:</p>
+            <input type="text" id="delete-confirm-input" placeholder="Type username here">
             <div class="delete-actions">
                 <button id="cancel-delete" class="btn-cancel">Cancel</button>
-                <button id="confirm-delete" class="btn-confirm">Delete Forever</button>
+                <button id="confirm-delete" class="btn-confirm" disabled>Delete Forever</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../../js/supabase.js"></script>
+    <script src="../../js/dashboard.js"></script>
     <script>
         let currentUser = null;
         let currentProfile = null;
@@ -378,87 +270,50 @@
             if (!profile) { window.location.href = '/Login'; return; }
             currentProfile = profile;
 
-            // Info
             document.getElementById('info-username').textContent = profile.username;
             document.getElementById('info-uid').textContent = "#" + String(profile.uid_number || 0).padStart(4, "0");
             document.getElementById('info-email').textContent = user.email || '—';
-            document.getElementById('info-created').textContent = 
-                new Date(profile.created_at).toLocaleDateString('en-US', { 
-                    year: 'numeric', month: 'short', day: 'numeric' 
-                });
+            document.getElementById('info-created').textContent = new Date(profile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
-            // Form
             document.getElementById('settings-display-name').value = profile.display_name || '';
             document.getElementById('settings-bio').value = profile.bio || '';
             document.getElementById('settings-location').value = profile.location || '';
             document.getElementById('settings-username').placeholder = profile.username;
+
+            if (profile.terms_agreed) {
+                document.getElementById('terms-agree').checked = true;
+            }
         }
 
-        // Save Profile
         document.getElementById('save-profile-btn').addEventListener('click', async () => {
             const btn = document.getElementById('save-profile-btn');
             btn.disabled = true;
             btn.textContent = 'Saving...';
-
             const updates = {
                 display_name: document.getElementById('settings-display-name').value.trim() || null,
                 bio: document.getElementById('settings-bio').value.trim() || '',
                 location: document.getElementById('settings-location').value.trim() || null
             };
-
-            const { error } = await supabaseClient
-                .from('profiles').update(updates).eq('id', currentUser.id);
-
+            const { error } = await supabaseClient.from('profiles').update(updates).eq('id', currentUser.id);
             btn.disabled = false;
             btn.textContent = 'Save Changes';
-
-            if (error) {
-                showMessage('Error: ' + error.message, 'error');
-                return;
-            }
-
+            if (error) { showMessage('Error: ' + error.message, 'error'); return; }
             showMessage('✅ Profile updated successfully!', 'success');
         });
 
-        // Change Username
         document.getElementById('save-username-btn').addEventListener('click', async () => {
             const btn = document.getElementById('save-username-btn');
             const newUsername = document.getElementById('settings-username').value.trim().toLowerCase();
-
-            if (!/^[a-z0-9._]{4,20}$/.test(newUsername)) {
-                showMessage('Username must be 4-20 chars (a-z, 0-9, . _)', 'error');
-                return;
-            }
-
-            if (newUsername === currentProfile.username) {
-                showMessage('This is already your username', 'error');
-                return;
-            }
-
+            if (!/^[a-z0-9._]{4,20}$/.test(newUsername)) { showMessage('Username must be 4-20 chars (a-z, 0-9, . _)', 'error'); return; }
+            if (newUsername === currentProfile.username) { showMessage('This is already your username', 'error'); return; }
             btn.disabled = true;
             btn.textContent = 'Checking...';
-
-            const { data: existing } = await supabaseClient
-                .from('profiles').select('username').eq('username', newUsername).maybeSingle();
-
-            if (existing) {
-                showMessage('Username is already taken', 'error');
-                btn.disabled = false;
-                btn.textContent = 'Change Username';
-                return;
-            }
-
-            const { error } = await supabaseClient
-                .from('profiles').update({ username: newUsername }).eq('id', currentUser.id);
-
+            const { data: existing } = await supabaseClient.from('profiles').select('username').eq('username', newUsername).maybeSingle();
+            if (existing) { showMessage('Username is already taken', 'error'); btn.disabled = false; btn.textContent = 'Change Username'; return; }
+            const { error } = await supabaseClient.from('profiles').update({ username: newUsername }).eq('id', currentUser.id);
             btn.disabled = false;
             btn.textContent = 'Change Username';
-
-            if (error) {
-                showMessage('Error: ' + error.message, 'error');
-                return;
-            }
-
+            if (error) { showMessage('Error: ' + error.message, 'error'); return; }
             currentProfile.username = newUsername;
             document.getElementById('info-username').textContent = newUsername;
             document.getElementById('settings-username').value = '';
@@ -466,9 +321,23 @@
             showMessage('✅ Username changed successfully!', 'success');
         });
 
-        // Delete Account
+        document.getElementById('save-terms-btn').addEventListener('click', async () => {
+            const agreed = document.getElementById('terms-agree').checked;
+            if (!agreed) { showMessage('Please agree to the Terms & Conditions', 'error'); return; }
+            const { error } = await supabaseClient.from('profiles').update({ terms_agreed: true }).eq('id', currentUser.id);
+            if (error) { showMessage('Error: ' + error.message, 'error'); return; }
+            showMessage('✅ Terms agreed and saved!', 'success');
+        });
+
         document.getElementById('delete-account-btn').addEventListener('click', () => {
             document.getElementById('delete-modal').classList.add('show');
+            document.getElementById('delete-confirm-input').value = '';
+            document.getElementById('confirm-delete').disabled = true;
+        });
+
+        document.getElementById('delete-confirm-input').addEventListener('input', (e) => {
+            const val = e.target.value.trim().toLowerCase();
+            document.getElementById('confirm-delete').disabled = (val !== currentProfile.username.toLowerCase());
         });
 
         document.getElementById('cancel-delete').addEventListener('click', () => {
@@ -479,28 +348,9 @@
             const btn = document.getElementById('confirm-delete');
             btn.disabled = true;
             btn.textContent = 'Deleting...';
-
-            // Delete profile
             await supabaseClient.from('profiles').delete().eq('id', currentUser.id);
-
-            // Delete related data
-            await supabaseClient.from('discord_links').delete().eq('user_id', currentUser.id);
-
-            // Sign out
             await supabaseClient.auth.signOut();
-
             window.location.href = '/';
-        });
-
-        // Sidebar
-        document.getElementById('menu-toggle').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('overlay').classList.toggle('show');
-        });
-
-        document.getElementById('overlay').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('overlay').classList.remove('show');
         });
 
         document.getElementById('logout-btn').addEventListener('click', async () => {

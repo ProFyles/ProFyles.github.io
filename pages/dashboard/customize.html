@@ -71,6 +71,13 @@
         .track-remove { width: 30px; height: 30px; background: transparent; border: none; color: #666; cursor: pointer; font-size: 14px; }
         .track-remove:hover { color: #ff4444; }
         .add-track-box { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 14px; padding: 16px; }
+        .discord-preview { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 14px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .discord-avatar-wrap { width: 50px; height: 50px; border-radius: 50%; overflow: hidden; background: #151515; flex-shrink: 0; position: relative; }
+        .discord-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .discord-info { flex: 1; min-width: 0; text-align: left; }
+        .discord-name { font-size: 15px; font-weight: 700; color: white; }
+        .discord-tag { font-size: 12px; color: #888; }
+        .discord-status-text { font-size: 12px; color: #4ade80; margin-top: 3px; }
     </style>
 </head>
 <body class="dashboard-body">
@@ -106,24 +113,60 @@
             <div class="preview-uid" id="live-uid">#0000</div>
         </div>
 
+        <!-- DISCORD LINK -->
+        <div class="section">
+            <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.317 4.37a19.79 19.79 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></div><div><div class="section-title">Discord Profile</div><div class="section-subtitle">Show your Discord account on your profile</div></div></div>
+            
+            <div class="discord-preview">
+                <div class="discord-avatar-wrap"><img id="discord-avatar-preview" src="https://api.dicebear.com/7.x/avataaars/svg?seed=discord"></div>
+                <div class="discord-info">
+                    <div class="discord-name" id="discord-name-preview">Not linked</div>
+                    <div class="discord-tag" id="discord-tag-preview">#0000</div>
+                    <div class="discord-status-text" id="discord-status-preview">Offline</div>
+                </div>
+            </div>
+
+            <label class="custom-label">Discord Username</label>
+            <input type="text" id="discord-username" class="custom-input" placeholder="username" maxlength="32">
+            <label class="custom-label">Discord Tag</label>
+            <input type="text" id="discord-tag" class="custom-input" placeholder="#0000" maxlength="10">
+            <label class="custom-label">Discord Avatar URL</label>
+            <input type="text" id="discord-avatar" class="custom-input" placeholder="https://cdn.discordapp.com/...">
+            <label class="custom-label">Discord Decoration</label>
+            <input type="text" id="discord-decoration" class="custom-input" placeholder="Decoration URL (optional)">
+            <label class="custom-label">Discord Status</label>
+            <select id="discord-status" class="custom-input" style="cursor:pointer;">
+                <option value="online">🟢 Online</option>
+                <option value="idle">🟡 Idle</option>
+                <option value="dnd">🔴 Do Not Disturb</option>
+                <option value="offline">⚫ Offline</option>
+            </select>
+            <label class="custom-label">Currently Playing (Roblox / Spotify)</label>
+            <input type="text" id="discord-game" class="custom-input" placeholder="e.g. Roblox, Spotify">
+        </div>
+
+        <!-- AVATAR -->
         <div class="section">
             <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="section-title">Avatar</div><div class="section-subtitle">PNG, JPG, GIF (max 5MB)</div></div></div>
             <label class="upload-box" for="avatar-upload"><div class="upload-box-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="upload-box-title">Upload Avatar</div><div class="upload-box-hint">Click to browse</div><input type="file" id="avatar-upload" accept="image/*"></label>
             <img id="avatar-preview" class="upload-preview"><div class="upload-progress" id="avatar-progress"></div>
         </div>
 
+        <!-- BANNER -->
         <div class="section">
             <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div><div><div class="section-title">Banner</div><div class="section-subtitle">PNG, JPG (max 5MB)</div></div></div>
             <label class="upload-box" for="banner-upload"><div class="upload-box-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="upload-box-title">Upload Banner</div><div class="upload-box-hint">Click to browse</div><input type="file" id="banner-upload" accept="image/*"></label>
             <img id="banner-preview" class="upload-preview"><div class="upload-progress" id="banner-progress"></div>
         </div>
 
+        <!-- VIDEO -->
         <div class="section">
             <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><div><div class="section-title">Background Video</div><div class="section-subtitle">MP4, WEBM (max 50MB)</div></div></div>
             <label class="upload-box" for="video-upload"><div class="upload-box-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="upload-box-title">Upload Video</div><div class="upload-box-hint">Click to browse</div><input type="file" id="video-upload" accept="video/*"></label>
             <video id="video-preview" class="upload-preview" controls muted></video><div class="upload-progress" id="video-progress"></div>
         </div>
 
+        <!-- MUSIC -->
         <div class="section">
             <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div><div class="section-title">Music Playlist</div><div class="section-subtitle">Add multiple tracks</div></div></div>
             <div id="tracks-list" style="margin-bottom:12px;"></div>
@@ -143,6 +186,7 @@
             </div>
         </div>
 
+        <!-- ABOUT -->
         <div class="section">
             <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div class="section-title">About You</div><div class="section-subtitle">Tell people about yourself</div></div></div>
             <label class="custom-label">Display Name</label>
@@ -153,21 +197,23 @@
             <input type="text" id="location" class="custom-input" placeholder="City, Country">
         </div>
 
+        <!-- THEME -->
         <div class="section">
             <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div><div><div class="section-title">Theme Color</div><div class="section-subtitle">Pick your accent</div></div></div>
             <div class="color-presets">
-                <div class="color-preset" data-color="#a855f7" style="background:#a855f7;color:#a855f7;"></div>
-                <div class="color-preset" data-color="#5865F2" style="background:#5865F2;color:#5865F2;"></div>
-                <div class="color-preset" data-color="#ec4899" style="background:#ec4899;color:#ec4899;"></div>
-                <div class="color-preset" data-color="#10b981" style="background:#10b981;color:#10b981;"></div>
-                <div class="color-preset" data-color="#f59e0b" style="background:#f59e0b;color:#f59e0b;"></div>
-                <div class="color-preset" data-color="#ef4444" style="background:#ef4444;color:#ef4444;"></div>
-                <div class="color-preset" data-color="#06b6d4" style="background:#06b6d4;color:#06b6d4;"></div>
-                <div class="color-preset" data-color="#ffffff" style="background:#ffffff;color:#ffffff;"></div>
+                <div class="color-preset" data-color="#a855f7" style="background:#a855f7;"></div>
+                <div class="color-preset" data-color="#5865F2" style="background:#5865F2;"></div>
+                <div class="color-preset" data-color="#ec4899" style="background:#ec4899;"></div>
+                <div class="color-preset" data-color="#10b981" style="background:#10b981;"></div>
+                <div class="color-preset" data-color="#f59e0b" style="background:#f59e0b;"></div>
+                <div class="color-preset" data-color="#ef4444" style="background:#ef4444;"></div>
+                <div class="color-preset" data-color="#06b6d4" style="background:#06b6d4;"></div>
+                <div class="color-preset" data-color="#ffffff" style="background:#ffffff;"></div>
             </div>
             <div class="color-row"><div class="color-preview" id="color-preview" style="background:#a855f7;"></div><input type="text" id="theme-color" class="color-input" value="#a855f7" maxlength="7"></div>
         </div>
 
+        <!-- EFFECTS -->
         <div class="section">
             <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="section-title">Effects</div><div class="section-subtitle">Add visual flair</div></div></div>
             <div class="toggle-card" id="card-glow-username"><div class="toggle-info"><div class="toggle-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/></svg></div><div><div class="toggle-label">Glow Username</div><div class="toggle-hint">Shiny name effect</div></div></div><div class="toggle-switch" id="glow-username" data-key="glow_username"></div></div>
@@ -183,6 +229,16 @@
         <span class="save-bar-status" id="save-status">No changes</span>
         <button class="reset-btn" id="reset-btn">Reset</button>
         <button class="save-btn" id="save-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Save</button>
+    </div>
+
+    <div class="user-card-bottom" style="margin-top:30px;">
+        <div class="user-avatar-small"><img id="user-avatar-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default"></div>
+        <div class="user-info-bottom">
+            <div id="bottom-username">username</div>
+            <div id="bottom-uid">UID #0000</div>
+        </div>
+        <button id="user-menu-toggle" class="user-menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+        <div id="user-dropdown" class="user-dropdown"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

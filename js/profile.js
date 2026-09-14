@@ -160,15 +160,59 @@ async function loadProfile() {
         const usernameEl = document.getElementById("display-username");
         usernameEl.textContent = data.display_name || data.username;
 
+        // Verified Badge
+        if (data.verified) {
+            const vBadge = document.getElementById("verified-badge");
+            if (vBadge) vBadge.style.display = "inline-flex";
+        }
+
         // ==========================================
-        // BADGES (2 only)
+        // DISCORD CARD
+        // ==========================================
+        if (data.discord_username) {
+            const discordCard = document.getElementById("discord-card");
+            discordCard.style.display = "flex";
+
+            document.getElementById("discord-avatar").src = 
+                data.discord_avatar || "https://api.dicebear.com/7.x/avataaars/svg?seed=" + data.discord_username;
+            
+            document.getElementById("discord-name").textContent = data.discord_username;
+            document.getElementById("discord-tag").textContent = data.discord_tag || "#0000";
+
+            // Status
+            const statusEl = document.getElementById("discord-status");
+            const statusDot = document.getElementById("discord-status-dot");
+            const statusMap = {
+                online: { text: "🟢 Online", color: "#4ade80" },
+                idle: { text: "🟡 Idle", color: "#fbbf24" },
+                dnd: { text: "🔴 Do Not Disturb", color: "#ef4444" },
+                offline: { text: "⚫ Offline", color: "#666" }
+            };
+            const st = statusMap[data.discord_status] || statusMap.offline;
+            statusEl.textContent = st.text;
+            statusDot.style.background = st.color;
+
+            // Game
+            if (data.discord_game) {
+                statusEl.textContent += " • Playing " + data.discord_game;
+            }
+
+            // Decoration
+            if (data.discord_decoration) {
+                const deco = document.createElement("img");
+                deco.src = data.discord_decoration;
+                deco.className = "discord-decoration";
+                document.querySelector(".discord-card-avatar").appendChild(deco);
+            }
+        }
+
+        // ==========================================
+        // BADGES
         // ==========================================
         const badgesContainer = document.getElementById("badges-container");
         badgesContainer.innerHTML = '';
-
         const glowClass = data.glow_badges ? ' glow' : '';
 
-        // Verification Badge
         if (data.verified) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Verification">
@@ -177,7 +221,6 @@ async function loadProfile() {
             `;
         }
 
-        // Supporter Badge (UID 1-100)
         if (data.uid_number && data.uid_number >= 1 && data.uid_number <= 100) {
             badgesContainer.innerHTML += `
                 <div class="badge-item${glowClass}" data-name="Supporter">
@@ -187,7 +230,7 @@ async function loadProfile() {
         }
 
         // ==========================================
-        // LINKS (Small Icons)
+        // LINKS
         // ==========================================
         const linksContainer = document.getElementById("links-container");
         linksContainer.innerHTML = "";
@@ -215,8 +258,7 @@ async function loadProfile() {
         const locationEl = document.getElementById("display-location");
         if (data.location) {
             locationEl.textContent = "📍 " + data.location;
-        } else {
-            locationEl.style.display = "none";
+            locationEl.style.display = "inline-flex";
         }
 
         // Bio
