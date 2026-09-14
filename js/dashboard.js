@@ -75,6 +75,17 @@ async function loadDashboardData() {
         return;
     }
 
+    // ==========================================
+    // AUTO-AGREE TO TERMS
+    // ==========================================
+    if (!profile.terms_agreed) {
+        await supabaseClient
+            .from("profiles")
+            .update({ terms_agreed: true })
+            .eq("id", user.id);
+        profile.terms_agreed = true;
+    }
+
     // DataSaver: save profile locally
     if (window.saveLocalData) {
         window.saveLocalData('my_profile_' + user.id, {
@@ -150,6 +161,14 @@ async function loadDashboardData() {
                 <span>Settings</span>
             </a>
             <div class="dropdown-divider" style="height:1px;background:#1a1a1a;margin:6px 0;"></div>
+            <a href="/terms" class="dropdown-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <span>Terms</span>
+            </a>
+            <a href="/credits" class="dropdown-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                <span>Credits</span>
+            </a>
             <a href="${profileUrl}" target="_blank" class="dropdown-item">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 <span>My Page</span>

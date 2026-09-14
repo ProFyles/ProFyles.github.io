@@ -6,83 +6,17 @@
     <title>Verify — Profy</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .verify-page {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-            text-align: center;
-        }
-        .verify-box {
-            max-width: 420px;
-            width: 100%;
-            background: #0d0d0d;
-            border: 1px solid #1a1a1a;
-            border-radius: 20px;
-            padding: 40px 30px;
-        }
-        .verify-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #a855f7, #5865F2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            font-weight: 900;
-            color: white;
-        }
-        .verify-box h1 {
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
-        .verify-box p {
-            color: #888;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-        .verify-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 32px;
-            background: #5865F2;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            justify-content: center;
-        }
-        .verify-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
-        }
-        .status {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-        .status.success {
-            background: #0a2e1a;
-            color: #4ade80;
-        }
-        .status.error {
-            background: #2e0a0a;
-            color: #f87171;
-        }
-        .status.loading {
-            background: #1a1a2e;
-            color: #60a5fa;
-        }
+        .verify-page { min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 25px; text-align: center; }
+        .verify-box { max-width: 420px; width: 100%; background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 20px; padding: 40px 30px; }
+        .verify-logo { width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 20px; background: linear-gradient(135deg, #a855f7, #5865F2); display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; color: white; }
+        .verify-box h1 { font-size: 26px; margin-bottom: 10px; }
+        .verify-box p { color: #888; margin-bottom: 30px; line-height: 1.6; font-size: 14px; }
+        .verify-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: #5865F2; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; width: 100%; justify-content: center; }
+        .verify-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4); }
+        .status { margin-top: 20px; padding: 15px; border-radius: 10px; font-size: 14px; }
+        .status.success { background: #0a2e1a; color: #4ade80; }
+        .status.error { background: #2e0a0a; color: #f87171; }
+        .status.loading { background: #1a1a2e; color: #60a5fa; }
     </style>
 </head>
 <body>
@@ -120,14 +54,12 @@
 
         btn.addEventListener('click', async () => {
             localStorage.setItem('profy_verify_code', code);
-
             const { error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'discord',
                 options: {
                     redirectTo: window.location.origin + '/verify.html?code=' + code
                 }
             });
-
             if (error) {
                 statusEl.className = 'status error';
                 statusEl.textContent = 'Error: ' + error.message;
@@ -148,9 +80,9 @@
                 p_discord_username: user.user_metadata.full_name || user.email
             });
 
-            if (error || !data.success) {
+            if (error || !data || !data.success) {
                 statusEl.className = 'status error';
-                statusEl.textContent = 'Error: ' + (error?.message || data?.error);
+                statusEl.textContent = 'Error: ' + (error?.message || data?.error || 'Unknown error');
                 return;
             }
 
@@ -161,6 +93,5 @@
 
         checkVerification();
     </script>
-
 </body>
 </html>

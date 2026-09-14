@@ -10,11 +10,6 @@
         .customize-header { margin-bottom: 25px; text-align: center; }
         .customize-header h1 { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #a855f7, #5865F2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
         .customize-header p { color: #666; font-size: 14px; }
-        .preview-card { background: linear-gradient(135deg, #1a0f22, #0d0d0d); border: 1px solid #2a1a33; border-radius: 24px; padding: 24px; margin-bottom: 20px; text-align: center; }
-        .preview-avatar { width: 80px; height: 80px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #a855f7, #5865F2); margin: 0 auto 12px; }
-        .preview-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #0d0d0d; }
-        .preview-name { font-size: 20px; font-weight: 800; color: white; margin-bottom: 4px; }
-        .preview-uid { font-size: 12px; color: #666; font-family: monospace; }
         .section { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 20px; padding: 20px; margin-bottom: 14px; }
         .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
         .section-icon { width: 38px; height: 38px; background: linear-gradient(135deg, #a855f7, #5865F2); border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -24,8 +19,6 @@
         .custom-label { font-size: 12px; color: #888; margin-bottom: 8px; display: block; font-weight: 600; }
         .custom-input { width: 100%; height: 46px; background: #151515; border: 1px solid #222; border-radius: 12px; color: white; padding: 0 16px; font-size: 14px; outline: none; margin-bottom: 12px; font-family: inherit; }
         .custom-input:focus { border-color: #5865F2; }
-        .custom-textarea { width: 100%; min-height: 90px; background: #151515; border: 1px solid #222; border-radius: 12px; color: white; padding: 14px 16px; font-size: 14px; outline: none; resize: vertical; font-family: inherit; }
-        .custom-textarea:focus { border-color: #5865F2; }
         .upload-box { border: 2px dashed #252525; border-radius: 14px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.25s; margin-bottom: 10px; background: #0a0a0a; display: block; }
         .upload-box:hover { border-color: #5865F2; background: #101020; }
         .upload-box input[type="file"] { display: none; }
@@ -36,11 +29,105 @@
         .upload-preview { max-width: 100%; max-height: 150px; border-radius: 12px; margin-top: 10px; display: none; width: 100%; object-fit: cover; }
         .upload-preview.show { display: block; }
         .upload-progress { font-size: 12px; color: #5865F2; margin-top: 8px; text-align: center; font-weight: 600; }
+
+        /* ====== DISCORD CARD (guns.lol style) ====== */
+        .discord-card {
+            background: linear-gradient(135deg, rgba(88,101,242,0.1), rgba(168,85,247,0.05));
+            border: 1px solid rgba(88,101,242,0.3);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .discord-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(88,101,242,0.2), transparent 70%);
+            pointer-events: none;
+        }
+        .discord-avatar-wrap {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #151515;
+            flex-shrink: 0;
+            position: relative;
+            border: 3px solid #5865F2;
+            box-shadow: 0 0 20px rgba(88,101,242,0.4);
+        }
+        .discord-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .discord-avatar-wrap .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid #0d0d0d;
+        }
+        .discord-info {
+            flex: 1;
+            min-width: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .discord-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+        .discord-tag {
+            font-size: 13px;
+            color: #888;
+            font-family: monospace;
+        }
+        .discord-status-text {
+            font-size: 12px;
+            color: #4ade80;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .discord-game {
+            font-size: 12px;
+            color: #a855f7;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .discord-game img {
+            width: 14px;
+            height: 14px;
+        }
+        .discord-decoration {
+            position: absolute;
+            inset: -5px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
         .color-presets { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
         .color-preset { width: 38px; height: 38px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; position: relative; }
         .color-preset:hover { transform: scale(1.1); }
         .color-preset.active { border-color: white; }
-        .color-preset.active::after { content: "✓"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 16px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .color-preset.active::after { content: "✓"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 16px; }
         .color-row { display: flex; align-items: center; gap: 12px; }
         .color-preview { width: 46px; height: 46px; border-radius: 12px; border: 2px solid #222; flex-shrink: 0; }
         .color-input { flex: 1; height: 46px; background: #151515; border: 1px solid #222; border-radius: 12px; color: white; padding: 0 14px; font-size: 14px; outline: none; font-family: monospace; }
@@ -71,13 +158,6 @@
         .track-remove { width: 30px; height: 30px; background: transparent; border: none; color: #666; cursor: pointer; font-size: 14px; }
         .track-remove:hover { color: #ff4444; }
         .add-track-box { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 14px; padding: 16px; }
-        .discord-preview { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 14px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-        .discord-avatar-wrap { width: 50px; height: 50px; border-radius: 50%; overflow: hidden; background: #151515; flex-shrink: 0; position: relative; }
-        .discord-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
-        .discord-info { flex: 1; min-width: 0; text-align: left; }
-        .discord-name { font-size: 15px; font-weight: 700; color: white; }
-        .discord-tag { font-size: 12px; color: #888; }
-        .discord-status-text { font-size: 12px; color: #4ade80; margin-top: 3px; }
     </style>
 </head>
 <body class="dashboard-body">
@@ -107,22 +187,21 @@
             <p>Personalize your profile</p>
         </div>
 
-        <div class="preview-card">
-            <div class="preview-avatar"><img id="live-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default"></div>
-            <div class="preview-name" id="live-name">username</div>
-            <div class="preview-uid" id="live-uid">#0000</div>
-        </div>
-
-        <!-- DISCORD LINK -->
+        <!-- ====== DISCORD CARD ====== -->
         <div class="section">
-            <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.317 4.37a19.79 19.79 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></div><div><div class="section-title">Discord Profile</div><div class="section-subtitle">Show your Discord account on your profile</div></div></div>
+            <div class="section-header"><div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.317 4.37a19.79 19.79 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></div><div><div class="section-title">Discord Profile</div><div class="section-subtitle">Show your Discord account on your profile (guns.lol style)</div></div></div>
             
-            <div class="discord-preview">
-                <div class="discord-avatar-wrap"><img id="discord-avatar-preview" src="https://api.dicebear.com/7.x/avataaars/svg?seed=discord"></div>
+            <!-- Live Preview -->
+            <div class="discord-card" id="discord-preview-card">
+                <div class="discord-avatar-wrap">
+                    <img id="discord-avatar-preview" src="https://api.dicebear.com/7.x/avataaars/svg?seed=discord">
+                    <div class="status-dot" id="discord-status-dot" style="background:#4ade80;"></div>
+                </div>
                 <div class="discord-info">
-                    <div class="discord-name" id="discord-name-preview">Not linked</div>
+                    <div class="discord-name" id="discord-name-preview">username</div>
                     <div class="discord-tag" id="discord-tag-preview">#0000</div>
-                    <div class="discord-status-text" id="discord-status-preview">Offline</div>
+                    <div class="discord-status-text" id="discord-status-preview">🟢 Online</div>
+                    <div class="discord-game" id="discord-game-preview" style="display:none;">🎮 Playing Roblox</div>
                 </div>
             </div>
 
@@ -192,7 +271,7 @@
             <label class="custom-label">Display Name</label>
             <input type="text" id="display-name" class="custom-input" placeholder="Your name" maxlength="30">
             <label class="custom-label">Bio</label>
-            <textarea id="bio" class="custom-textarea" placeholder="Tell us about yourself..." maxlength="200"></textarea>
+            <textarea id="bio" class="custom-input" style="height:90px;padding:14px 16px;resize:vertical;" placeholder="Tell us about yourself..." maxlength="200"></textarea>
             <label class="custom-label" style="margin-top:12px;">Location</label>
             <input type="text" id="location" class="custom-input" placeholder="City, Country">
         </div>
@@ -229,16 +308,6 @@
         <span class="save-bar-status" id="save-status">No changes</span>
         <button class="reset-btn" id="reset-btn">Reset</button>
         <button class="save-btn" id="save-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Save</button>
-    </div>
-
-    <div class="user-card-bottom" style="margin-top:30px;">
-        <div class="user-avatar-small"><img id="user-avatar-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default"></div>
-        <div class="user-info-bottom">
-            <div id="bottom-username">username</div>
-            <div id="bottom-uid">UID #0000</div>
-        </div>
-        <button id="user-menu-toggle" class="user-menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
-        <div id="user-dropdown" class="user-dropdown"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
