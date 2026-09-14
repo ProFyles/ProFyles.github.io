@@ -18,30 +18,25 @@
         </defs>
     </svg>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-logo">
             <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#a855f7"/>
-                        <stop offset="100%" style="stop-color:#5865F2"/>
-                    </linearGradient>
-                </defs>
-                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#navGrad)"/>
+                <defs><linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a855f7"/><stop offset="100%" style="stop-color:#5865F2"/></linearGradient></defs>
+                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#ng)"/>
                 <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
             </svg>
             <span>Profy</span>
         </div>
-        <a href="https://discord.gg/zyzTKZtC2g" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-            </svg>
-            <span>Discord</span>
-        </a>
+        <div class="nav-actions">
+            <a href="/terms" class="nav-btn">Terms</a>
+            <a href="/credits" class="nav-btn">Credits</a>
+            <a href="https://discord.gg/zyzTKZtC2g" target="_blank" class="nav-discord-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+                <span>Discord</span>
+            </a>
+        </div>
     </nav>
 
-    <!-- HERO -->
     <section class="hero">
         <h1 class="hero-title">One link.<br>Everything about you.</h1>
         <p class="hero-subtitle">Create a feature-rich, customizable link-in-bio page in minutes.</p>
@@ -57,9 +52,7 @@
                 Continue with Google
             </button>
             <button id="hero-discord-login" class="hero-btn-discord">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
                 Continue with Discord
             </button>
         </div>
@@ -83,7 +76,6 @@
         </div>
     </section>
 
-    <!-- STATS -->
     <section class="stats">
         <div class="stat-card">
             <div class="stat-value" id="stat-users">0</div>
@@ -99,130 +91,54 @@
         </div>
     </section>
 
-    <!-- FEATURES -->
     <section class="features-section">
         <h2 class="section-title">Everything you want, right here.</h2>
         <p class="section-subtitle">Profy is your go-to for modern, feature-rich link-in-bio pages.</p>
 
         <div class="features">
             <div class="feature-card">
-                <div class="feature-icon-svg">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 20h9"></path>
-                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                    </svg>
-                </div>
+                <div class="feature-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div>
                 <h3>Custom Profile</h3>
                 <p>Personalize your page with avatar, bio, and theme.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon-svg">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                    </svg>
-                </div>
+                <div class="feature-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
                 <h3>Social Links</h3>
                 <p>Add all your social accounts in one place.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon-svg">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                </div>
+                <div class="feature-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
                 <h3>View Counter</h3>
                 <p>See how many people visited your profile.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon-svg">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
-                    </svg>
-                </div>
+                <div class="feature-icon-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg></div>
                 <h3>Fast & Secure</h3>
                 <p>Lightning-fast pages with enterprise security.</p>
             </div>
         </div>
     </section>
 
-    <!-- PRICING -->
-    <section id="pricing" class="pricing">
-        <h2 class="section-title">Explore our exclusive plans</h2>
-
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3>Free</h3>
-                    <div class="pricing-price">
-                        <span class="price">0€</span>
-                        <span class="period">/Lifetime</span>
-                    </div>
-                    <p class="pricing-desc">For beginners, link all your socials in one place.</p>
-                </div>
-                <ul class="pricing-features">
-                    <li>Basic Customization</li>
-                    <li>Profile Analytics</li>
-                    <li>Basic Effects</li>
-                    <li>Add Your Socials</li>
-                </ul>
-                <button class="pricing-btn" onclick="document.getElementById('hero-google-login').click()">Get Started</button>
-            </div>
-
-            <div class="pricing-card pricing-premium">
-                <div class="premium-badge">Most Popular</div>
-                <div class="pricing-header">
-                    <h3>Premium</h3>
-                    <div class="pricing-price">
-                        <span class="price">7,99€</span>
-                        <span class="period">/Lifetime</span>
-                    </div>
-                    <p class="pricing-desc">Pay once. Keep it forever.</p>
-                </div>
-                <ul class="pricing-features">
-                    <li>Exclusive Badge</li>
-                    <li>Profile Layouts</li>
-                    <li>Custom Fonts</li>
-                    <li>Typewriter Animation</li>
-                    <li>Special Profile Effects</li>
-                    <li>Advanced Customization</li>
-                    <li>Metadata & SEO</li>
-                </ul>
-                <button class="pricing-btn pricing-btn-premium">Learn More</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
     <section class="cta">
         <h2 class="cta-title">Over <span class="highlight-purple" id="cta-count">0</span> people use Profy</h2>
         <p class="cta-subtitle">What are you waiting for?</p>
         <button class="hero-btn-primary" onclick="document.getElementById('hero-google-login').click()">Claim Your Profile</button>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-logo">
-            <svg width="24" height="24" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#a855f7"/>
-                        <stop offset="100%" style="stop-color:#5865F2"/>
-                    </linearGradient>
-                </defs>
-                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#footerGrad)"/>
-                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
-            </svg>
+            <svg width="24" height="24" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a855f7"/><stop offset="100%" style="stop-color:#5865F2"/></linearGradient></defs><rect x="2" y="2" width="36" height="36" rx="10" fill="url(#fg)"/><text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text></svg>
             <span>Profy</span>
         </div>
         <p>© 2025 Profy. All rights reserved.</p>
+        <p style="margin-top:8px;">
+            <a href="/terms" style="color:#666;text-decoration:none;margin:0 8px;">Terms</a>
+            <a href="/credits" style="color:#666;text-decoration:none;margin:0 8px;">Credits</a>
+        </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase.js"></script>
-    <script src="js/datasaver.js"></script>
-    <script src="js/sounds.js"></script>
     <script src="js/auth.js"></script>
 
 </body>

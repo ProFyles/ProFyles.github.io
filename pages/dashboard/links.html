@@ -7,191 +7,48 @@
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
     <style>
-        .platforms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-        }
-        .platform-card {
-            background: #0d0d0d;
-            border: 1px solid #1a1a1a;
-            border-radius: 16px;
-            padding: 20px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .platform-card:hover {
-            border-color: #5865F2;
-            transform: translateY(-3px);
-        }
-        .platform-icon {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .platform-name {
-            font-size: 11px;
-            color: #888;
-            font-weight: 600;
-        }
-        .saved-link {
-            background: #0d0d0d;
-            border: 1px solid #1a1a1a;
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .saved-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .saved-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .saved-platform {
-            font-size: 14px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 4px;
-        }
-        .saved-url {
-            font-size: 12px;
-            color: #666;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .saved-actions {
-            display: flex;
-            gap: 6px;
-        }
-        .action-btn {
-            width: 36px;
-            height: 36px;
-            background: #151515;
-            border: 1px solid #222;
-            border-radius: 10px;
-            color: #888;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
+        .platforms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin: 20px 0; }
+        .platform-card { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 16px; padding: 18px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s; }
+        .platform-card:hover { border-color: #5865F2; transform: translateY(-3px); }
+        .platform-icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+        .platform-name { font-size: 11px; color: #888; font-weight: 600; }
+        .saved-link { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+        .saved-icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .saved-info { flex: 1; min-width: 0; }
+        .saved-platform { font-size: 14px; font-weight: 700; color: white; margin-bottom: 3px; }
+        .saved-url { font-size: 12px; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .saved-actions { display: flex; gap: 6px; }
+        .action-btn { width: 34px; height: 34px; background: #151515; border: 1px solid #222; border-radius: 10px; color: #888; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .action-btn:hover { background: #1f1f1f; color: white; }
         .action-btn.delete:hover { background: #2e0a0a; color: #ff4444; }
-
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .modal-overlay.show { display: flex; }
-        .modal-box {
-            background: #0d0d0d;
-            border: 1px solid #1a1a1a;
-            border-radius: 20px;
-            padding: 25px;
-            max-width: 400px;
-            width: 100%;
-        }
-        .modal-box h3 {
-            font-size: 18px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .modal-box input {
-            width: 100%;
-            height: 48px;
-            background: #151515;
-            border: 1px solid #222;
-            border-radius: 10px;
-            color: white;
-            padding: 0 16px;
-            font-size: 14px;
-            outline: none;
-            margin-bottom: 12px;
-        }
+        .modal-box { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 20px; padding: 24px; max-width: 400px; width: 100%; }
+        .modal-box h3 { font-size: 18px; margin-bottom: 16px; color: white; }
+        .modal-box input { width: 100%; height: 48px; background: #151515; border: 1px solid #222; border-radius: 10px; color: white; padding: 0 16px; font-size: 14px; outline: none; margin-bottom: 10px; font-family: inherit; }
         .modal-box input:focus { border-color: #5865F2; }
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-        }
-        .modal-actions button {
-            flex: 1;
-            height: 46px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 14px;
-        }
+        .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
+        .modal-actions button { flex: 1; height: 44px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; font-size: 14px; font-family: inherit; }
         .btn-cancel { background: #1a1a1a; color: #888; }
-        .btn-save { background: #5865F2; color: white; }
+        .btn-save { background: linear-gradient(135deg, #a855f7, #5865F2); color: white; }
     </style>
 </head>
 <body class="dashboard-body">
 
     <header class="topbar">
-        <button id="menu-toggle" class="icon-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        </button>
-        <div class="topbar-logo">
-            <svg width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <defs><linearGradient id="pl" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a855f7"/><stop offset="100%" style="stop-color:#5865F2"/></linearGradient></defs>
-                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#pl)"/>
-                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
-            </svg>
-            <span>Profy</span>
-        </div>
-        <a href="https://discord.gg/zyzTKZtC2g" target="_blank" class="icon-btn discord-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-            </svg>
-        </a>
+        <button id="menu-toggle" class="icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <div class="topbar-logo"><svg width="26" height="26" viewBox="0 0 40 40"><defs><linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#5865F2"/></linearGradient></defs><rect x="2" y="2" width="36" height="36" rx="10" fill="url(#tg)"/><text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text></svg><span>Profy</span></div>
+        <a href="https://discord.gg/zyzTKZtC2g" target="_blank" class="icon-btn discord-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg></a>
     </header>
 
     <aside id="sidebar" class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard" class="nav-item">
-                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span class="nav-label">Account</span>
-            </a>
-            <a href="/links" class="nav-item active">
-                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                <span class="nav-label">Links</span>
-            </a>
-            <button id="logout-btn" class="nav-item logout-item">
-                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                <span class="nav-label">Logout</span>
-            </button>
+            <a href="/dashboard" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nav-label">Account</span></a>
+            <a href="/links" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="nav-label">Links</span></a>
+            <a href="/customize" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><span class="nav-label">Customize</span></a>
+            <a href="/badges" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><span class="nav-label">Badges</span></a>
+            <a href="/settings" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="nav-label">Settings</span></a>
+            <button id="logout-btn" class="nav-item logout-item"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="nav-label">Logout</span></button>
         </nav>
     </aside>
 
@@ -206,13 +63,23 @@
 
         <h3 style="color:white;font-size:15px;margin:25px 0 12px;">Your links:</h3>
         <div id="saved-links"></div>
+
+        <div class="user-card-bottom" style="margin-top:30px;">
+            <div class="user-avatar-small"><img id="user-avatar-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=default"></div>
+            <div class="user-info-bottom">
+                <div id="bottom-username">username</div>
+                <div id="bottom-uid">UID #0000</div>
+            </div>
+            <button id="user-menu-toggle" class="user-menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+            <div id="user-dropdown" class="user-dropdown"></div>
+        </div>
     </main>
 
     <div class="modal-overlay" id="modal">
         <div class="modal-box">
             <h3 id="modal-title">Add Link</h3>
-            <input type="text" id="modal-url" placeholder="https://..." />
-            <input type="text" id="modal-label" placeholder="Label (optional)" />
+            <input type="text" id="modal-url" placeholder="https://...">
+            <input type="text" id="modal-label" placeholder="Label (optional)">
             <div class="modal-actions">
                 <button class="btn-cancel" id="modal-cancel">Cancel</button>
                 <button class="btn-save" id="modal-save">Save</button>
@@ -222,6 +89,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../../js/supabase.js"></script>
+    <script src="../../js/dashboard.js"></script>
     <script>
         const platforms = [
             { id: 'discord', name: 'Discord', icon: 'https://cdn.simpleicons.org/discord/5865F2' },
@@ -240,7 +108,6 @@
             { id: 'paypal', name: 'PayPal', icon: 'https://cdn.simpleicons.org/paypal/00457C' },
             { id: 'link', name: 'Website', icon: 'https://cdn.simpleicons.org/googlechrome/5865F2' }
         ];
-
         let currentUser = null;
         let currentLinks = [];
         let selectedPlatform = null;
@@ -250,13 +117,9 @@
             const { data: { user } } = await supabaseClient.auth.getUser();
             if (!user) { window.location.href = '/'; return; }
             currentUser = user;
-
-            const { data: profile } = await supabaseClient
-                .from('profiles').select('*').eq('id', user.id).maybeSingle();
-
+            const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).maybeSingle();
             if (!profile) { window.location.href = '/Login'; return; }
             currentLinks = profile.links || [];
-
             renderPlatforms();
             renderSavedLinks();
         }
@@ -267,7 +130,7 @@
             platforms.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'platform-card';
-                card.innerHTML = `<div class="platform-icon"><img src="${p.icon}" width="32" height="32"></div><div class="platform-name">${p.name}</div>`;
+                card.innerHTML = `<div class="platform-icon"><img src="${p.icon}" width="30" height="30"></div><div class="platform-name">${p.name}</div>`;
                 card.addEventListener('click', () => openModal(p.id));
                 grid.appendChild(card);
             });
@@ -285,18 +148,14 @@
                 const div = document.createElement('div');
                 div.className = 'saved-link';
                 div.innerHTML = `
-                    <div class="saved-icon"><img src="${p.icon}" width="28" height="28"></div>
+                    <div class="saved-icon"><img src="${p.icon}" width="26" height="26"></div>
                     <div class="saved-info">
                         <div class="saved-platform">${link.label || p.name}</div>
                         <div class="saved-url">${link.url}</div>
                     </div>
                     <div class="saved-actions">
-                        <button class="action-btn" onclick="editLink(${index})">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        </button>
-                        <button class="action-btn delete" onclick="deleteLink(${index})">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        </button>
+                        <button class="action-btn" onclick="editLink(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
+                        <button class="action-btn delete" onclick="deleteLink(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></button>
                     </div>
                 `;
                 container.appendChild(div);
@@ -314,17 +173,13 @@
         }
 
         window.editLink = (index) => openModal(currentLinks[index].platform, index);
-
         window.deleteLink = async (index) => {
             if (!confirm('Delete this link?')) return;
             currentLinks.splice(index, 1);
             await saveLinks();
         };
 
-        document.getElementById('modal-cancel').addEventListener('click', () => {
-            document.getElementById('modal').classList.remove('show');
-        });
-
+        document.getElementById('modal-cancel').addEventListener('click', () => document.getElementById('modal').classList.remove('show'));
         document.getElementById('modal-save').addEventListener('click', async () => {
             const url = document.getElementById('modal-url').value.trim();
             const label = document.getElementById('modal-label').value.trim();
@@ -341,16 +196,6 @@
             if (error) { alert('Error: ' + error.message); return; }
             renderSavedLinks();
         }
-
-        document.getElementById('menu-toggle').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('overlay').classList.toggle('show');
-        });
-
-        document.getElementById('overlay').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('overlay').classList.remove('show');
-        });
 
         document.getElementById('logout-btn').addEventListener('click', async () => {
             await supabaseClient.auth.signOut();
