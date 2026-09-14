@@ -161,63 +161,33 @@ async function loadProfile() {
         usernameEl.textContent = data.display_name || data.username;
 
         // ==========================================
-        // BADGES (SVG)
+        // BADGES (2 only)
         // ==========================================
         const badgesContainer = document.getElementById("badges-container");
         badgesContainer.innerHTML = '';
 
         const glowClass = data.glow_badges ? ' glow' : '';
 
+        // Verification Badge
         if (data.verified) {
             badgesContainer.innerHTML += `
-                <div class="badge-item${glowClass}" data-name="Verified">
-                    <img src="${BADGES_PATH}verified.svg" alt="Verified">
+                <div class="badge-item${glowClass}" data-name="Verification">
+                    <img src="${BADGES_PATH}verification.svg" alt="Verification">
                 </div>
             `;
         }
 
-        if (data.discord_id) {
+        // Supporter Badge (UID 1-100)
+        if (data.uid_number && data.uid_number >= 1 && data.uid_number <= 100) {
             badgesContainer.innerHTML += `
-                <div class="badge-item${glowClass}" data-name="Discord">
-                    <img src="${BADGES_PATH}discord.svg" alt="Discord">
-                </div>
-            `;
-        }
-
-        if (data.premium) {
-            badgesContainer.innerHTML += `
-                <div class="badge-item${glowClass}" data-name="Premium">
-                    <img src="${BADGES_PATH}premium.svg" alt="Premium">
-                </div>
-            `;
-        }
-
-        if (data.booster) {
-            badgesContainer.innerHTML += `
-                <div class="badge-item${glowClass}" data-name="Server Booster">
-                    <img src="${BADGES_PATH}booster.svg" alt="Booster">
-                </div>
-            `;
-        }
-
-        if (data.uid_number && data.uid_number <= 100) {
-            badgesContainer.innerHTML += `
-                <div class="badge-item${glowClass}" data-name="Early User">
-                    <img src="${BADGES_PATH}early.svg" alt="Early User">
-                </div>
-            `;
-        }
-
-        if (data.active) {
-            badgesContainer.innerHTML += `
-                <div class="badge-item${glowClass}" data-name="Active">
-                    <img src="${BADGES_PATH}active.svg" alt="Active">
+                <div class="badge-item${glowClass}" data-name="Supporter">
+                    <img src="${BADGES_PATH}supporter.svg" alt="Supporter">
                 </div>
             `;
         }
 
         // ==========================================
-        // LINKS (Small Icons under name)
+        // LINKS (Small Icons)
         // ==========================================
         const linksContainer = document.getElementById("links-container");
         linksContainer.innerHTML = "";
@@ -297,7 +267,9 @@ async function loadProfile() {
     }
 }
 
-// Spotify controls
+// ==========================================
+// SPOTIFY CONTROLS
+// ==========================================
 document.addEventListener("DOMContentLoaded", () => {
     const audio = window.GlobalAudio ? window.GlobalAudio.audio : null;
     const playBtn = document.getElementById("sp-play");

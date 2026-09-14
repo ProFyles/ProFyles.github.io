@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings — Profy</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <style>
+        .settings-section {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 16px;
+        }
+        .settings-section h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .settings-section h3 svg {
+            width: 18px;
+            height: 18px;
+            color: #a855f7;
+        }
+        .settings-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 600;
+        }
+        .settings-input {
+            width: 100%;
+            height: 48px;
+            background: #151515;
+            border: 1px solid #222;
+            border-radius: 12px;
+            color: white;
+            padding: 0 16px;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .settings-input:focus {
+            border-color: #5865F2;
+            background: #181818;
+        }
+        .settings-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .settings-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #a855f7, #5865F2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .settings-btn:hover { transform: translateY(-2px); }
+        .settings-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .settings-btn.danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        @media (min-width: 600px) {
+            .info-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .info-item {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 14px;
+        }
+        .info-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+        .info-value {
+            font-size: 14px;
+            color: white;
+            font-weight: 600;
+            word-break: break-all;
+        }
+        .info-value.mono {
+            font-family: monospace;
+            color: #a855f7;
+        }
+
+        /* Danger Zone */
+        .danger-zone {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.03);
+        }
+        .danger-zone h3 svg { color: #ef4444; }
+        .danger-text {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        #settings-message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: none;
+        }
+        #settings-message.success {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            color: #4ade80;
+            display: block;
+        }
+        #settings-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            display: block;
+        }
+
+        /* Delete Modal */
+        .delete-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .delete-modal.show { display: flex; }
+        .delete-box {
+            background: #0d0d0d;
+            border: 1px solid #2a1a1a;
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .delete-box h3 {
+            color: #ef4444;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .delete-box p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .delete-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .delete-actions button {
+            flex: 1;
+            height: 46px;
+            border-radius: 12px;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-cancel { background: #1a1a1a; color: #888; }
+        .btn-confirm { background: #ef4444; color: white; }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <header class="topbar">
+        <button id="menu-toggle" class="icon-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <div class="topbar-logo">
+            <svg width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="pl" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a855f7"/><stop offset="100%" style="stop-color:#5865F2"/></linearGradient></defs>
+                <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#pl)"/>
+                <text x="20" y="28" font-family="Arial" font-size="22" font-weight="900" fill="white" text-anchor="middle">P</text>
+            </svg>
+            <span>Profy</span>
+        </div>
+        <a href="https://discord.gg/zyzTKZtC2g" target="_blank" class="icon-btn discord-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+            </svg>
+        </a>
+    </header>
+
+    <aside id="sidebar" class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span class="nav-label">Account</span>
+            </a>
+            <a href="/links" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span class="nav-label">Links</span>
+            </a>
+            <a href="/customize" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <span class="nav-label">Customize</span>
+            </a>
+            <a href="/badges" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                <span class="nav-label">Badges</span>
+            </a>
+            <a href="/settings" class="nav-item active">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span class="nav-label">Settings</span>
+            </a>
+            <button id="logout-btn" class="nav-item logout-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span class="nav-label">Logout</span>
+            </button>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main class="main-content">
+        <h1 class="page-title">⚙️ Settings</h1>
+        <p style="color:#888;font-size:14px;margin-bottom:20px;">Manage your account</p>
+
+        <div id="settings-message"></div>
+
+        <!-- Account Info -->
+        <div class="settings-section">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                Account Information
+            </h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Username</div>
+                    <div class="info-value" id="info-username">—</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">UID</div>
+                    <div class="info-value mono" id="info-uid">—</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value" id="info-email">—</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Member Since</div>
+                    <div class="info-value" id="info-created">—</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="settings-section">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Profile Settings
+            </h3>
+            <label class="settings-label">Display Name</label>
+            <input type="text" id="settings-display-name" class="settings-input" placeholder="Your display name" maxlength="30">
+
+            <label class="settings-label">Bio</label>
+            <textarea id="settings-bio" class="settings-input" style="height:100px;padding:14px 16px;resize:vertical;" placeholder="Your bio" maxlength="200"></textarea>
+
+            <label class="settings-label">Location</label>
+            <input type="text" id="settings-location" class="settings-input" placeholder="City, Country" maxlength="50">
+
+            <button id="save-profile-btn" class="settings-btn">Save Changes</button>
+        </div>
+
+        <!-- Username Change -->
+        <div class="settings-section">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                Change Username
+            </h3>
+            <p style="color:#888;font-size:12px;margin-bottom:14px;">⚠️ You can change your username only once every 30 days.</p>
+            <label class="settings-label">New Username</label>
+            <input type="text" id="settings-username" class="settings-input" placeholder="new_username" maxlength="20">
+            <button id="save-username-btn" class="settings-btn">Change Username</button>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="settings-section danger-zone">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                Danger Zone
+            </h3>
+            <p class="danger-text">
+                Once you delete your account, there is no going back. All your data including your profile, links, and stats will be permanently removed.
+            </p>
+            <button id="delete-account-btn" class="settings-btn danger">Delete Account</button>
+        </div>
+    </main>
+
+    <!-- Delete Modal -->
+    <div id="delete-modal" class="delete-modal">
+        <div class="delete-box">
+            <h3>Delete Account?</h3>
+            <p>This action cannot be undone. All your data will be permanently deleted.</p>
+            <div class="delete-actions">
+                <button id="cancel-delete" class="btn-cancel">Cancel</button>
+                <button id="confirm-delete" class="btn-confirm">Delete Forever</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase.js"></script>
+    <script>
+        let currentUser = null;
+        let currentProfile = null;
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('settings-message');
+            msg.textContent = text;
+            msg.className = type;
+            setTimeout(() => { msg.className = ''; msg.textContent = ''; }, 4000);
+        }
+
+        async function load() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) { window.location.href = '/'; return; }
+            currentUser = user;
+
+            const { data: profile } = await supabaseClient
+                .from('profiles').select('*').eq('id', user.id).maybeSingle();
+
+            if (!profile) { window.location.href = '/Login'; return; }
+            currentProfile = profile;
+
+            // Info
+            document.getElementById('info-username').textContent = profile.username;
+            document.getElementById('info-uid').textContent = "#" + String(profile.uid_number || 0).padStart(4, "0");
+            document.getElementById('info-email').textContent = user.email || '—';
+            document.getElementById('info-created').textContent = 
+                new Date(profile.created_at).toLocaleDateString('en-US', { 
+                    year: 'numeric', month: 'short', day: 'numeric' 
+                });
+
+            // Form
+            document.getElementById('settings-display-name').value = profile.display_name || '';
+            document.getElementById('settings-bio').value = profile.bio || '';
+            document.getElementById('settings-location').value = profile.location || '';
+            document.getElementById('settings-username').placeholder = profile.username;
+        }
+
+        // Save Profile
+        document.getElementById('save-profile-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('save-profile-btn');
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+
+            const updates = {
+                display_name: document.getElementById('settings-display-name').value.trim() || null,
+                bio: document.getElementById('settings-bio').value.trim() || '',
+                location: document.getElementById('settings-location').value.trim() || null
+            };
+
+            const { error } = await supabaseClient
+                .from('profiles').update(updates).eq('id', currentUser.id);
+
+            btn.disabled = false;
+            btn.textContent = 'Save Changes';
+
+            if (error) {
+                showMessage('Error: ' + error.message, 'error');
+                return;
+            }
+
+            showMessage('✅ Profile updated successfully!', 'success');
+        });
+
+        // Change Username
+        document.getElementById('save-username-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('save-username-btn');
+            const newUsername = document.getElementById('settings-username').value.trim().toLowerCase();
+
+            if (!/^[a-z0-9._]{4,20}$/.test(newUsername)) {
+                showMessage('Username must be 4-20 chars (a-z, 0-9, . _)', 'error');
+                return;
+            }
+
+            if (newUsername === currentProfile.username) {
+                showMessage('This is already your username', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Checking...';
+
+            const { data: existing } = await supabaseClient
+                .from('profiles').select('username').eq('username', newUsername).maybeSingle();
+
+            if (existing) {
+                showMessage('Username is already taken', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Change Username';
+                return;
+            }
+
+            const { error } = await supabaseClient
+                .from('profiles').update({ username: newUsername }).eq('id', currentUser.id);
+
+            btn.disabled = false;
+            btn.textContent = 'Change Username';
+
+            if (error) {
+                showMessage('Error: ' + error.message, 'error');
+                return;
+            }
+
+            currentProfile.username = newUsername;
+            document.getElementById('info-username').textContent = newUsername;
+            document.getElementById('settings-username').value = '';
+            document.getElementById('settings-username').placeholder = newUsername;
+            showMessage('✅ Username changed successfully!', 'success');
+        });
+
+        // Delete Account
+        document.getElementById('delete-account-btn').addEventListener('click', () => {
+            document.getElementById('delete-modal').classList.add('show');
+        });
+
+        document.getElementById('cancel-delete').addEventListener('click', () => {
+            document.getElementById('delete-modal').classList.remove('show');
+        });
+
+        document.getElementById('confirm-delete').addEventListener('click', async () => {
+            const btn = document.getElementById('confirm-delete');
+            btn.disabled = true;
+            btn.textContent = 'Deleting...';
+
+            // Delete profile
+            await supabaseClient.from('profiles').delete().eq('id', currentUser.id);
+
+            // Delete related data
+            await supabaseClient.from('discord_links').delete().eq('user_id', currentUser.id);
+
+            // Sign out
+            await supabaseClient.auth.signOut();
+
+            window.location.href = '/';
+        });
+
+        // Sidebar
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        });
+
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            window.location.href = '/';
+        });
+
+        load();
+    </script>
+
+</body>
+</html>
