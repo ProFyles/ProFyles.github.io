@@ -15,11 +15,14 @@ export default async function handler(req, res) {
         return res.redirect(302, `/verify.html?error=no_code`);
     }
 
+    // state = Discord user ID (from bot)
+    const discordId = state || '';
+
     // Generate a simple verification code
-    // (You can make this more secure with JWT)
     const verifyCode = Buffer.from(
         JSON.stringify({
             code: code,
+            discord_id: discordId,
             ts: Date.now(),
             rand: Math.random().toString(36).substring(2, 10)
         })
