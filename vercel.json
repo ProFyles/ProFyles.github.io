@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" },
     { "source": "/Login", "destination": "/pages/auth/username.html" },
     { "source": "/login", "destination": "/pages/auth/username.html" },
     { "source": "/dashboard", "destination": "/pages/dashboard/dashboard.html" },
@@ -11,6 +12,8 @@
     { "source": "/settings", "destination": "/pages/dashboard/settings.html" },
     { "source": "/templates", "destination": "/pages/dashboard/templates.html" },
     { "source": "/verify", "destination": "/verify.html" },
-    { "source": "/((?!pages/).*)", "destination": "/pages/profile/profile.html?user=$1" }
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/credits", "destination": "/credits.html" },
+    { "source": "/((?!pages/|api/).*)", "destination": "/pages/profile/profile.html?user=$1" }
   ]
 }
