@@ -17,6 +17,8 @@
         .status.success { background: #0a2e1a; color: #4ade80; }
         .status.error { background: #2e0a0a; color: #f87171; }
         .status.loading { background: #1a1a2e; color: #60a5fa; }
+        .user-info { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; color: #888; text-align: left; }
+        .user-info span { color: #ccc; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -26,6 +28,10 @@
             <div class="verify-logo">P</div>
             <h1>Verify Discord</h1>
             <p>Link your Discord account to your Profy profile</p>
+
+            <div id="user-info" class="user-info" style="display: none;">
+                Logged in as: <span id="current-email">—</span>
+            </div>
 
             <button id="verify-btn" class="verify-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -46,47 +52,77 @@
         const error = params.get('error');
         const statusEl = document.getElementById('status');
         const btn = document.getElementById('verify-btn');
+        const userInfoEl = document.getElementById('user-info');
+        const currentEmailEl = document.getElementById('current-email');
 
         if (error) {
             statusEl.className = 'status error';
             statusEl.textContent = 'Error: ' + error;
             btn.style.display = 'none';
-            return;
         }
 
-        if (!code) {
-            statusEl.className = 'status error';
-            statusEl.textContent = 'Invalid verification link. Please use the link from Discord.';
-            btn.style.display = 'none';
-            return;
+        async function init() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+
+            if (!user) {
+                statusEl.className = 'status error';
+                statusEl.textContent = 'You must be logged in to verify. Please login first.';
+                btn.style.display = 'none';
+                return;
+            }
+
+            userInfoEl.style.display = 'block';
+            currentEmailEl.textContent = user.email || 'Unknown';
+
+            // Check if already has discord linked
+            if (user.identities && user.identities.some(id => id.provider === 'discord')) {
+                statusEl.className = 'status loading';
+                statusEl.textContent = 'Discord already linked. Completing verification...';
+                await completeVerification(user);
+                return;
+            }
+
+            if (!code) {
+                statusEl.className = 'status loading';
+                statusEl.textContent = 'Click the button below to link your Discord.';
+            }
         }
 
         btn.addEventListener('click', async () => {
-            localStorage.setItem('profy_verify_code', code);
-            const { error } = await supabaseClient.auth.signInWithOAuth({
+            if (code) {
+                localStorage.setItem('profy_verify_code', code);
+            }
+
+            const { data, error } = await supabaseClient.auth.linkIdentity({
                 provider: 'discord',
                 options: {
-                    redirectTo: window.location.origin + '/verify.html?code=' + code
+                    redirectTo: window.location.origin + '/verify.html' + (code ? '?code=' + code : '')
                 }
             });
+
             if (error) {
                 statusEl.className = 'status error';
                 statusEl.textContent = 'Error: ' + error.message;
             }
         });
 
-        async function checkVerification() {
-            const { data: { user } } = await supabaseClient.auth.getUser();
-            if (!user) return;
+        async function completeVerification(user) {
+            const discordIdentity = user.identities?.find(id => id.provider === 'discord');
+            
+            if (!discordIdentity) {
+                statusEl.className = 'status error';
+                statusEl.textContent = 'No Discord identity found. Please link Discord first.';
+                return;
+            }
 
-            statusEl.className = 'status loading';
-            statusEl.textContent = 'Linking your account...';
+            const discordId = discordIdentity.identity_data?.provider_id || discordIdentity.id;
+            const discordUsername = discordIdentity.identity_data?.full_name || discordIdentity.identity_data?.name || 'Unknown';
 
             const { data, error } = await supabaseClient.rpc('verify_discord_oauth', {
-                p_code: code,
+                p_code: code || 'direct_link',
                 p_user_id: user.id,
-                p_discord_id: user.user_metadata.provider_id || user.id,
-                p_discord_username: user.user_metadata.full_name || user.email
+                p_discord_id: discordId,
+                p_discord_username: discordUsername
             });
 
             if (error || !data || !data.success) {
@@ -96,10 +132,20 @@
             }
 
             statusEl.className = 'status success';
-            statusEl.textContent = '✅ Account linked successfully! You can close this page.';
+            statusEl.textContent = '✅ Discord linked successfully! You can close this page.';
             btn.style.display = 'none';
         }
 
+        async function checkVerification() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
+
+            if (user.identities && user.identities.some(id => id.provider === 'discord')) {
+                await completeVerification(user);
+            }
+        }
+
+        init();
         checkVerification();
     </script>
 </body>
